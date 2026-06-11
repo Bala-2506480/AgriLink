@@ -1,0 +1,171 @@
+{
+  "info": {
+    "name": "AgriLink — Identity & Access",
+    "description": "User, Role and Permission management for AgriLink. Run 'Login (admin)' first — it saves the JWT into the {{token}} collection variable, which every other request uses.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "roleId", "value": "1", "type": "string" },
+    { "key": "userId", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Session",
+      "item": [
+        {
+          "name": "Login (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.accessToken) {",
+                  "    pm.collectionVariables.set('token', json.accessToken);",
+                  "    console.log('Saved access token to {{token}}');",
+                  "}",
+                  "pm.test('login ok', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/session/login", "host": ["{{baseUrl}}"], "path": ["agriLink", "session", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@agrilink.com\",\n  \"password\": \"Admin@1234\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Refresh token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/session/refresh", "host": ["{{baseUrl}}"], "path": ["agriLink", "session", "refresh"] },
+            "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"<paste-refresh-token>\"\n}" }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/session/logout", "host": ["{{baseUrl}}"], "path": ["agriLink", "session", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Role",
+      "item": [
+        {
+          "name": "Create role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/role/createRole", "host": ["{{baseUrl}}"], "path": ["agriLink", "role", "createRole"] },
+            "body": { "mode": "raw", "raw": "{\n  \"roleName\": \"RegionalCoordinator\",\n  \"description\": \"Coordinates officers within a region\"\n}" }
+          }
+        },
+        {
+          "name": "List roles",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/role", "host": ["{{baseUrl}}"], "path": ["agriLink", "role"] }
+          }
+        },
+        {
+          "name": "Get role by id",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/role/{{roleId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "role", "{{roleId}}"] }
+          }
+        },
+        {
+          "name": "Update role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/role/{{roleId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "role", "{{roleId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Updated role description\",\n  \"status\": \"A\"\n}" }
+          }
+        },
+        {
+          "name": "Delete role",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/role/{{roleId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "role", "{{roleId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/user/createUser", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "createUser"] },
+            "body": { "mode": "raw", "raw": "{\n  \"roleId\": 2,\n  \"name\": \"Ravi Kumar\",\n  \"email\": \"ravi@agrilink.com\",\n  \"password\": \"Ravi@1234\",\n  \"phone\": \"9876543210\",\n  \"regionId\": 7\n}" }
+          }
+        },
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/user", "host": ["{{baseUrl}}"], "path": ["agriLink", "user"] }
+          }
+        },
+        {
+          "name": "Get user by id",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "{{userId}}"] }
+          }
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "{{userId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"roleId\": 6,\n  \"regionId\": 7,\n  \"status\": \"S\"\n}" }
+          }
+        },
+        {
+          "name": "Delete user (deactivate)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "{{userId}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
