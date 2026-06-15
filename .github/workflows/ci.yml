@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   unit-tests:
     name: Unit & Integration Tests
@@ -22,16 +25,20 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temurin'
+          distribution: 'microsoft'
           cache: maven
+
+      - name: Fix SSL trust store
+        run: |
+          JAVA_SEC=$JAVA_HOME/conf/security/java.security
+          sudo sed -i 's/^securerandom.source=.*/securerandom.source=file:\/dev\/urandom/' $JAVA_SEC || true
+          sudo update-ca-certificates --fresh || true
 
       - name: Make mvnw executable
         run: chmod +x mvnw
 
       - name: Run all tests
         run: ./mvnw test
-        env:
-          JAVA_TOOL_OPTIONS: -Djava.security.egd=file:/dev/./urandom -Dhttps.protocols=TLSv1.2
 
       - name: Upload test reports
         if: always()
@@ -39,6 +46,7 @@ jobs:
         with:
           name: test-reports
           path: target/surefire-reports/
+          if-no-files-found: warn
 
   build:
     name: Build JAR
@@ -53,7 +61,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temurin'
+          distribution: 'microsoft'
           cache: maven
 
       - name: Make mvnw executable
@@ -61,11 +69,10 @@ jobs:
 
       - name: Build JAR
         run: ./mvnw package -DskipTests
-        env:
-          JAVA_TOOL_OPTIONS: -Djava.security.egd=file:/dev/./urandom -Dhttps.protocols=TLSv1.2
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
           name: agrilink-jar
           path: target/*.jar
+          if-no-files-found: warn
