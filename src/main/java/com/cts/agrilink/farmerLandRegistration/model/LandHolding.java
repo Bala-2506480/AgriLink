@@ -1,5 +1,6 @@
 package com.cts.agrilink.farmerLandRegistration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,11 +9,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "land_holding",
         indexes = {
-            @Index(name = "idxLhFarmerId", columnList = "farmerId"),
-            @Index(name = "idxLhStatus",   columnList = "status")
+                @Index(name = "idxLhFarmerId", columnList = "farmerId"),
+                @Index(name = "idxLhStatus",   columnList = "status")
         })
 @Getter
 @Setter
@@ -27,7 +29,7 @@ public class LandHolding {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "farmerId", nullable = false,
-                foreignKey = @ForeignKey(name = "fkLhFarmer"))
+            foreignKey = @ForeignKey(name = "fkLhFarmer"))
     private FarmerProfile farmer;
 
     @Column(nullable = false, length = 50)

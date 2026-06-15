@@ -1,5 +1,6 @@
 package com.cts.agrilink.farmerLandRegistration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,11 +8,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "\"user\"",
         indexes = {
-            @Index(name = "idxUserEmail",  columnList = "email"),
-            @Index(name = "idxUserStatus", columnList = "status")
+                @Index(name = "idxUserEmail",  columnList = "email"),
+                @Index(name = "idxUserStatus", columnList = "status")
         })
 @Getter
 @Setter
