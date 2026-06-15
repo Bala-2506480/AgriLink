@@ -25,7 +25,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run all tests (Unit + Integration with H2)
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Run all tests
         run: ./mvnw test
 
       - name: Upload test reports
@@ -51,7 +54,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build JAR (skip tests — already ran)
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Build JAR
         run: ./mvnw package -DskipTests
 
       - name: Upload JAR
