@@ -30,6 +30,8 @@ jobs:
 
       - name: Run all tests
         run: ./mvnw test
+        env:
+          JAVA_TOOL_OPTIONS: -Djava.security.egd=file:/dev/./urandom -Dhttps.protocols=TLSv1.2
 
       - name: Upload test reports
         if: always()
@@ -59,6 +61,8 @@ jobs:
 
       - name: Build JAR
         run: ./mvnw package -DskipTests
+        env:
+          JAVA_TOOL_OPTIONS: -Djava.security.egd=file:/dev/./urandom -Dhttps.protocols=TLSv1.2
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
