@@ -1,0 +1,221 @@
+{
+  "info": {
+    "name": "AgriLink",
+    "description": "AgriLink Crop Season APIs - CropCatalog, CropPlan, GrowthObservation. Base path /agriLink/cropSeason on port 8088.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8088" },
+    { "key": "cropId", "value": "1" },
+    { "key": "planId", "value": "1" },
+    { "key": "farmerId", "value": "1" },
+    { "key": "observationId", "value": "1" },
+    { "key": "officerId", "value": "2" }
+  ],
+  "item": [
+    {
+      "name": "CropCatalog",
+      "item": [
+        {
+          "name": "Create Catalog",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/createCatalog", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "createCatalog"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cropName\": \"Cotton\",\n  \"cropCategory\": \"Cash\",\n  \"cropSeason\": \"Kharif\",\n  \"typicalDurationDays\": 160,\n  \"expectedYieldPerAcre\": 8.50,\n  \"catalogStatus\": \"Ac\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Fetch Catalogs (optional ?catalogStatus=Ac)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchCatalogs?catalogStatus=Ac", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchCatalogs"], "query": [{ "key": "catalogStatus", "value": "Ac" }] }
+          }
+        },
+        {
+          "name": "Fetch Catalog By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchCatalogById/{{cropId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchCatalogById", "{{cropId}}"] }
+          }
+        },
+        {
+          "name": "Fetch Catalog By Season",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchBySeason/Kharif", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchBySeason", "Kharif"] }
+          }
+        },
+        {
+          "name": "Fetch Catalog By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByCategory/Cereal", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByCategory", "Cereal"] }
+          }
+        },
+        {
+          "name": "Update Catalog",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/updateCatalog/{{cropId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "updateCatalog", "{{cropId}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"typicalDurationDays\": 125,\n  \"expectedYieldPerAcre\": 26.00,\n  \"catalogStatus\": \"In\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Catalog",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/deleteCatalog/{{cropId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "deleteCatalog", "{{cropId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CropPlan",
+      "item": [
+        {
+          "name": "Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/createPlan", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "createPlan"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"farmerId\": 1,\n  \"holdingId\": 1,\n  \"cropId\": 1,\n  \"planSeason\": \"Kharif\",\n  \"planYear\": 2026,\n  \"sowingDate\": \"2026-06-15\",\n  \"expectedHarvestDate\": \"2026-10-13\",\n  \"areaPlanted\": 3.5,\n  \"planStatus\": \"Pl\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Fetch Plans",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchPlans", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchPlans"] } }
+        },
+        {
+          "name": "Fetch Plan By Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchPlanById/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchPlanById", "{{planId}}"] } }
+        },
+        {
+          "name": "Fetch By Farmer",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByFarmer/{{farmerId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByFarmer", "{{farmerId}}"] } }
+        },
+        {
+          "name": "Fetch By Status",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByStatus/Pl", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByStatus", "Pl"] } }
+        },
+        {
+          "name": "Fetch By Season/Year",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchBySeason/Kharif/2026", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchBySeason", "Kharif", "2026"] } }
+        },
+        {
+          "name": "Update Plan",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/updatePlan/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "updatePlan", "{{planId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"sowingDate\": \"2026-06-20\",\n  \"expectedHarvestDate\": \"2026-10-20\",\n  \"areaPlanted\": 4.0\n}" }
+          }
+        },
+        {
+          "name": "Update Plan Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/updatePlanStatus/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "updatePlanStatus", "{{planId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"planStatus\": \"So\"\n}" }
+          }
+        },
+        {
+          "name": "Approve Plan",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/approvePlan/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "approvePlan", "{{planId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"approvedBy\": 1\n}" }
+          }
+        },
+        {
+          "name": "Delete Plan",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/deletePlan/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "deletePlan", "{{planId}}"] } }
+        }
+      ]
+    },
+    {
+      "name": "GrowthObservation",
+      "item": [
+        {
+          "name": "Create Observation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/createObservation", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "createObservation"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"planId\": 1,\n  \"officerId\": 2,\n  \"observationDate\": \"2026-07-05\",\n  \"growthStage\": \"Germination\",\n  \"pestOrDiseaseFlag\": false,\n  \"fieldRemarks\": \"Healthy germination.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Fetch Observations",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchObservations", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchObservations"] } }
+        },
+        {
+          "name": "Fetch Observation By Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchObservationById/{{observationId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchObservationById", "{{observationId}}"] } }
+        },
+        {
+          "name": "Fetch By Plan",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByPlan/{{planId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByPlan", "{{planId}}"] } }
+        },
+        {
+          "name": "Fetch Pest Alerts (optional filters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchPestAlerts?officerId={{officerId}}&planSeason=Kharif&planYear=2026", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchPestAlerts"], "query": [{ "key": "officerId", "value": "{{officerId}}" }, { "key": "planSeason", "value": "Kharif" }, { "key": "planYear", "value": "2026" }] }
+          }
+        },
+        {
+          "name": "Fetch By Officer",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByOfficer/{{officerId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByOfficer", "{{officerId}}"] } }
+        },
+        {
+          "name": "Fetch By Stage",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/fetchByStage/Germination", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "fetchByStage", "Germination"] } }
+        },
+        {
+          "name": "Update Observation",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/updateObservation/{{observationId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "updateObservation", "{{observationId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"growthStage\": \"Vegetative\",\n  \"pestOrDiseaseFlag\": true,\n  \"fieldRemarks\": \"Aphids on lower leaves.\"\n}" }
+          }
+        },
+        {
+          "name": "Update Pest Flag",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/updatePestFlag/{{observationId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "updatePestFlag", "{{observationId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"pestOrDiseaseFlag\": true\n}" }
+          }
+        },
+        {
+          "name": "Delete Observation",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/agriLink/cropSeason/deleteObservation/{{observationId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "cropSeason", "deleteObservation", "{{observationId}}"] } }
+        }
+      ]
+    }
+  ]
+}
