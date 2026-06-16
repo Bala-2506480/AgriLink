@@ -3,7 +3,9 @@ package com.cts.agrilink.identityAccess.service;
 
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
+import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
+import com.cts.agrilink.identityAccess.dto.ResetPasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.UpdateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.UserResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
@@ -243,6 +245,36 @@ public class UserService {
     @Transactional
     public void logout(Integer userId) {
         // Revoke all active sessions for this user
+        userSessionRepository.revokeAllActiveSessionsByUserId(userId);
+    }
+
+    // ── 5. Change own password (authenticated, self-service) ────────────────────
+    @Transactional
+    public void changePassword(Integer userId, ChangePasswordRequestDto dto) {
+        UserDetails user = findOrThrow(userId);
+
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPasswordHash())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        if (passwordEncoder.matches(dto.getNewPassword(), user.getPasswordHash())) {
+            throw new IllegalStateException("New password must be different from the current password");
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
+        userDetailsRepository.save(user);
+
+        // Force re-login everywhere after a password change
+        userSessionRepository.revokeAllActiveSessionsByUserId(userId);
+    }
+
+    // ── 6. Reset a user's password (Admin only) ─────────────────────────────────
+    @Transactional
+    public void resetPassword(Integer userId, ResetPasswordRequestDto dto) {
+        UserDetails user = findOrThrow(userId);
+        user.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
+        userDetailsRepository.save(user);
+
+        // Revoke the user's sessions so the old password's tokens stop working
         userSessionRepository.revokeAllActiveSessionsByUserId(userId);
     }
 

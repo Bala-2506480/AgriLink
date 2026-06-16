@@ -62,7 +62,7 @@ Authorization: Bearer {{token}}
 
 ## 3. Endpoint reference
 
-15 endpoints total — **6 POST, 4 GET, 3 PUT, 2 DELETE**.
+17 endpoints total — **8 POST, 4 GET, 3 PUT, 2 DELETE**.
 
 ### Access matrix
 
@@ -71,11 +71,13 @@ Authorization: Bearer {{token}}
 | `/session/login` | POST | public |
 | `/session/refresh` | POST | public |
 | `/session/logout` | POST | any authenticated |
+| `/session/change-password` | POST | any authenticated — changes **own** password |
 | `/user/createUser` | POST | `AgriLinkAdmin` (any role), `ExtensionOfficer` (Farmer only) |
 | `/user` | GET | `AgriLinkAdmin` |
 | `/user/{id}` | GET | `AgriLinkAdmin` |
 | `/user/{id}` | PUT | `AgriLinkAdmin` |
 | `/user/{id}` | DELETE | `AgriLinkAdmin` — **soft delete** (deactivate) |
+| `/user/{id}/reset-password` | POST | `AgriLinkAdmin` — resets another user's password |
 | `/role/createRole` | POST | `AgriLinkAdmin` |
 | `/role` | GET | `AgriLinkAdmin` |
 | `/role/{id}` | GET | `AgriLinkAdmin` |
@@ -148,6 +150,34 @@ Header: `Authorization: Bearer {{token}}` — no body.
 ```json
 { "message": "Logged out successfully" }
 ```
+
+---
+
+### 4.4 Change password — `POST /agriLink/session/change-password`  *(authenticated)*
+
+A logged-in user changes **their own** password (e.g. a Farmer after first login with a temp password). Header: `Authorization: Bearer {{token}}`.
+
+**Request**
+```json
+{
+  "currentPassword": "Admin@1234",
+  "newPassword": "NewSecret@2026"
+}
+```
+
+**Response `200 OK`**
+```json
+{ "message": "Password changed successfully" }
+```
+
+> After a successful change, all of the user's active sessions are revoked — existing access/refresh tokens stop working and the user must log in again.
+
+**Errors**
+| Cause | Status | Body |
+|---|---|---|
+| `currentPassword`/`newPassword` blank, or `newPassword` < 8 chars | `400` | `{ "message": "Validation failed", "details": { ... } }` |
+| `currentPassword` does not match | `401` | `{ "message": "Current password is incorrect" }` |
+| `newPassword` equals the current password | `409` | `{ "message": "New password must be different from the current password" }` |
 
 ---
 
@@ -261,6 +291,32 @@ Partial update — only the fields you send are changed.
 
 ---
 
+### 5.6 Reset password — `POST /agriLink/user/{id}/reset-password`  *(Admin)*
+
+Admin sets a new password for a user who is locked out / forgot theirs (accounts here are admin-managed; there is no email-based self-service reset). The admin then relays the new password to the user, who can change it via §4.4.
+
+`POST /agriLink/user/2/reset-password`
+
+**Request**
+```json
+{ "newPassword": "Temp@1234" }
+```
+
+**Response `200 OK`**
+```json
+{ "message": "Password reset successfully" }
+```
+
+> The target user's active sessions are revoked, so any tokens issued under the old password stop working.
+
+**Errors**
+| Cause | Status | Body |
+|---|---|---|
+| `newPassword` blank or < 8 chars | `400` | `{ "message": "Validation failed", "details": { ... } }` |
+| User id not found | `404` | `{ "message": "User not found with id: 99" }` |
+
+---
+
 ## 6. Role
 
 ### 6.1 Create role — `POST /agriLink/role/createRole`  *(Admin)*
@@ -362,6 +418,14 @@ Partial update.
 ### Scenario C — Authorization boundaries
 1. As a **Farmer** token, call **List users** (`GET /user`) → `403`. ✅ admin-only.
 2. With **no** `Authorization` header, call any protected endpoint → `401/403`. ✅.
+
+### Scenario D — Password reset lifecycle
+1. **Admin** resets a user's password: `POST /user/{id}/reset-password` `{ "newPassword": "Temp@1234" }` → `200`.
+2. The user **logs in** with `Temp@1234` → `200`, saves `{{token}}`.
+3. The user **changes** it: `POST /session/change-password` `{ "currentPassword": "Temp@1234", "newPassword": "NewSecret@2026" }` → `200`.
+4. **Login** again with `Temp@1234` → `401` (old password no longer valid). ✅
+5. **Login** with `NewSecret@2026` → `200`. ✅
+6. Re-using a token issued *before* step 3 → rejected (sessions were revoked). ✅
 
 ---
 

@@ -1,6 +1,7 @@
 package com.cts.agrilink.identityAccess.controller;
 
 
+import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
 import com.cts.agrilink.identityAccess.dto.RefreshTokenRequestDto;
@@ -41,5 +42,14 @@ public class SessionController {
             @AuthenticationPrincipal UserDetails currentUser) {
         userService.logout(currentUser.getUserId());
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
+    }
+
+    // POST /agriLink/session/change-password  — authenticated user changes own password
+    @PostMapping("/change-password")
+    public ResponseEntity<Map<String, String>> changePassword(
+            @Valid @RequestBody ChangePasswordRequestDto dto,
+            @AuthenticationPrincipal UserDetails currentUser) {
+        userService.changePassword(currentUser.getUserId(), dto);
+        return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
 }

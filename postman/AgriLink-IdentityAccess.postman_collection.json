@@ -58,6 +58,18 @@
             "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
             "url": { "raw": "{{baseUrl}}/agriLink/session/logout", "host": ["{{baseUrl}}"], "path": ["agriLink", "session", "logout"] }
           }
+        },
+        {
+          "name": "Change password (self)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/session/change-password", "host": ["{{baseUrl}}"], "path": ["agriLink", "session", "change-password"] },
+            "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"Admin@1234\",\n  \"newPassword\": \"NewSecret@2026\"\n}" }
+          }
         }
       ]
     },
@@ -163,6 +175,18 @@
             "method": "DELETE",
             "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
             "url": { "raw": "{{baseUrl}}/agriLink/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "{{userId}}"] }
+          }
+        },
+        {
+          "name": "Reset password (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/agriLink/user/{{userId}}/reset-password", "host": ["{{baseUrl}}"], "path": ["agriLink", "user", "{{userId}}", "reset-password"] },
+            "body": { "mode": "raw", "raw": "{\n  \"newPassword\": \"Temp@1234\"\n}" }
           }
         }
       ]

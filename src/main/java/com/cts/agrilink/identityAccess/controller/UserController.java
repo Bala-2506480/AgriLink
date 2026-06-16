@@ -2,6 +2,7 @@ package com.cts.agrilink.identityAccess.controller;
 
 
 import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
+import com.cts.agrilink.identityAccess.dto.ResetPasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.UpdateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.UserResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
@@ -60,5 +61,14 @@ public class UserController {
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
         return ResponseEntity.ok(Map.of("message", "User deactivated successfully"));
+    }
+
+    // POST /agriLink/user/{id}/reset-password  — Admin resets a user's password
+    @PostMapping("/{id}/reset-password")
+    public ResponseEntity<Map<String, String>> resetPassword(
+            @PathVariable Integer id,
+            @Valid @RequestBody ResetPasswordRequestDto dto) {
+        userService.resetPassword(id, dto);
+        return ResponseEntity.ok(Map.of("message", "Password reset successfully"));
     }
 }
