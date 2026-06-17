@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AgriLink — Input &amp; Procurement Management: Code Explanation</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Calibri, Arial, sans-serif;
+    color: #1f2937; font-size: 11px; line-height: 1.5; margin: 0;
+  }
+  h1,h2,h3,h4 { color: #1b5e20; font-weight: 700; line-height: 1.25; }
+  h1 { font-size: 24px; border-bottom: 3px solid #2e7d32; padding-bottom: 6px; }
+  h2 { font-size: 19px; margin-top: 26px; border-bottom: 2px solid #a5d6a7; padding-bottom: 4px; }
+  h3 { font-size: 15px; margin-top: 20px; color: #2e7d32; }
+  h4 { font-size: 13px; margin-top: 14px; color: #388e3c; }
+  p { margin: 7px 0; }
+  code { font-family: Consolas, "Courier New", monospace; background: #eef2f0;
+         padding: 1px 4px; border-radius: 3px; font-size: 10.5px; color: #0d3b1e; }
+  .page-break { page-break-before: always; }
+  .no-break { page-break-inside: avoid; }
+
+  /* Cover */
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: center;
+           align-items: center; text-align: center; }
+  .cover .logo { font-size: 64px; }
+  .cover h1 { font-size: 40px; border: none; color: #1b5e20; margin: 6px 0; }
+  .cover .sub { font-size: 18px; color: #388e3c; font-weight: 600; }
+  .cover .meta { margin-top: 40px; font-size: 13px; color: #555; }
+  .cover .badge { display: inline-block; background: #2e7d32; color: #fff; padding: 4px 12px;
+                  border-radius: 14px; margin: 4px; font-size: 11px; }
+
+  /* Tables */
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 10px; }
+  th, td { border: 1px solid #c8d6cd; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #2e7d32; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f8f5; }
+
+  /* Code blocks */
+  pre { background: #1e2b22; color: #e6f0ea; font-family: Consolas, monospace; font-size: 9.5px;
+        padding: 10px 12px; border-radius: 6px; overflow-x: auto; line-height: 1.45;
+        white-space: pre-wrap; page-break-inside: avoid; }
+  pre .kw { color: #7ee0a5; }
+  pre .an { color: #ffcb6b; }
+  pre .cm { color: #8a9a8f; font-style: italic; }
+  pre .st { color: #f8a5a5; }
+
+  /* Line-by-line explanation table */
+  table.lines td.ln { width: 26px; text-align: right; color: #6b7280; font-family: Consolas, monospace;
+                      background: #eef2f0; font-size: 9px; }
+  table.lines td.cd { width: 44%; font-family: Consolas, monospace; font-size: 9px; white-space: pre-wrap;
+                      color: #0d3b1e; }
+  table.lines td.ex { font-size: 10px; }
+
+  .callout { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 8px 12px; margin: 10px 0;
+             border-radius: 0 5px 5px 0; }
+  .tag { display:inline-block; background:#c8e6c9; color:#1b5e20; border-radius:3px; padding:1px 6px;
+         font-size:9px; font-weight:600; }
+  ul { margin: 6px 0 6px 18px; padding: 0; }
+  li { margin: 3px 0; }
+  .toc a { color: #1b5e20; text-decoration: none; }
+  .toc li { margin: 5px 0; font-size: 12px; }
+  svg { display: block; margin: 14px auto; }
+  .center { text-align: center; }
+  .small { font-size: 9.5px; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<section class="cover">
+  <div class="logo">🌱</div>
+  <h1>AgriLink</h1>
+  <div class="sub">Input &amp; Procurement Management Module</div>
+  <div class="sub" style="font-size:14px; color:#555;">Complete Source-Code Explanation &amp; Architecture Guide</div>
+  <div style="margin-top:18px;">
+    <span class="badge">Java 21</span>
+    <span class="badge">Spring Boot 4.0.6</span>
+    <span class="badge">Spring Data JPA</span>
+    <span class="badge">MySQL</span>
+    <span class="badge">Lombok</span>
+    <span class="badge">SLF4J / Logback</span>
+    <span class="badge">JUnit 5</span>
+  </div>
+  <div class="meta">
+    Prepared for Interview &amp; Presentation<br>
+    Group: <b>com.cts.agrilink</b> &nbsp;|&nbsp; Artifact: <b>agrilink</b><br>
+    REST base path: <code>/agriLink/procurementManagement</code> &nbsp;|&nbsp; Port: <b>8088</b>
+  </div>
+</section>
+
+<!-- ===================== TOC ===================== -->
+<section class="page-break">
+<h1>Table of Contents</h1>
+<ol class="toc">
+  <li><a href="#overview">Project Overview &amp; Purpose</a></li>
+  <li><a href="#stack">Technology Stack</a></li>
+  <li><a href="#arch">Layered Architecture (with diagram)</a></li>
+  <li><a href="#flow">End-to-End Request Flowchart</a></li>
+  <li><a href="#lifecycle">Request Lifecycle State Machine</a></li>
+  <li><a href="#entrypoint">Entry Point — <code>AgrilinkApplication.java</code></a></li>
+  <li><a href="#config">Configuration — <code>application.properties</code> &amp; <code>pom.xml</code></a></li>
+  <li><a href="#model">Model / Entity Layer</a></li>
+  <li><a href="#dto">DTO Layer (Data Transfer Objects)</a></li>
+  <li><a href="#repo">Repository Layer</a></li>
+  <li><a href="#service">Service Layer (Business Logic)</a></li>
+  <li><a href="#controller">Controller Layer (REST API)</a></li>
+  <li><a href="#exception">Exception Handling Layer</a></li>
+  <li><a href="#tests">Test Suite Explanation (109 tests)</a></li>
+  <li><a href="#qa">Interview Talking Points &amp; Q&amp;A</a></li>
+</ol>
+</section>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="page-break" id="overview">
+<h1>1. Project Overview &amp; Purpose</h1>
+<p><b>AgriLink</b> is a backend system that digitises how farmers obtain agricultural inputs
+(seeds, fertilisers, pesticides, equipment) from government/cooperative procurement centres.
+This document explains the <b>Input &amp; Procurement Management</b> module, which exposes a
+REST API to manage two things:</p>
+<ul>
+  <li><b>The Input Catalog</b> — the master list of available agri-inputs, their prices, stock and status.</li>
+  <li><b>Input Requests</b> — orders raised by farmers that move through an approval &rarr; dispatch &rarr; delivery workflow.</li>
+</ul>
+
+<div class="callout">
+<b>One-line elevator pitch (for the interviewer):</b> "AgriLink is a Spring Boot REST service that
+manages an agricultural input catalog and the full lifecycle of farmer procurement requests —
+from creation, through approval and dispatch, to delivery — backed by MySQL via Spring Data JPA,
+with validation, centralised exception handling, and SLF4J logging."
+</div>
+
+<h3>The two functional areas</h3>
+<table>
+<tr><th>Area</th><th>Entity</th><th>Base URL</th><th>What it does</th></tr>
+<tr><td><b>Catalog management</b></td><td><code>AgriInput</code></td>
+    <td><code>/inputs</code></td>
+    <td>CRUD on the catalog of inputs; query by category/status; update stock levels.</td></tr>
+<tr><td><b>Procurement workflow</b></td><td><code>InputRequest</code></td>
+    <td><code>/input-requests</code></td>
+    <td>Farmers submit requests; staff approve, dispatch, deliver or cancel them; query by farmer/status/centre.</td></tr>
+</table>
+</section>
+
+<!-- ===================== STACK ===================== -->
+<section id="stack">
+<h2>2. Technology Stack</h2>
+<table>
+<tr><th>Layer / Concern</th><th>Technology</th><th>Why it is used</th></tr>
+<tr><td>Language</td><td>Java 21</td><td>Modern LTS Java; records, switch expressions, etc.</td></tr>
+<tr><td>Framework</td><td>Spring Boot 4.0.6</td><td>Auto-configuration, embedded Tomcat, dependency injection.</td></tr>
+<tr><td>Web</td><td>Spring Web MVC</td><td>Builds the REST controllers (<code>@RestController</code>).</td></tr>
+<tr><td>Persistence</td><td>Spring Data JPA + Hibernate</td><td>Maps Java objects to MySQL tables; generates queries from method names.</td></tr>
+<tr><td>Database</td><td>MySQL</td><td>Relational store for catalog and requests.</td></tr>
+<tr><td>Validation</td><td>Jakarta Bean Validation</td><td><code>@NotNull</code>, <code>@Positive</code> etc. validate incoming JSON.</td></tr>
+<tr><td>Boilerplate</td><td>Lombok</td><td>Generates getters/setters/builders/loggers at compile time.</td></tr>
+<tr><td>Logging</td><td>SLF4J facade over Logback</td><td>Leveled, configurable logging to console + rolling file.</td></tr>
+<tr><td>Security util</td><td>spring-security-crypto</td><td>BCrypt password hashing only (no web security here).</td></tr>
+<tr><td>Testing</td><td>JUnit 5, Mockito, H2</td><td>Unit + slice tests; H2 in-memory DB for repository tests.</td></tr>
+</table>
+</section>
+
+<!-- ===================== ARCHITECTURE ===================== -->
+<section class="page-break" id="arch">
+<h1>3. Layered Architecture</h1>
+<p>The module follows the classic <b>Spring layered (n-tier) architecture</b>. Each layer has one
+responsibility and only talks to the layer directly beneath it. This separation is the single most
+important thing to explain in an interview.</p>
+
+<svg width="540" height="540" viewBox="0 0 540 540" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#37474f"/>
+    </marker>
+  </defs>
+  <!-- Client -->
+  <rect x="170" y="10" width="200" height="44" rx="8" fill="#eceff1" stroke="#90a4ae" stroke-width="1.5"/>
+  <text x="270" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#37474f">Client</text>
+  <text x="270" y="46" text-anchor="middle" font-size="10" fill="#607d8b">Browser / Postman / Frontend (HTTP + JSON)</text>
+
+  <!-- Controller -->
+  <rect x="120" y="90" width="300" height="56" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="270" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d47a1">Controller Layer</text>
+  <text x="270" y="130" text-anchor="middle" font-size="9.5" fill="#1565c0">@RestController — maps URLs, validates input, returns ResponseEntity</text>
+
+  <!-- Service -->
+  <rect x="120" y="182" width="300" height="56" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="270" y="204" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Service Layer</text>
+  <text x="270" y="222" text-anchor="middle" font-size="9.5" fill="#2e7d32">@Service — business rules, state transitions, builds entities</text>
+
+  <!-- Repository -->
+  <rect x="120" y="274" width="300" height="56" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="270" y="296" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Repository Layer</text>
+  <text x="270" y="314" text-anchor="middle" font-size="9.5" fill="#ef6c00">@Repository — Spring Data JPA interfaces (auto-implemented)</text>
+
+  <!-- DB -->
+  <rect x="170" y="366" width="200" height="50" rx="8" fill="#ede7f6" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="270" y="388" text-anchor="middle" font-size="14" font-weight="bold" fill="#4527a0">MySQL Database</text>
+  <text x="270" y="405" text-anchor="middle" font-size="9.5" fill="#5e35b1">tables: catalog, request, farmerProfile</text>
+
+  <!-- arrows down -->
+  <line x1="270" y1="54" x2="270" y2="88" stroke="#37474f" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="270" y1="146" x2="270" y2="180" stroke="#37474f" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="270" y1="238" x2="270" y2="272" stroke="#37474f" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="270" y1="330" x2="270" y2="364" stroke="#37474f" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <!-- side: cross-cutting -->
+  <rect x="440" y="90" width="92" height="240" rx="8" fill="#fce4ec" stroke="#c2185b" stroke-width="1.3"/>
+  <text x="486" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">Cross-</text>
+  <text x="486" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">cutting</text>
+  <text x="486" y="195" text-anchor="middle" font-size="9" fill="#ad1457">DTOs</text>
+  <text x="486" y="212" text-anchor="middle" font-size="9" fill="#ad1457">Validation</text>
+  <text x="486" y="229" text-anchor="middle" font-size="9" fill="#ad1457">Exception</text>
+  <text x="486" y="246" text-anchor="middle" font-size="9" fill="#ad1457">Handler</text>
+  <text x="486" y="263" text-anchor="middle" font-size="9" fill="#ad1457">SLF4J</text>
+  <text x="486" y="280" text-anchor="middle" font-size="9" fill="#ad1457">Logging</text>
+
+  <!-- left: data objects -->
+  <rect x="8" y="182" width="92" height="148" rx="8" fill="#e0f7fa" stroke="#00838f" stroke-width="1.3"/>
+  <text x="54" y="230" text-anchor="middle" font-size="11" font-weight="bold" fill="#006064">Model</text>
+  <text x="54" y="246" text-anchor="middle" font-size="9" fill="#00838f">@Entity</text>
+  <text x="54" y="263" text-anchor="middle" font-size="9" fill="#00838f">AgriInput</text>
+  <text x="54" y="280" text-anchor="middle" font-size="9" fill="#00838f">InputRequest</text>
+  <text x="54" y="297" text-anchor="middle" font-size="9" fill="#00838f">FarmerProfile</text>
+
+  <text x="270" y="450" text-anchor="middle" font-size="10" fill="#555">Requests flow DOWN; data/responses flow UP the same path.</text>
+</svg>
+
+<h3>Responsibility of each layer</h3>
+<table>
+<tr><th>Layer</th><th>Annotation</th><th>Responsibility</th><th>Must NOT do</th></tr>
+<tr><td>Controller</td><td><code>@RestController</code></td><td>Receive HTTP, validate body, delegate, shape HTTP response &amp; status code.</td><td>No business rules, no DB calls.</td></tr>
+<tr><td>Service</td><td><code>@Service</code></td><td>Business logic: status checks, state changes, mapping DTO&rarr;entity.</td><td>No HTTP concepts, no SQL.</td></tr>
+<tr><td>Repository</td><td><code>@Repository</code></td><td>Persistence: save/find/delete via Spring Data JPA.</td><td>No business rules.</td></tr>
+<tr><td>Model</td><td><code>@Entity</code></td><td>Maps a Java class to a DB table (the data shape).</td><td>No logic.</td></tr>
+<tr><td>DTO</td><td>(plain + validation)</td><td>Carry &amp; validate data crossing the API boundary.</td><td>Never persisted directly.</td></tr>
+</table>
+</section>
+
+<!-- ===================== REQUEST FLOWCHART ===================== -->
+<section class="page-break" id="flow">
+<h1>4. End-to-End Request Flowchart</h1>
+<p>This traces a single concrete call — <code>POST /input-requests</code> (a farmer submitting a request) —
+through every layer, including the validation and exception branches. This is the diagram to draw on a
+whiteboard when asked "walk me through what happens when a request comes in".</p>
+
+<svg width="540" height="640" viewBox="0 0 540 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#37474f"/>
+    </marker>
+  </defs>
+  <!-- 1 client -->
+  <rect x="180" y="8" width="180" height="36" rx="18" fill="#eceff1" stroke="#607d8b"/>
+  <text x="270" y="31" text-anchor="middle" font-size="11" fill="#37474f">① Client sends JSON body</text>
+  <!-- 2 controller -->
+  <rect x="150" y="66" width="240" height="42" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="270" y="83" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">② Controller.submitRequest()</text>
+  <text x="270" y="99" text-anchor="middle" font-size="9" fill="#1565c0">@Valid triggers Bean Validation on the DTO</text>
+  <!-- decision valid? -->
+  <polygon points="270,128 360,168 270,208 180,168" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="270" y="166" text-anchor="middle" font-size="10" font-weight="bold" fill="#f57f17">Valid DTO?</text>
+  <text x="270" y="180" text-anchor="middle" font-size="9" fill="#f9a825">(@NotNull, @Positive…)</text>
+  <!-- invalid branch -->
+  <rect x="395" y="146" width="138" height="44" rx="6" fill="#ffebee" stroke="#c62828"/>
+  <text x="464" y="164" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#b71c1c">400 Bad Request</text>
+  <text x="464" y="179" text-anchor="middle" font-size="8.5" fill="#c62828">handled by GlobalExceptionHandler</text>
+  <!-- 3 service -->
+  <rect x="150" y="228" width="240" height="42" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="270" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">③ Service.submitRequest()</text>
+  <text x="270" y="261" text-anchor="middle" font-size="9" fill="#2e7d32">business logic begins</text>
+  <!-- decision input exists -->
+  <polygon points="270,290 365,332 270,374 175,332" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="270" y="330" text-anchor="middle" font-size="10" font-weight="bold" fill="#f57f17">Input exists?</text>
+  <text x="270" y="344" text-anchor="middle" font-size="9" fill="#f9a825">findById(inputId)</text>
+  <!-- not found branch -->
+  <rect x="395" y="310" width="138" height="44" rx="6" fill="#ffebee" stroke="#c62828"/>
+  <text x="464" y="328" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#b71c1c">404 Not Found</text>
+  <text x="464" y="343" text-anchor="middle" font-size="8.5" fill="#c62828">ResourceNotFoundException</text>
+  <!-- 4 build entity -->
+  <rect x="150" y="394" width="240" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="270" y="411" text-anchor="middle" font-size="10.5" fill="#1b5e20">④ Build InputRequest (status="Requested")</text>
+  <text x="270" y="427" text-anchor="middle" font-size="9" fill="#2e7d32">map DTO &rarr; entity via builder</text>
+  <!-- 5 repo -->
+  <rect x="150" y="454" width="240" height="40" rx="6" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="270" y="471" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#e65100">⑤ Repository.save(request)</text>
+  <text x="270" y="487" text-anchor="middle" font-size="9" fill="#ef6c00">Hibernate issues SQL INSERT</text>
+  <!-- 6 db -->
+  <rect x="180" y="514" width="180" height="36" rx="6" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="270" y="537" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#4527a0">⑥ Row inserted into MySQL</text>
+  <!-- 7 response -->
+  <rect x="160" y="570" width="220" height="40" rx="6" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="270" y="587" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0d47a1">⑦ 201 Created + MessageResponseDTO</text>
+  <text x="270" y="603" text-anchor="middle" font-size="9" fill="#1565c0">"Input request submitted successfully"</text>
+
+  <!-- arrows -->
+  <line x1="270" y1="44" x2="270" y2="64" stroke="#37474f" marker-end="url(#a2)"/>
+  <line x1="270" y1="108" x2="270" y2="126" stroke="#37474f" marker-end="url(#a2)"/>
+  <line x1="360" y1="168" x2="393" y2="168" stroke="#c62828" marker-end="url(#a2)"/>
+  <text x="376" y="162" font-size="8" fill="#c62828">No</text>
+  <line x1="270" y1="208" x2="270" y2="226" stroke="#37474f" marker-end="url(#a2)"/>
+  <text x="278" y="222" font-size="8" fill="#2e7d32">Yes</text>
+  <line x1="270" y1="270" x2="270" y2="288" stroke="#37474f" marker-end="url(#a2)"/>
+  <line x1="365" y1="332" x2="393" y2="332" stroke="#c62828" marker-end="url(#a2)"/>
+  <text x="376" y="326" font-size="8" fill="#c62828">No</text>
+  <line x1="270" y1="374" x2="270" y2="392" stroke="#37474f" marker-end="url(#a2)"/>
+  <text x="278" y="389" font-size="8" fill="#2e7d32">Yes</text>
+  <line x1="270" y1="434" x2="270" y2="452" stroke="#37474f" marker-end="url(#a2)"/>
+  <line x1="270" y1="494" x2="270" y2="512" stroke="#37474f" marker-end="url(#a2)"/>
+  <line x1="270" y1="550" x2="270" y2="568" stroke="#37474f" marker-end="url(#a2)"/>
+</svg>
+</section>
+
+<!-- ===================== LIFECYCLE ===================== -->
+<section class="page-break" id="lifecycle">
+<h1>5. Request Lifecycle State Machine</h1>
+<p>An <code>InputRequest</code> has a <code>status</code> field that may only move along legal transitions.
+The service layer enforces these rules — any illegal jump throws a <code>StateConflictException</code>
+(HTTP 409). <b>This state machine is the heart of the module's business logic.</b></p>
+
+<svg width="540" height="250" viewBox="0 0 540 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2e7d32"/>
+    </marker>
+    <marker id="a3r" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#c62828"/>
+    </marker>
+  </defs>
+  <!-- states -->
+  <rect x="10" y="60" width="92" height="40" rx="20" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="56" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Requested</text>
+
+  <rect x="150" y="60" width="92" height="40" rx="20" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="196" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Approved</text>
+
+  <rect x="290" y="60" width="92" height="40" rx="20" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="336" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Dispatched</text>
+
+  <rect x="430" y="60" width="100" height="40" rx="20" fill="#c8e6c9" stroke="#1b5e20" stroke-width="2"/>
+  <text x="480" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Delivered</text>
+
+  <rect x="150" y="180" width="232" height="40" rx="20" fill="#ffebee" stroke="#c62828" stroke-width="1.6"/>
+  <text x="266" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#b71c1c">Cancelled (terminal)</text>
+
+  <!-- happy path arrows -->
+  <line x1="102" y1="80" x2="148" y2="80" stroke="#2e7d32" stroke-width="1.6" marker-end="url(#a3)"/>
+  <text x="125" y="73" text-anchor="middle" font-size="8" fill="#2e7d32">approve</text>
+  <line x1="242" y1="80" x2="288" y2="80" stroke="#2e7d32" stroke-width="1.6" marker-end="url(#a3)"/>
+  <text x="265" y="73" text-anchor="middle" font-size="8" fill="#2e7d32">dispatch</text>
+  <line x1="382" y1="80" x2="428" y2="80" stroke="#2e7d32" stroke-width="1.6" marker-end="url(#a3)"/>
+  <text x="405" y="73" text-anchor="middle" font-size="8" fill="#2e7d32">deliver</text>
+
+  <!-- cancel arrows (only before dispatch) -->
+  <line x1="56" y1="100" x2="160" y2="180" stroke="#c62828" stroke-width="1.4" marker-end="url(#a3r)"/>
+  <line x1="196" y1="100" x2="240" y2="178" stroke="#c62828" stroke-width="1.4" marker-end="url(#a3r)"/>
+  <text x="120" y="150" text-anchor="middle" font-size="8" fill="#c62828">cancel ✓ (allowed)</text>
+
+  <!-- illegal -->
+  <text x="336" y="135" text-anchor="middle" font-size="8.5" fill="#999">✗ cannot cancel once Dispatched/Delivered</text>
+</svg>
+
+<table>
+<tr><th>Action</th><th>Allowed only from</th><th>Moves to</th><th>If violated</th></tr>
+<tr><td><code>approve</code></td><td>Requested</td><td>Approved</td><td rowspan="4">409 Conflict<br>(StateConflictException)</td></tr>
+<tr><td><code>dispatch</code></td><td>Approved</td><td>Dispatched</td></tr>
+<tr><td><code>deliver</code></td><td>Dispatched</td><td>Delivered</td></tr>
+<tr><td><code>cancel</code></td><td>Requested or Approved</td><td>Cancelled</td></tr>
+</table>
+</section>
+
+<!-- ===================== ENTRY POINT ===================== -->
+<section class="page-break" id="entrypoint">
+<h1>6. Entry Point — <code>AgrilinkApplication.java</code></h1>
+<p>Every Spring Boot application starts from one class with a <code>main</code> method. This is the
+"ignition key" of the whole service.</p>
+<pre><span class="kw">package</span> com.cts.agrilink;
+
+<span class="kw">import</span> org.springframework.boot.SpringApplication;
+<span class="kw">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+
+<span class="an">@SpringBootApplication</span>
+<span class="kw">public class</span> AgrilinkApplication {
+    <span class="kw">public static void</span> main(String[] args) {
+        SpringApplication.run(AgrilinkApplication.class, args);
+    }
+}</pre>
+<table class="lines">
+<tr><th>Line</th><th>Code</th><th>Explanation</th></tr>
+<tr><td class="ln">1</td><td class="cd">package com.cts.agrilink;</td><td class="ex">Declares the root package. Being at the root matters: Spring Boot's component scan starts here and scans <b>all sub-packages</b> — so every <code>@Controller</code>, <code>@Service</code>, <code>@Repository</code> below it is auto-discovered.</td></tr>
+<tr><td class="ln">3</td><td class="cd">import …SpringApplication;</td><td class="ex">The bootstrap helper class that creates and runs the Spring application context.</td></tr>
+<tr><td class="ln">4</td><td class="cd">import …SpringBootApplication;</td><td class="ex">Imports the master annotation used on line 6.</td></tr>
+<tr><td class="ln">6</td><td class="cd">@SpringBootApplication</td><td class="ex">The key annotation. It is a <b>meta-annotation</b> bundling three: <code>@Configuration</code> (this class can define beans), <code>@EnableAutoConfiguration</code> (auto-configure Tomcat, JPA, DataSource from the classpath + properties), and <code>@ComponentScan</code> (find all components in this package and below).</td></tr>
+<tr><td class="ln">7</td><td class="cd">public class AgrilinkApplication</td><td class="ex">The application class itself. No body needed beyond <code>main</code>.</td></tr>
+<tr><td class="ln">9</td><td class="cd">public static void main(String[] args)</td><td class="ex">Standard Java entry point — the JVM calls this first.</td></tr>
+<tr><td class="ln">11</td><td class="cd">SpringApplication.run(AgrilinkApplication.class, args);</td><td class="ex">Boots everything: creates the <b>ApplicationContext</b>, performs component scan, runs auto-configuration, starts the embedded <b>Tomcat</b> server on port 8088, and wires all beans together via dependency injection.</td></tr>
+</table>
+</section>
+
+<!-- ===================== CONFIG ===================== -->
+<section class="page-break" id="config">
+<h1>7. Configuration</h1>
+<h3>7.1 <code>application.properties</code></h3>
+<p>This file externalises all environment/config so no settings are hard-coded in Java.</p>
+<pre>spring.application.name=agrilink
+spring.datasource.url = jdbc:mysql://localhost:3306/agrilink
+spring.datasource.username = root
+spring.datasource.password =root
+
+spring.jpa.show = true
+spring.jpa.generate-ddl = true
+spring.jpa.hibernate.ddl.auto = update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+server.port = 8088
+
+# Logging (SLF4J over Logback)
+logging.level.root=INFO
+logging.level.com.cts.agrilink=DEBUG
+logging.file.name=logs/agrilink.log</pre>
+<table>
+<tr><th>Property</th><th>Meaning</th></tr>
+<tr><td><code>spring.application.name</code></td><td>Logical name of the app (appears in logs/monitoring).</td></tr>
+<tr><td><code>spring.datasource.url</code></td><td>JDBC URL — connect to the MySQL <code>agrilink</code> schema on localhost:3306.</td></tr>
+<tr><td><code>spring.datasource.username / password</code></td><td>DB credentials used by the HikariCP connection pool.</td></tr>
+<tr><td><code>spring.jpa.hibernate.ddl.auto = update</code></td><td>On startup Hibernate compares entities to tables and <b>creates/alters</b> tables to match (never drops). This is why the <code>catalog</code>, <code>request</code>, <code>farmerProfile</code> tables appear automatically.</td></tr>
+<tr><td><code>spring.jpa…dialect = MySQLDialect</code></td><td>Tells Hibernate to generate MySQL-flavoured SQL.</td></tr>
+<tr><td><code>server.port = 8088</code></td><td>Embedded Tomcat listens on 8088 instead of the default 8080.</td></tr>
+<tr><td><code>logging.level.com.cts.agrilink=DEBUG</code></td><td>Our own packages log at DEBUG (verbose); everything else stays at INFO.</td></tr>
+<tr><td><code>logging.file.name</code></td><td>Also write logs to a rolling file under <code>logs/</code>.</td></tr>
+</table>
+<div class="callout"><b>Interview note:</b> in production you would set <code>ddl.auto=validate</code> (never auto-modify schema) and move credentials to environment variables / a secrets manager, not plain text.</div>
+
+<h3>7.2 <code>pom.xml</code> — key dependencies</h3>
+<table>
+<tr><th>Dependency</th><th>Purpose</th></tr>
+<tr><td><code>spring-boot-starter-data-jpa</code></td><td>Brings in Spring Data JPA + Hibernate — the persistence layer.</td></tr>
+<tr><td><code>spring-boot-starter-webmvc</code></td><td>Brings in Spring MVC + embedded Tomcat — lets us build REST controllers.</td></tr>
+<tr><td><code>spring-boot-starter-validation</code></td><td>Enables Jakarta Bean Validation (the <code>@NotNull</code>/<code>@Positive</code> annotations).</td></tr>
+<tr><td><code>mysql-connector-j</code></td><td>The MySQL JDBC driver (runtime scope).</td></tr>
+<tr><td><code>lombok</code></td><td>Compile-time generation of getters/setters/builders/<code>log</code>.</td></tr>
+<tr><td><code>spring-security-crypto</code></td><td>BCrypt hashing utility only (no full web security).</td></tr>
+<tr><td><code>h2</code> (test)</td><td>In-memory database used by repository slice tests.</td></tr>
+</table>
+</section>
+
+<!-- ===================== MODEL ===================== -->
+<section class="page-break" id="model">
+<h1>8. Model / Entity Layer</h1>
+<p>Entities are plain Java classes annotated so JPA/Hibernate can map each one to a database table.
+One entity instance = one table row.</p>
+
+<h3>8.1 <code>AgriInput.java</code> — the catalog table</h3>
+<pre><span class="an">@Entity</span>
+<span class="an">@Table</span>(name = <span class="st">"catalog"</span>)
+<span class="an">@Data @NoArgsConstructor @AllArgsConstructor @Builder</span>
+<span class="kw">public class</span> AgriInput {
+    <span class="an">@Id</span>
+    <span class="an">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="an">@Column</span>(name = <span class="st">"inputId"</span>)
+    <span class="kw">private</span> Long inputId;
+    <span class="an">@Column</span>(name=<span class="st">"name"</span>)        <span class="kw">private</span> String name;
+    <span class="an">@Column</span>(name=<span class="st">"category"</span>)    <span class="kw">private</span> String category;
+    <span class="an">@Column</span>(name=<span class="st">"unit"</span>)        <span class="kw">private</span> String unit;
+    <span class="an">@Column</span>(name=<span class="st">"pricePerUnit"</span>)    <span class="kw">private</span> Double pricePerUnit;
+    <span class="an">@Column</span>(name=<span class="st">"subsidisedPrice"</span>) <span class="kw">private</span> Double subsidisedPrice;
+    <span class="an">@Column</span>(name=<span class="st">"availableStock"</span>)  <span class="kw">private</span> Integer availableStock;
+    <span class="an">@Column</span>(name=<span class="st">"status"</span>)      <span class="kw">private</span> String status;
+}</pre>
+<table class="lines">
+<tr><th>Line / Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@Entity</td><td class="ex">Marks the class as a JPA entity — Hibernate will manage it and map it to a table.</td></tr>
+<tr><td class="cd">@Table(name="catalog")</td><td class="ex">Maps this entity to the DB table named <code>catalog</code> (instead of the default class name).</td></tr>
+<tr><td class="cd">@Data</td><td class="ex">Lombok: generates getters, setters, <code>toString()</code>, <code>equals()</code>/<code>hashCode()</code> for all fields.</td></tr>
+<tr><td class="cd">@NoArgsConstructor</td><td class="ex">Lombok: generates an empty constructor — <b>required by JPA</b> to instantiate entities via reflection.</td></tr>
+<tr><td class="cd">@AllArgsConstructor</td><td class="ex">Lombok: constructor with every field as a parameter.</td></tr>
+<tr><td class="cd">@Builder</td><td class="ex">Lombok: enables the fluent builder pattern, e.g. <code>AgriInput.builder().name("Urea").build()</code> — used by the service.</td></tr>
+<tr><td class="cd">@Id</td><td class="ex">Declares <code>inputId</code> as the primary key.</td></tr>
+<tr><td class="cd">@GeneratedValue(IDENTITY)</td><td class="ex">The DB auto-increments the PK (MySQL <code>AUTO_INCREMENT</code>); we never set it manually.</td></tr>
+<tr><td class="cd">@Column(name="…")</td><td class="ex">Maps each field to a named column. The <code>status</code> field holds "Available"/"OutOfStock"; <code>category</code> holds Seed/Fertiliser/Pesticide/Equipment.</td></tr>
+</table>
+
+<h3>8.2 <code>InputRequest.java</code> — the request table</h3>
+<p>Same annotation pattern (<code>@Entity @Table(name="request") @Data …</code>), but with more fields
+because it tracks a workflow. The important columns:</p>
+<table>
+<tr><th>Field</th><th>Type</th><th>Role in the workflow</th></tr>
+<tr><td><code>requestId</code></td><td>Long (PK)</td><td>Auto-generated identity.</td></tr>
+<tr><td><code>farmerId, inputId</code></td><td>Long</td><td>Who requested, and which catalog item (logical references).</td></tr>
+<tr><td><code>quantityRequested</code></td><td>Integer</td><td>How many units.</td></tr>
+<tr><td><code>requestDate</code></td><td>LocalDate</td><td>When the request was raised.</td></tr>
+<tr><td><code>assignedCentreId</code></td><td>Long</td><td>Procurement centre handling it.</td></tr>
+<tr><td><code>actualPrice</code></td><td>Double</td><td>Final price set at approval.</td></tr>
+<tr><td><b><code>status</code></b></td><td>String</td><td><b>The state-machine field</b>: Requested → Approved → Dispatched → Delivered / Cancelled.</td></tr>
+<tr><td><code>approvedBy, dispatchedBy, receivedBy</code></td><td>String</td><td>Audit trail — who performed each step.</td></tr>
+<tr><td><code>dispatchDate, deliveredDate</code></td><td>LocalDate</td><td>Timestamps for dispatch and delivery.</td></tr>
+<tr><td><code>cancellationReason</code></td><td>String</td><td>Why a request was cancelled.</td></tr>
+</table>
+
+<h3>8.3 <code>FarmerProfile.java</code></h3>
+<p>Maps to table <code>farmerProfile</code>; stores farmer demographics (name, DOB, village, district,
+bank account, status). Note <code>userId</code> is a plain <code>Long</code> — a <b>logical</b> link to the
+user-management module's user table, not a JPA foreign key, which keeps this module loosely coupled.</p>
+</section>
+
+<!-- ===================== DTO ===================== -->
+<section class="page-break" id="dto">
+<h1>9. DTO Layer (Data Transfer Objects)</h1>
+<p>A <b>DTO</b> is a simple object that carries data across the API boundary. We never expose entities
+directly to clients — DTOs let us (a) accept exactly the fields a request needs, (b) validate them, and
+(c) keep the database shape decoupled from the API contract.</p>
+
+<div class="callout"><b>Why all DTOs share these three Lombok annotations</b><br>
+<code>@Data</code> → getters/setters/toString; &nbsp; <code>@NoArgsConstructor</code> → empty constructor so
+Jackson can deserialize incoming JSON; &nbsp; <code>@AllArgsConstructor</code> → full constructor for easy creation in tests.</div>
+
+<h3>9.1 Input DTOs — example <code>InputProcurementRequestDTO</code> (submit a request)</h3>
+<pre><span class="an">@Data @NoArgsConstructor @AllArgsConstructor</span>
+<span class="kw">public class</span> InputProcurementRequestDTO {
+    <span class="an">@NotNull</span>(message=<span class="st">"Farmer ID is required"</span>)      <span class="kw">private</span> Long farmerId;
+    <span class="an">@NotNull</span>(message=<span class="st">"Input ID is required"</span>)       <span class="kw">private</span> Long inputId;
+    <span class="an">@NotNull</span> <span class="an">@Positive</span>(message=<span class="st">"Quantity must be positive"</span>) <span class="kw">private</span> Integer quantityRequested;
+    <span class="an">@NotNull</span>(message=<span class="st">"Request date is required"</span>)   <span class="kw">private</span> LocalDate requestDate;
+    <span class="an">@NotNull</span>(message=<span class="st">"Assigned centre ID is required"</span>) <span class="kw">private</span> Long assignedCentreId;
+    <span class="kw">private</span> Double actualPrice;
+}</pre>
+<table class="lines">
+<tr><th>Annotation</th><th>Explanation</th></tr>
+<tr><td class="cd">@NotNull</td><td class="ex">Field must be present in the JSON and not null; otherwise validation fails with the given message.</td></tr>
+<tr><td class="cd">@Positive</td><td class="ex">The number must be &gt; 0 (quantity cannot be zero or negative).</td></tr>
+<tr><td class="cd">message="…"</td><td class="ex">The exact error text returned to the client (collected by the GlobalExceptionHandler into a 400 response).</td></tr>
+<tr><td class="cd">actualPrice (no annotation)</td><td class="ex">Optional — may be left out at submit time; it is finalised at approval.</td></tr>
+</table>
+
+<h3>9.2 Validation annotations used across all DTOs</h3>
+<table>
+<tr><th>Annotation</th><th>Rule</th><th>Used in</th></tr>
+<tr><td><code>@NotNull</code></td><td>Value must not be null.</td><td>IDs, dates, prices, stock.</td></tr>
+<tr><td><code>@NotBlank</code></td><td>String must not be null or empty/whitespace.</td><td>name, category, unit, status, approvedBy, dispatchedBy, receivedBy, reason.</td></tr>
+<tr><td><code>@Positive</code></td><td>Number &gt; 0.</td><td>quantity, pricePerUnit.</td></tr>
+<tr><td><code>@PositiveOrZero</code></td><td>Number ≥ 0.</td><td>availableStock (0 = out of stock is valid).</td></tr>
+</table>
+
+<h3>9.3 The full DTO catalogue</h3>
+<table>
+<tr><th>DTO</th><th>Direction</th><th>Carries / validates</th></tr>
+<tr><td><code>AgriInputRequestDTO</code></td><td>in</td><td>Create a catalog item: name, category, unit, pricePerUnit (+ optional subsidised), availableStock, status.</td></tr>
+<tr><td><code>UpdateInputDTO</code></td><td>in</td><td>Edit a catalog item: name, price, subsidised, stock, status.</td></tr>
+<tr><td><code>UpdateStockDTO</code></td><td>in</td><td>Stock-only update: just <code>availableStock</code> (≥ 0).</td></tr>
+<tr><td><code>InputProcurementRequestDTO</code></td><td>in</td><td>Submit a farmer request (see 9.1).</td></tr>
+<tr><td><code>UpdateInputRequestDTO</code></td><td>in</td><td>Edit a pending request: quantity, centre, price — all optional (partial update).</td></tr>
+<tr><td><code>ApproveRequestDTO</code></td><td>in</td><td>Approve: assignedCentreId, actualPrice, approvedBy (all required).</td></tr>
+<tr><td><code>DispatchRequestDTO</code></td><td>in</td><td>Dispatch: dispatchedBy, dispatchDate.</td></tr>
+<tr><td><code>DeliverRequestDTO</code></td><td>in</td><td>Deliver: deliveredDate, receivedBy.</td></tr>
+<tr><td><code>CancelRequestDTO</code></td><td>in</td><td>Cancel: reason (required).</td></tr>
+<tr><td><code>MessageResponseDTO</code></td><td><b>out</b></td><td>The standard success/error response — a single <code>message</code> string.</td></tr>
+</table>
+<p class="small">Note: <code>UpdateInputRequestDTO</code> fields are intentionally <b>not</b> <code>@NotNull</code> — it supports
+partial updates, and the service only applies the fields that were actually provided (null-checks each one).</p>
+</section>
+
+<!-- ===================== REPOSITORY ===================== -->
+<section class="page-break" id="repo">
+<h1>10. Repository Layer</h1>
+<p>Repositories are <b>interfaces</b> — we write no implementation. Spring Data JPA generates the
+implementation at runtime, including SQL derived from the method names. This is the biggest
+"magic" point to explain in an interview.</p>
+
+<h3>10.1 <code>AgriInputRepository.java</code></h3>
+<pre><span class="an">@Repository</span>
+<span class="kw">public interface</span> AgriInputRepository <span class="kw">extends</span> JpaRepository&lt;AgriInput, Long&gt; {
+    List&lt;AgriInput&gt; findByCategoryIgnoreCase(String category);
+    List&lt;AgriInput&gt; findByStatusIgnoreCase(String status);
+}</pre>
+<table class="lines">
+<tr><th>Line</th><th>Code</th><th>Explanation</th></tr>
+<tr><td class="ln">1</td><td class="cd">@Repository</td><td class="ex">Marks it as a persistence component (also translates DB exceptions into Spring's <code>DataAccessException</code>).</td></tr>
+<tr><td class="ln">2</td><td class="cd">extends JpaRepository&lt;AgriInput, Long&gt;</td><td class="ex">Inherits ready-made CRUD methods for the <code>AgriInput</code> entity whose primary key is a <code>Long</code>: <code>save()</code>, <code>findById()</code>, <code>findAll()</code>, <code>deleteById()</code>, <code>existsById()</code>, <code>count()</code> — all for free.</td></tr>
+<tr><td class="ln">3</td><td class="cd">findByCategoryIgnoreCase(String)</td><td class="ex"><b>Derived query.</b> Spring parses the name and generates <code>WHERE UPPER(category)=UPPER(?)</code>. "IgnoreCase" makes the match case-insensitive. No SQL written by hand.</td></tr>
+<tr><td class="ln">4</td><td class="cd">findByStatusIgnoreCase(String)</td><td class="ex">Same idea, filtering on the <code>status</code> column.</td></tr>
+</table>
+
+<h3>10.2 <code>InputRequestRepository.java</code></h3>
+<pre><span class="an">@Repository</span>
+<span class="kw">public interface</span> InputRequestRepository <span class="kw">extends</span> JpaRepository&lt;InputRequest, Long&gt; {
+    List&lt;InputRequest&gt; findByFarmerId(Long farmerId);
+    List&lt;InputRequest&gt; findByStatusIgnoreCase(String status);
+    List&lt;InputRequest&gt; findByAssignedCentreId(Long centreId);
+}</pre>
+<table>
+<tr><th>Method</th><th>Generated query</th></tr>
+<tr><td><code>findByFarmerId(Long)</code></td><td><code>SELECT * FROM request WHERE farmerId = ?</code></td></tr>
+<tr><td><code>findByStatusIgnoreCase(String)</code></td><td><code>… WHERE UPPER(status) = UPPER(?)</code></td></tr>
+<tr><td><code>findByAssignedCentreId(Long)</code></td><td><code>… WHERE assignedCentreId = ?</code></td></tr>
+</table>
+<div class="callout"><b>Interview gold:</b> "Spring Data JPA uses <i>derived query methods</i> — it parses the method
+name into a JPQL/SQL query at startup, so I get type-safe finders without writing or maintaining SQL.
+For anything complex I could drop to <code>@Query</code> with JPQL or native SQL."</div>
+</section>
+
+<!-- ===================== SERVICE ===================== -->
+<section class="page-break" id="service">
+<h1>11. Service Layer (Business Logic)</h1>
+<p>This is where the real work happens — the rules that make the app correct. Controllers just delegate here.</p>
+
+<h3>11.1 Class declaration &amp; dependency injection (common to both services)</h3>
+<pre><span class="an">@Service</span>
+<span class="an">@Slf4j</span>
+<span class="an">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> InputRequestService {
+    <span class="kw">private final</span> InputRequestRepository inputRequestRepository;
+    <span class="kw">private final</span> AgriInputRepository agriInputRepository;</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@Service</td><td class="ex">Marks this as a service bean so Spring creates one instance and injects it where needed.</td></tr>
+<tr><td class="cd">@Slf4j</td><td class="ex">Lombok generates <code>private static final Logger log = LoggerFactory.getLogger(InputRequestService.class);</code> — gives us <code>log.info(...)</code> etc. for free (SLF4J facade).</td></tr>
+<tr><td class="cd">@RequiredArgsConstructor</td><td class="ex">Lombok generates a constructor taking all <code>final</code> fields. Spring uses that constructor to <b>inject</b> the two repositories — this is <b>constructor injection</b>, the recommended DI style.</td></tr>
+<tr><td class="cd">private final …Repository</td><td class="ex">The collaborators this service needs. <code>final</code> = set once at construction; guarantees they are never null.</td></tr>
+</table>
+
+<h3>11.2 A read method — <code>getRequestById</code></h3>
+<pre><span class="kw">public</span> InputRequest getRequestById(Long requestId) {
+    log.debug(<span class="st">"Fetching input request with ID: {}"</span>, requestId);
+    <span class="kw">return</span> inputRequestRepository.findById(requestId)
+        .orElseThrow(() -&gt; <span class="kw">new</span> ResourceNotFoundException(
+            <span class="st">"Input request not found with ID: "</span> + requestId));
+}</pre>
+<table class="lines">
+<tr><th>Line</th><th>Explanation</th></tr>
+<tr><td class="ex" colspan="2"><b>log.debug("…{}", requestId)</b> — logs at DEBUG with a parameterised placeholder; the string is only built if DEBUG is enabled (efficient).</td></tr>
+<tr><td class="ex" colspan="2"><b>findById(requestId)</b> returns an <code>Optional&lt;InputRequest&gt;</code> — it may or may not contain a value.</td></tr>
+<tr><td class="ex" colspan="2"><b>.orElseThrow(…)</b> — if the Optional is empty (no such row), throw <code>ResourceNotFoundException</code>, which the GlobalExceptionHandler turns into a clean <b>404</b>. Otherwise return the found entity. This null-safe pattern repeats in every "by ID" method.</td></tr>
+</table>
+
+<h3>11.3 The state-transition method — <code>approveRequest</code> (the most important method)</h3>
+<pre><span class="kw">public</span> MessageResponseDTO approveRequest(Long requestId, ApproveRequestDTO dto) {
+    InputRequest request = inputRequestRepository.findById(requestId)
+        .orElseThrow(() -&gt; <span class="kw">new</span> ResourceNotFoundException(<span class="st">"… "</span> + requestId));
+
+    <span class="kw">if</span> (!<span class="st">"Requested"</span>.equals(request.getStatus())) {
+        log.warn(<span class="st">"Approve rejected for request ID {}: current status is '{}'"</span>,
+                 requestId, request.getStatus());
+        <span class="kw">throw new</span> StateConflictException(
+            <span class="st">"Request cannot be approved. Current status: "</span> + request.getStatus());
+    }
+
+    request.setStatus(<span class="st">"Approved"</span>);
+    request.setAssignedCentreId(dto.getAssignedCentreId());
+    request.setActualPrice(dto.getActualPrice());
+    request.setApprovedBy(dto.getApprovedBy());
+
+    inputRequestRepository.save(request);
+    log.info(<span class="st">"Approved input request ID: {} by {}"</span>, requestId, dto.getApprovedBy());
+    <span class="kw">return new</span> MessageResponseDTO(<span class="st">"Input request approved successfully"</span>);
+}</pre>
+<table class="lines">
+<tr><th>Step</th><th>Explanation</th></tr>
+<tr><td class="cd">findById…orElseThrow</td><td class="ex"><b>Load</b> the request or 404 if it doesn't exist.</td></tr>
+<tr><td class="cd">if (!"Requested".equals(status))</td><td class="ex"><b>Guard / state check.</b> Approval is only legal from the "Requested" state. Writing the literal first (<code>"Requested".equals(...)</code>) avoids a <code>NullPointerException</code> if status were null.</td></tr>
+<tr><td class="cd">log.warn(…)</td><td class="ex">Records the rejected attempt at WARN level — useful for auditing misuse without it being an error.</td></tr>
+<tr><td class="cd">throw new StateConflictException</td><td class="ex">Illegal transition → custom exception → GlobalExceptionHandler returns <b>409 Conflict</b>.</td></tr>
+<tr><td class="cd">request.setStatus("Approved") + setters</td><td class="ex"><b>Apply the transition</b> and record the approval details (centre, price, who approved).</td></tr>
+<tr><td class="cd">repository.save(request)</td><td class="ex"><b>Persist.</b> Because the entity already has an ID, Hibernate issues an <code>UPDATE</code>.</td></tr>
+<tr><td class="cd">log.info(…)</td><td class="ex">Records the successful business event (audit trail).</td></tr>
+<tr><td class="cd">return new MessageResponseDTO(…)</td><td class="ex">Returns a friendly success message to the controller.</td></tr>
+</table>
+<p class="small"><b>dispatchRequest, deliverRequest, cancelRequest</b> follow this exact 6-step shape — only the
+<i>allowed source state</i> and the <i>target state</i> differ (see the lifecycle table in §5). <code>cancelRequest</code>
+inverts the check: it forbids cancelling once the status is "Dispatched" or "Delivered".</p>
+
+<h3>11.4 The create method — <code>submitRequest</code></h3>
+<pre><span class="kw">public</span> MessageResponseDTO submitRequest(InputProcurementRequestDTO dto) {
+    AgriInput input = agriInputRepository.findById(dto.getInputId())
+        .orElseThrow(() -&gt; <span class="kw">new</span> ResourceNotFoundException(<span class="st">"Input not found …"</span>));
+
+    InputRequest request = InputRequest.builder()
+        .farmerId(dto.getFarmerId())
+        .inputId(dto.getInputId())
+        .quantityRequested(dto.getQuantityRequested())
+        .requestDate(dto.getRequestDate())
+        .assignedCentreId(dto.getAssignedCentreId())
+        .actualPrice(dto.getActualPrice())
+        .status(<span class="st">"Requested"</span>)
+        .build();
+
+    inputRequestRepository.save(request);
+    log.info(<span class="st">"Submitted input request: farmerId={}, inputId={}, qty={}"</span>, …);
+    <span class="kw">return new</span> MessageResponseDTO(<span class="st">"Input request submitted successfully"</span>);
+}</pre>
+<ul>
+<li><b>Referential check first:</b> verify the referenced catalog item exists (else 404) — you cannot request something that isn't in the catalog.</li>
+<li><b>Builder pattern</b> (enabled by Lombok <code>@Builder</code>) maps the incoming DTO onto a new entity, fluently and readably.</li>
+<li><b>status="Requested"</b> — every new request starts in the initial state of the lifecycle.</li>
+<li><b>save()</b> → Hibernate <code>INSERT</code> (no ID yet → insert, not update).</li>
+</ul>
+
+<h3>11.5 <code>AgriInputService</code> — catalog logic</h3>
+<p>Same structure, simpler (no state machine). Notable method — validating an enum-like value:</p>
+<pre><span class="kw">public</span> List&lt;AgriInput&gt; getInputsByCategory(String category) {
+    List&lt;String&gt; valid = List.of(<span class="st">"Seed"</span>,<span class="st">"Fertiliser"</span>,<span class="st">"Pesticide"</span>,<span class="st">"Equipment"</span>);
+    <span class="kw">if</span> (valid.stream().noneMatch(c -&gt; c.equalsIgnoreCase(category))) {
+        log.warn(<span class="st">"Rejected request: invalid category '{}'"</span>, category);
+        <span class="kw">throw new</span> IllegalArgumentException(<span class="st">"Invalid category: "</span> + category);
+    }
+    <span class="kw">return</span> agriInputRepository.findByCategoryIgnoreCase(category);
+}</pre>
+<ul>
+<li>Whitelists allowed categories; an unknown value throws <code>IllegalArgumentException</code> → <b>400 Bad Request</b>.</li>
+<li><code>addInput / updateInput / updateStock / deleteInput</code> are straightforward CRUD: load-or-404, mutate, <code>save()</code>, return a message. <code>deleteInput</code> uses <code>existsById()</code> to 404 before deleting.</li>
+</ul>
+</section>
+
+<!-- ===================== CONTROLLER ===================== -->
+<section class="page-break" id="controller">
+<h1>12. Controller Layer (REST API)</h1>
+<p>Controllers are the front door — they map HTTP verbs + URLs to Java methods, validate the body,
+delegate to the service, and wrap the result in a <code>ResponseEntity</code> with the correct status code.</p>
+
+<h3>12.1 Class declaration</h3>
+<pre><span class="an">@RestController</span>
+<span class="an">@RequestMapping</span>(<span class="st">"/agriLink/procurementManagement/input-requests"</span>)
+<span class="an">@Slf4j</span>
+<span class="an">@RequiredArgsConstructor</span>
+<span class="kw">public class</span> InputRequestController {
+    <span class="kw">private final</span> InputRequestService inputRequestService;</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@RestController</td><td class="ex"><code>@Controller</code> + <code>@ResponseBody</code> — every method's return value is serialised straight to JSON (no view templates).</td></tr>
+<tr><td class="cd">@RequestMapping("…/input-requests")</td><td class="ex">Base URL prefix for every endpoint in this class.</td></tr>
+<tr><td class="cd">@Slf4j</td><td class="ex">Logger for request-level INFO logging.</td></tr>
+<tr><td class="cd">@RequiredArgsConstructor</td><td class="ex">Injects the service via constructor.</td></tr>
+</table>
+
+<h3>12.2 A GET endpoint</h3>
+<pre><span class="an">@GetMapping</span>(<span class="st">"/{requestId}"</span>)
+<span class="kw">public</span> ResponseEntity&lt;InputRequest&gt; getRequestById(<span class="an">@PathVariable</span> Long requestId) {
+    <span class="kw">return</span> ResponseEntity.ok(inputRequestService.getRequestById(requestId));
+}</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@GetMapping("/{requestId}")</td><td class="ex">Handles <code>GET /…/input-requests/5</code>. The <code>{requestId}</code> is a URL template variable.</td></tr>
+<tr><td class="cd">@PathVariable Long requestId</td><td class="ex">Binds the <code>5</code> from the URL into the method parameter (auto-converted to Long).</td></tr>
+<tr><td class="cd">ResponseEntity.ok(…)</td><td class="ex">Wraps the body with HTTP <b>200 OK</b>. <code>ResponseEntity</code> gives full control over status + headers + body.</td></tr>
+</table>
+
+<h3>12.3 A POST endpoint (with validation)</h3>
+<pre><span class="an">@PostMapping</span>
+<span class="kw">public</span> ResponseEntity&lt;MessageResponseDTO&gt; submitRequest(
+        <span class="an">@Valid</span> <span class="an">@RequestBody</span> InputProcurementRequestDTO dto) {
+    log.info(<span class="st">"POST /input-requests - submit request for farmerId={}"</span>, dto.getFarmerId());
+    <span class="kw">return</span> ResponseEntity.status(HttpStatus.CREATED)
+                         .body(inputRequestService.submitRequest(dto));
+}</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@PostMapping</td><td class="ex">Handles <code>POST /…/input-requests</code> (create).</td></tr>
+<tr><td class="cd">@RequestBody</td><td class="ex">Deserialises the incoming JSON body into the DTO (via Jackson).</td></tr>
+<tr><td class="cd">@Valid</td><td class="ex"><b>Triggers Bean Validation</b> on the DTO. If any rule (e.g. <code>@NotNull</code>) fails, Spring throws <code>MethodArgumentNotValidException</code> <b>before</b> the method body runs → 400.</td></tr>
+<tr><td class="cd">HttpStatus.CREATED</td><td class="ex">Returns <b>201 Created</b> (the correct REST status for a successful creation) rather than 200.</td></tr>
+</table>
+
+<h3>12.4 The complete REST API surface</h3>
+<h4>Catalog — base <code>/agriLink/procurementManagement/inputs</code></h4>
+<table>
+<tr><th>Method</th><th>Path</th><th>Action</th><th>Success</th></tr>
+<tr><td>GET</td><td>/</td><td>List all inputs</td><td>200</td></tr>
+<tr><td>GET</td><td>/{inputId}</td><td>Get one input</td><td>200</td></tr>
+<tr><td>GET</td><td>/category/{category}</td><td>Filter by category</td><td>200</td></tr>
+<tr><td>GET</td><td>/status/{status}</td><td>Filter by status</td><td>200</td></tr>
+<tr><td>POST</td><td>/</td><td>Add input</td><td>201</td></tr>
+<tr><td>PUT</td><td>/{inputId}</td><td>Update input</td><td>200</td></tr>
+<tr><td>PUT</td><td>/{inputId}/stock</td><td>Update stock only</td><td>200</td></tr>
+<tr><td>DELETE</td><td>/{inputId}</td><td>Delete input</td><td>200</td></tr>
+</table>
+<h4>Requests — base <code>/agriLink/procurementManagement/input-requests</code></h4>
+<table>
+<tr><th>Method</th><th>Path</th><th>Action</th><th>Success</th></tr>
+<tr><td>GET</td><td>/</td><td>List all requests</td><td>200</td></tr>
+<tr><td>GET</td><td>/{requestId}</td><td>Get one request</td><td>200</td></tr>
+<tr><td>GET</td><td>/farmer/{farmerId}</td><td>By farmer</td><td>200</td></tr>
+<tr><td>GET</td><td>/status/{status}</td><td>By status</td><td>200</td></tr>
+<tr><td>GET</td><td>/centre/{centreId}</td><td>By centre</td><td>200</td></tr>
+<tr><td>POST</td><td>/</td><td>Submit request</td><td>201</td></tr>
+<tr><td>PUT</td><td>/{requestId}</td><td>Update request</td><td>200</td></tr>
+<tr><td>PUT</td><td>/{requestId}/approve</td><td>Approve</td><td>200</td></tr>
+<tr><td>PUT</td><td>/{requestId}/dispatch</td><td>Dispatch</td><td>200</td></tr>
+<tr><td>PUT</td><td>/{requestId}/deliver</td><td>Deliver</td><td>200</td></tr>
+<tr><td>PUT</td><td>/{requestId}/cancel</td><td>Cancel</td><td>200</td></tr>
+<tr><td>DELETE</td><td>/{requestId}</td><td>Delete request</td><td>200</td></tr>
+</table>
+</section>
+
+<!-- ===================== EXCEPTION ===================== -->
+<section class="page-break" id="exception">
+<h1>13. Exception Handling Layer</h1>
+<p>Instead of writing try/catch in every controller, all errors are handled in <b>one central place</b>.
+The service throws meaningful exceptions; this advice class translates each one into the right HTTP status.</p>
+
+<h3>13.1 Custom exceptions</h3>
+<pre><span class="kw">public class</span> ResourceNotFoundException <span class="kw">extends</span> RuntimeException {
+    <span class="kw">public</span> ResourceNotFoundException(String message) { <span class="kw">super</span>(message); }
+}
+<span class="kw">public class</span> StateConflictException <span class="kw">extends</span> RuntimeException {
+    <span class="kw">public</span> StateConflictException(String message) { <span class="kw">super</span>(message); }
+}</pre>
+<ul>
+<li>Both extend <code>RuntimeException</code> (unchecked) so they propagate without clutter in method signatures.</li>
+<li>They are <b>semantic</b>: their type alone tells the handler which HTTP status to map to.</li>
+</ul>
+
+<h3>13.2 <code>GlobalExceptionHandler</code></h3>
+<pre><span class="an">@RestControllerAdvice</span>(basePackages = <span class="st">"com.cts.agrilink.inputAndProcurementMangement"</span>)
+<span class="an">@Slf4j</span>
+<span class="kw">public class</span> GlobalExceptionHandler {
+
+    <span class="an">@ExceptionHandler</span>(ResourceNotFoundException.class)
+    <span class="kw">public</span> ResponseEntity&lt;MessageResponseDTO&gt; handleNotFound(ResourceNotFoundException ex) {
+        log.warn(<span class="st">"Resource not found: {}"</span>, ex.getMessage());
+        <span class="kw">return</span> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                             .body(<span class="kw">new</span> MessageResponseDTO(ex.getMessage()));
+    }
+    <span class="cm">// … handlers for validation (400), StateConflict (409), IllegalArgument (400),</span>
+    <span class="cm">// and a catch-all Exception (500) that logs the full stack trace.</span>
+}</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@RestControllerAdvice(basePackages=…)</td><td class="ex">A global handler applied to all controllers <b>in this module's package only</b> — scoping it avoids clashing with the user-management module's own handler.</td></tr>
+<tr><td class="cd">@ExceptionHandler(X.class)</td><td class="ex">"When any controller throws exception X, run this method instead of letting it crash to a default 500."</td></tr>
+<tr><td class="cd">log.warn / log.error</td><td class="ex">Each handler logs the problem (WARN for client errors, ERROR + stack trace for unexpected faults).</td></tr>
+<tr><td class="cd">ResponseEntity.status(...).body(...)</td><td class="ex">Returns a consistent JSON error shape (<code>MessageResponseDTO</code>) with the right status.</td></tr>
+</table>
+<table>
+<tr><th>Exception thrown by service</th><th>Mapped HTTP status</th><th>Meaning to client</th></tr>
+<tr><td><code>ResourceNotFoundException</code></td><td>404 Not Found</td><td>The ID you asked for doesn't exist.</td></tr>
+<tr><td><code>MethodArgumentNotValidException</code></td><td>400 Bad Request</td><td>Your JSON failed validation (collects all field messages).</td></tr>
+<tr><td><code>IllegalArgumentException</code></td><td>400 Bad Request</td><td>Invalid value (e.g. unknown category/status).</td></tr>
+<tr><td><code>StateConflictException</code></td><td>409 Conflict</td><td>Illegal workflow transition.</td></tr>
+<tr><td><code>Exception</code> (catch-all)</td><td>500 Internal Server Error</td><td>Unexpected fault — logged with stack trace.</td></tr>
+</table>
+</section>
+
+<!-- ===================== TESTS ===================== -->
+<section class="page-break" id="tests">
+<h1>14. Test Suite Explanation (109 tests)</h1>
+<p>The module is covered by <b>109 automated tests</b> organised as a classic <b>test pyramid</b>:
+many fast unit tests at the bottom, fewer slice tests in the middle, and a small number of full
+end-to-end tests at the top. Each layer is tested in isolation so a failure points to exactly one place.</p>
+
+<svg width="420" height="210" viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="210,10 250,70 170,70" fill="#c8e6c9" stroke="#1b5e20"/>
+  <text x="210" y="48" text-anchor="middle" font-size="9" font-weight="bold" fill="#1b5e20">E2E</text>
+  <text x="300" y="48" font-size="9" fill="#555">4 integration tests (@SpringBootTest + H2)</text>
+  <polygon points="170,70 250,70 290,130 130,130" fill="#a5d6a7" stroke="#1b5e20"/>
+  <text x="210" y="105" text-anchor="middle" font-size="9" font-weight="bold" fill="#1b5e20">Slice tests</text>
+  <text x="300" y="105" font-size="9" fill="#555">~38 controller (MockMvc) + ~29 repository (@DataJpaTest)</text>
+  <polygon points="130,130 290,130 330,195 90,195" fill="#81c784" stroke="#1b5e20"/>
+  <text x="210" y="168" text-anchor="middle" font-size="9" font-weight="bold" fill="#1b5e20">Unit tests</text>
+  <text x="340" y="168" font-size="9" fill="#555">38 service (Mockito)</text>
+</svg>
+
+<table>
+<tr><th>Test class</th><th>Type</th><th>Tooling</th><th>What it verifies</th><th>Tests</th></tr>
+<tr><td><code>AgriInputServiceTest</code></td><td>Unit</td><td>Mockito</td><td>Catalog business logic, repos mocked</td><td>15</td></tr>
+<tr><td><code>InputRequestServiceTest</code></td><td>Unit</td><td>Mockito</td><td>Workflow logic + state machine</td><td>23</td></tr>
+<tr><td><code>AgriInputControllerTest</code></td><td>Web slice</td><td>MockMvc</td><td>Catalog HTTP/JSON + status codes</td><td>~18</td></tr>
+<tr><td><code>InputRequestControllerTest</code></td><td>Web slice</td><td>MockMvc</td><td>Request HTTP/JSON + status codes</td><td>20</td></tr>
+<tr><td><code>AgriInputRepositoryTest</code></td><td>Persistence</td><td>@DataJpaTest + H2</td><td>Catalog queries on real DB</td><td>~11</td></tr>
+<tr><td><code>InputRequestRepositoryTest</code></td><td>Persistence</td><td>@DataJpaTest + H2</td><td>Derived queries on real DB</td><td>18</td></tr>
+<tr><td><code>InputProcurementIntegrationTest</code></td><td>End-to-end</td><td>@SpringBootTest + H2</td><td>Full stack, nothing mocked</td><td>4</td></tr>
+<tr><td><code>AgrilinkApplicationTests</code></td><td>Smoke</td><td>@SpringBootTest</td><td>Context loads</td><td>1</td></tr>
+</table>
+
+<h3>14.1 Unit tests (service layer) — Mockito</h3>
+<pre><span class="an">@ExtendWith</span>(MockitoExtension.class)
+<span class="kw">class</span> InputRequestServiceTest {
+    <span class="an">@Mock</span>  <span class="kw">private</span> InputRequestRepository inputRequestRepository;
+    <span class="an">@Mock</span>  <span class="kw">private</span> AgriInputRepository agriInputRepository;
+    <span class="an">@InjectMocks</span> <span class="kw">private</span> InputRequestService inputRequestService;
+}</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@ExtendWith(MockitoExtension.class)</td><td class="ex">Activates Mockito for JUnit 5 — processes the <code>@Mock</code>/<code>@InjectMocks</code> annotations.</td></tr>
+<tr><td class="cd">@Mock</td><td class="ex">Creates a <b>fake</b> repository. It does nothing until told (stubbed). No real database involved → fast.</td></tr>
+<tr><td class="cd">@InjectMocks</td><td class="ex">Creates the <b>real</b> service and injects the two fakes into it via the constructor.</td></tr>
+</table>
+<p>The three Mockito verbs used throughout:</p>
+<table>
+<tr><th>Pattern</th><th>Meaning</th></tr>
+<tr><td><code>when(repo.findById(1L)).thenReturn(Optional.of(req))</code></td><td><b>Stub</b> — "when this is called, return that".</td></tr>
+<tr><td><code>verify(repo).save(any())</code></td><td><b>Verify</b> — assert the service really called save.</td></tr>
+<tr><td><code>assertThatThrownBy(() -&gt; …).isInstanceOf(StateConflictException.class)</code></td><td><b>Assert</b> (AssertJ) — the right exception is thrown.</td></tr>
+</table>
+<p>The most important unit tests prove the <b>state machine</b> — both the legal move and the illegal one:</p>
+<table>
+<tr><th>Test name</th><th>What it proves</th></tr>
+<tr><td><code>approveRequest_requestedStatus_approvesSuccessfully</code></td><td>Requested → Approved works; sets approvedBy/price/centre.</td></tr>
+<tr><td><code>approveRequest_nonRequestedStatus_throwsStateConflictException</code></td><td>Approving an already-Approved request is rejected (409).</td></tr>
+<tr><td><code>dispatchRequest_nonApprovedStatus_throwsStateConflictException</code></td><td>Cannot dispatch before approval.</td></tr>
+<tr><td><code>cancelRequest_dispatchedStatus_throwsStateConflictException</code></td><td>Cannot cancel once dispatched.</td></tr>
+<tr><td><code>updateRequest_nullFields_doesNotOverwriteExistingValues</code></td><td>Partial update only changes provided fields.</td></tr>
+</table>
+
+<h3>14.2 Controller slice tests — MockMvc</h3>
+<pre>mockMvc = MockMvcBuilders.standaloneSetup(inputRequestController)
+        .setControllerAdvice(<span class="kw">new</span> GlobalExceptionHandler())
+        .build();</pre>
+<ul>
+<li>Spins up <b>only the controller</b> (no Tomcat, no DB) and wires in the real exception handler — so the
+HTTP contract (status code + JSON body) is verified, with the service mocked.</li>
+<li><code>mockMvc.perform(post(...)).andExpect(status().isCreated())</code> simulates an HTTP request and asserts on the response.</li>
+<li><code>jsonPath("$.message").value("…")</code> asserts the JSON body content.</li>
+</ul>
+<table>
+<tr><th>Test</th><th>Asserts</th></tr>
+<tr><td><code>submitRequest_validDto_returns201</code></td><td>Valid create → 201 Created.</td></tr>
+<tr><td><code>submitRequest_missingFarmerId_returns400</code></td><td><code>@Valid</code> rejects null farmerId → 400.</td></tr>
+<tr><td><code>getRequestById_nonExistingId_returns404</code></td><td>ResourceNotFound → 404.</td></tr>
+<tr><td><code>approveRequest_invalidTransition_returns409</code></td><td>StateConflict → 409.</td></tr>
+</table>
+
+<h3>14.3 Repository slice tests — <code>@DataJpaTest</code> + H2</h3>
+<pre><span class="an">@DataJpaTest</span>
+<span class="an">@ActiveProfiles</span>(<span class="st">"test"</span>)
+<span class="kw">class</span> InputRequestRepositoryTest { … }</pre>
+<table class="lines">
+<tr><th>Element</th><th>Explanation</th></tr>
+<tr><td class="cd">@DataJpaTest</td><td class="ex">Loads <b>only</b> the JPA layer (entities + repositories), not the whole app. Fast and focused.</td></tr>
+<tr><td class="cd">@ActiveProfiles("test")</td><td class="ex">Activates <code>application-test.properties</code> → uses an <b>in-memory H2</b> database with <code>ddl-auto=create-drop</code>, so every run starts with a fresh schema. No MySQL needed.</td></tr>
+<tr><td class="cd">@BeforeEach setUp()</td><td class="ex">Seeds 4 known rows (farmers 100–102 across centres 5/6, various statuses) so each query has a predictable expected result.</td></tr>
+</table>
+<p>These confirm that the <b>derived query method names actually generate correct SQL</b>:
+<code>findByFarmerId(100L)</code> → 2 rows, <code>findByAssignedCentreId(5L)</code> → 3 rows,
+<code>findByStatusIgnoreCase("Delivered")</code> → the right row, and that <code>save()</code> both
+inserts (auto-generates the ID) and updates existing rows.</p>
+
+<h3>14.4 End-to-end integration test — <code>InputProcurementIntegrationTest</code> (new)</h3>
+<p>This is the top of the pyramid: <b>@SpringBootTest</b> loads the <b>entire</b> application context and
+drives requests through the <b>full real stack</b> — HTTP → Controller → Service → Repository → H2 —
+with <b>nothing mocked</b>. It proves the layers actually wire together.</p>
+<pre><span class="an">@SpringBootTest</span>
+<span class="an">@ActiveProfiles</span>(<span class="st">"test"</span>)
+<span class="kw">class</span> InputProcurementIntegrationTest {
+    mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    <span class="cm">// seed a catalog item, then exercise the workflow over real HTTP + DB</span>
+}</pre>
+<table>
+<tr><th>Test</th><th>What it does end-to-end</th></tr>
+<tr><td><code>fullLifecycle_submitApproveDispatchDeliver_persistsEachTransition</code></td><td>Submits a request, then approves → dispatches → delivers it over HTTP, asserting after each step that the <b>status is really persisted</b> in the database; finally reads it back via the API and confirms <code>Delivered</code>.</td></tr>
+<tr><td><code>illegalTransition_dispatchWhileRequested_returns409_andStatusUnchanged</code></td><td>Tries to dispatch a brand-new request (skipping approval) → 409, and verifies the row is <b>still "Requested"</b> — the state machine protected the data.</td></tr>
+<tr><td><code>submitForUnknownInput_returns404</code></td><td>Submitting a request for a non-existent catalog item → 404, and <b>no row</b> is created.</td></tr>
+<tr><td><code>catalogCreatedViaApi_isQueryableViaApi</code></td><td>Creates a catalog item through <code>POST /inputs</code>, then reads it back through <code>GET /inputs/category/…</code> — proving write-then-read works across the full stack.</td></tr>
+</table>
+
+<div class="callout"><b>Why this matters in an interview:</b> "My unit tests are fast and pinpoint logic bugs;
+my slice tests lock the HTTP contract and the SQL; and my end-to-end test proves the whole stack works
+together against a real (in-memory) database. That's the test pyramid — fast feedback at the bottom,
+high confidence at the top."</div>
+
+<h3>14.5 How to run the suite (regression testing)</h3>
+<pre>mvnw -o test                       <span class="cm"># run all 109 tests offline</span>
+mvnw -o test -Dtest=InputRequestServiceTest          <span class="cm"># one class</span>
+mvnw -o test -Dtest=InputRequestServiceTest#approveRequest_requestedStatus_approvesSuccessfully</pre>
+<p class="small">Every test must stay green after a change — that is regression testing. When a bug is fixed,
+a new test is added first so the bug can never silently return.</p>
+</section>
+
+<!-- ===================== Q&A ===================== -->
+<section class="page-break" id="qa">
+<h1>15. Interview Talking Points &amp; Q&amp;A</h1>
+
+<h3>Architecture &amp; design</h3>
+<table>
+<tr><th>Question</th><th>Strong answer</th></tr>
+<tr><td>Walk me through your architecture.</td><td>Classic Spring layered design: Controller (HTTP) → Service (business logic) → Repository (persistence) → MySQL. DTOs cross the API boundary; entities map to tables; a global advice handles exceptions; SLF4J logs across layers.</td></tr>
+<tr><td>Why separate DTOs from entities?</td><td>To decouple the API contract from the DB schema, validate input precisely, avoid over-exposing fields, and prevent accidental persistence of client data.</td></tr>
+<tr><td>What is dependency injection here?</td><td>Constructor injection via Lombok's <code>@RequiredArgsConstructor</code> on <code>final</code> fields — Spring supplies the repositories. Improves testability (easy to mock) and immutability.</td></tr>
+<tr><td>How do you enforce business rules?</td><td>In the service layer. e.g. a request can only be approved from "Requested"; illegal transitions throw <code>StateConflictException</code> → 409. The state machine lives in one place.</td></tr>
+</table>
+
+<h3>Persistence</h3>
+<table>
+<tr><th>Question</th><th>Strong answer</th></tr>
+<tr><td>How do repositories work without code?</td><td>Spring Data JPA generates implementations at runtime; derived query methods like <code>findByStatusIgnoreCase</code> are parsed into SQL from the method name.</td></tr>
+<tr><td>save() — insert or update?</td><td>If the entity has no ID (new) → INSERT; if it has an existing ID → UPDATE. Hibernate decides.</td></tr>
+<tr><td>What does <code>ddl.auto=update</code> do?</td><td>Hibernate creates/alters tables to match entities on startup but never drops. In production I'd use <code>validate</code> + a migration tool (Flyway/Liquibase).</td></tr>
+</table>
+
+<h3>Validation, errors &amp; logging</h3>
+<table>
+<tr><th>Question</th><th>Strong answer</th></tr>
+<tr><td>How is input validated?</td><td>Jakarta Bean Validation annotations on DTOs (<code>@NotNull</code>, <code>@Positive</code>…), triggered by <code>@Valid</code> in the controller; failures become 400 via the global handler.</td></tr>
+<tr><td>Why centralised exception handling?</td><td><code>@RestControllerAdvice</code> keeps controllers clean and guarantees consistent error responses and status codes across the whole module.</td></tr>
+<tr><td>Why SLF4J not System.out?</td><td>SLF4J is a facade (swappable backend = Logback); supports levels, timestamps, file rotation, and per-package configuration — none of which println offers.</td></tr>
+<tr><td>What would you improve?</td><td>Add service-layer <code>@Transactional</code>, replace String status with an <code>enum</code>, add pagination to list endpoints, use Flyway for schema, and add real foreign keys / auth.</td></tr>
+</table>
+
+<div class="callout"><b>Closing summary to memorise:</b> "AgriLink's procurement module is a layered Spring Boot REST
+service. Controllers handle HTTP and validation, services own the business rules including a strict
+request lifecycle state machine, and Spring Data JPA repositories persist to MySQL. Cross-cutting
+concerns — DTO validation, centralised exception-to-HTTP mapping, and SLF4J logging — keep the code
+clean, consistent, and production-minded."</div>
+
+<p class="center small" style="margin-top:30px;">— End of document — &nbsp;|&nbsp; AgriLink Input &amp; Procurement Management Module</p>
+</section>
+</body>
+</html>
