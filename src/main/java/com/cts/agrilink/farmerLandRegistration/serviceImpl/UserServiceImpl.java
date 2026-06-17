@@ -2,12 +2,14 @@ package com.cts.agrilink.farmerLandRegistration.serviceImpl;
 
 import com.cts.agrilink.farmerLandRegistration.dto.ApiResponseDTO;
 import com.cts.agrilink.farmerLandRegistration.dto.UserRequestDTO;
+import com.cts.agrilink.farmerLandRegistration.model.Role;
 import com.cts.agrilink.farmerLandRegistration.model.User;
 import com.cts.agrilink.farmerLandRegistration.service.UserService;
 import com.cts.agrilink.farmerLandRegistration.repository.FarmerProfileRepository;
 import com.cts.agrilink.farmerLandRegistration.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private FarmerProfileRepository farmerProfileRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User createUser(UserRequestDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
@@ -30,7 +35,8 @@ public class UserServiceImpl implements UserService {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .phone(dto.getPhone())
-                .passwordHash(dto.getPasswordHash())
+                .passwordHash(passwordEncoder.encode(dto.getPasswordHash()))
+                .role(dto.getRole() != null ? Role.valueOf(dto.getRole()) : Role.FARMER)
                 .status(dto.getStatus() != null
                         ? User.UserStatus.valueOf(dto.getStatus())
                         : User.UserStatus.Active)

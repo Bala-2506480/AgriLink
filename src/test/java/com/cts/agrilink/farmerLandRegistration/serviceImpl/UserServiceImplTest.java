@@ -3,6 +3,7 @@ package com.cts.agrilink.farmerLandRegistration.serviceImpl;
 import com.cts.agrilink.farmerLandRegistration.dto.ApiResponseDTO;
 import com.cts.agrilink.farmerLandRegistration.dto.UserRequestDTO;
 import com.cts.agrilink.farmerLandRegistration.model.FarmerProfile;
+import com.cts.agrilink.farmerLandRegistration.model.Role;
 import com.cts.agrilink.farmerLandRegistration.model.User;
 import com.cts.agrilink.farmerLandRegistration.repository.FarmerProfileRepository;
 import com.cts.agrilink.farmerLandRegistration.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
@@ -27,6 +29,7 @@ class UserServiceImplTest {
 
     @Mock UserRepository userRepository;
     @Mock FarmerProfileRepository farmerProfileRepository;
+    @Mock PasswordEncoder passwordEncoder;
     @InjectMocks UserServiceImpl userService;
 
     private User mockUser;
@@ -36,7 +39,7 @@ class UserServiceImplTest {
     void setUp() {
         mockUser = User.builder().userId(1L).name("Ravi").email("ravi@example.com")
                 .phone("9876543210").passwordHash("hash123")
-                .status(User.UserStatus.Active).build();
+                .status(User.UserStatus.Active).role(Role.FARMER).build();
 
         mockDTO = new UserRequestDTO();
         mockDTO.setName("Ravi"); mockDTO.setEmail("ravi@example.com");
@@ -47,6 +50,7 @@ class UserServiceImplTest {
     @Test
     void createUser_Success() {
         when(userRepository.existsByEmail("ravi@example.com")).thenReturn(false);
+        when(passwordEncoder.encode(any())).thenReturn("hashedpassword");
         when(userRepository.save(any())).thenReturn(mockUser);
         assertNotNull(userService.createUser(mockDTO));
     }

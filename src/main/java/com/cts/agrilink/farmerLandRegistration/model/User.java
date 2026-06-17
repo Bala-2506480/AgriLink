@@ -1,5 +1,6 @@
 package com.cts.agrilink.farmerLandRegistration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,12 +36,17 @@ public class User {
     @Column(length = 15)
     private String phone;
 
+    @JsonIgnore
     @Column(nullable = false, length = 255)
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status = UserStatus.Active;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.FARMER;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

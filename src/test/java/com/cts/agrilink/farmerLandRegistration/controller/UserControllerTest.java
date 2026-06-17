@@ -2,7 +2,10 @@ package com.cts.agrilink.farmerLandRegistration.controller;
 
 import com.cts.agrilink.farmerLandRegistration.dto.ApiResponseDTO;
 import com.cts.agrilink.farmerLandRegistration.dto.UserRequestDTO;
+import com.cts.agrilink.farmerLandRegistration.model.Role;
 import com.cts.agrilink.farmerLandRegistration.model.User;
+import com.cts.agrilink.farmerLandRegistration.security.CustomUserDetailsService;
+import com.cts.agrilink.farmerLandRegistration.security.JwtUtil;
 import com.cts.agrilink.farmerLandRegistration.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +15,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,6 +30,8 @@ class UserControllerTest {
 
     @Autowired MockMvc mockMvc;
     @MockBean UserService userService;
+    @MockBean JwtUtil jwtUtil;
+    @MockBean CustomUserDetailsService customUserDetailsService; // ADDED
     @Autowired ObjectMapper objectMapper;
 
     private User mockUser;
@@ -33,75 +40,77 @@ class UserControllerTest {
     @BeforeEach
     void setUp() {
         mockUser = User.builder().userId(1L).name("Ravi").email("ravi@example.com")
-                .phone("9876543210").passwordHash("hash123").status(User.UserStatus.Active).build();
+                .phone("9876543210").passwordHash("hash123")
+                .status(User.UserStatus.Active).role(Role.FARMER).build();
 
         mockDTO = new UserRequestDTO();
         mockDTO.setName("Ravi"); mockDTO.setEmail("ravi@example.com");
         mockDTO.setPhone("9876543210"); mockDTO.setPasswordHash("hash123"); mockDTO.setStatus("Active");
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void createUser_Returns201() throws Exception {
         when(userService.createUser(any())).thenReturn(mockUser);
-        mockMvc.perform(post("/farmerLandRegistration/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
+        mockMvc.perform(post("/farmerLandRegistration/createUser").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value("User created successfully"));
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void createUser_MissingName_Returns400() throws Exception {
         mockDTO.setName("");
-        mockMvc.perform(post("/farmerLandRegistration/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
+        mockMvc.perform(post("/farmerLandRegistration/createUser").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void createUser_DuplicateEmail_Returns409() throws Exception {
         when(userService.createUser(any()))
                 .thenThrow(new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered"));
-        mockMvc.perform(post("/farmerLandRegistration/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
+        mockMvc.perform(post("/farmerLandRegistration/createUser").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
                 .andExpect(status().isConflict());
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void updateUser_Returns200() throws Exception {
         when(userService.updateUser(eq(1L), any())).thenReturn(mockUser);
-        mockMvc.perform(put("/farmerLandRegistration/updateUser/1")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.message").value("User updated successfully"));
+        mockMvc.perform(put("/farmerLandRegistration/updateUser/1").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("User updated successfully"));
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void updateUser_NotFound_Returns404() throws Exception {
         when(userService.updateUser(eq(99L), any()))
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        mockMvc.perform(put("/farmerLandRegistration/updateUser/99")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
+        mockMvc.perform(put("/farmerLandRegistration/updateUser/99").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(mockDTO)))
                 .andExpect(status().isNotFound());
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void deleteUser_Returns204() throws Exception {
         when(userService.deleteUser(1L)).thenReturn(new ApiResponseDTO("User deleted successfully"));
-        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1"))
+        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1").with(csrf()))
                 .andExpect(status().isNoContent());
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void deleteUser_LinkedRecords_Returns409() throws Exception {
         when(userService.deleteUser(1L))
                 .thenThrow(new ResponseStatusException(HttpStatus.CONFLICT, "User cannot be deleted, linked records exist"));
-        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1"))
+        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1").with(csrf()))
                 .andExpect(status().isConflict());
     }
 
-    @Test
+    @Test @WithMockUser(roles = "ADMIN")
     void softDeleteUser_Returns200() throws Exception {
         when(userService.softDeleteUser(1L)).thenReturn(new ApiResponseDTO("User deactivated successfully"));
-        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1/soft"))
+        mockMvc.perform(delete("/farmerLandRegistration/deleteUser/1/soft").with(csrf()))
                 .andExpect(status().isOk());
     }
 }

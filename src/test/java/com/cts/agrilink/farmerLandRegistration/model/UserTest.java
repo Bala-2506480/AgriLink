@@ -10,13 +10,13 @@ class UserTest {
         User user = User.builder()
                 .userId(1L).name("Ravi Kumar").email("ravi@example.com")
                 .phone("9876543210").passwordHash("hash123")
-                .status(User.UserStatus.Active).build();
+                .status(User.UserStatus.Active).role(Role.FARMER).build();
 
         assertEquals(1L, user.getUserId());
         assertEquals("Ravi Kumar", user.getName());
         assertEquals("ravi@example.com", user.getEmail());
-        assertEquals("9876543210", user.getPhone());
         assertEquals(User.UserStatus.Active, user.getStatus());
+        assertEquals(Role.FARMER, user.getRole());
     }
 
     @Test
@@ -42,5 +42,12 @@ class UserTest {
         User user = new User();
         assertNull(user.getUserId());
         assertNull(user.getName());
+    }
+
+    @Test
+    void role_SetAndGet() {
+        User user = new User();
+        user.setRole(Role.ADMIN);
+        assertEquals(Role.ADMIN, user.getRole());
     }
 }

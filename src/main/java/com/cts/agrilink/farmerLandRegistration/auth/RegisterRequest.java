@@ -1,4 +1,4 @@
-package com.cts.agrilink.farmerLandRegistration.dto;
+package com.cts.agrilink.farmerLandRegistration.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserRequestDTO {
+public class RegisterRequest {
 
     @NotBlank(message = "Name is mandatory")
     @Size(max = 150)
@@ -21,10 +21,8 @@ public class UserRequestDTO {
     private String phone;
 
     @NotBlank(message = "Password is mandatory")
-    private String passwordHash;
+    private String password;
 
-    private String status;
-
-    // "ADMIN" or "FARMER" — defaults to FARMER in service
+    // "ADMIN" or "FARMER" — defaults to FARMER
     private String role;
 }

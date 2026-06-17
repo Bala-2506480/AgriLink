@@ -9,7 +9,7 @@ class FarmerProfileTest {
     @Test
     void builder_SetsAllFields() {
         User user = User.builder().userId(1L).name("Ravi").email("r@e.com")
-                .status(User.UserStatus.Active).build();
+                .status(User.UserStatus.Active).role(Role.FARMER).build();
 
         FarmerProfile farmer = FarmerProfile.builder()
                 .farmerId(1L).user(user).name("Ravi Kumar")
