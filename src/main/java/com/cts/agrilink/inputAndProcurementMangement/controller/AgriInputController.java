@@ -8,6 +8,7 @@ import com.cts.agrilink.inputAndProcurementMangement.model.AgriInput;
 import com.cts.agrilink.inputAndProcurementMangement.service.AgriInputService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/agriLink/procurementManagement/inputs")
+@Slf4j
 @RequiredArgsConstructor
 public class AgriInputController {
 
@@ -24,6 +26,7 @@ public class AgriInputController {
     // GET - Section 1, Endpoint #1
     @GetMapping
     public ResponseEntity<List<AgriInput>> getAllInputs() {
+
         return ResponseEntity.ok(agriInputService.getAllInputs());
     }
 
@@ -48,6 +51,7 @@ public class AgriInputController {
     // POST - Section 1, Endpoint #5
     @PostMapping
     public ResponseEntity<MessageResponseDTO> addInput(@Valid @RequestBody AgriInputRequestDTO dto) {
+        log.info("POST /inputs - add input '{}'", dto.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(agriInputService.addInput(dto));
     }
 
@@ -55,6 +59,7 @@ public class AgriInputController {
     @PutMapping("/{inputId}")
     public ResponseEntity<MessageResponseDTO> updateInput(@PathVariable Long inputId,
                                                           @Valid @RequestBody UpdateInputDTO dto) {
+        log.info("PUT /inputs/{} - update input", inputId);
         return ResponseEntity.ok(agriInputService.updateInput(inputId, dto));
     }
 
@@ -62,12 +67,14 @@ public class AgriInputController {
     @PutMapping("/{inputId}/stock")
     public ResponseEntity<MessageResponseDTO> updateStock(@PathVariable Long inputId,
                                                           @Valid @RequestBody UpdateStockDTO dto) {
+        log.info("PUT /inputs/{}/stock - update stock", inputId);
         return ResponseEntity.ok(agriInputService.updateStock(inputId, dto));
     }
 
     // DELETE - Section 1, Endpoint #8
     @DeleteMapping("/{inputId}")
     public ResponseEntity<MessageResponseDTO> deleteInput(@PathVariable Long inputId) {
+        log.info("DELETE /inputs/{}", inputId);
         return ResponseEntity.ok(agriInputService.deleteInput(inputId));
     }
 }

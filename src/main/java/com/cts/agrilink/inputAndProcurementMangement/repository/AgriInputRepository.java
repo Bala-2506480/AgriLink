@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface AgriInputRepository extends JpaRepository<AgriInput, Long> {
-    List<AgriInput> findByCategory(String category);
-    List<AgriInput> findByStatus(String status);
+    List<AgriInput> findByCategoryIgnoreCase(String category);
+    List<AgriInput> findByStatusIgnoreCase(String status);
 }

@@ -10,5 +10,4 @@ public class AgrilinkApplication {
 
 		SpringApplication.run(AgrilinkApplication.class, args);
 	}
-
 }
