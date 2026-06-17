@@ -25,14 +25,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'microsoft'
+          distribution: 'temurin'   # CHANGED from 'microsoft' to 'temurin'
           cache: maven
-
-      - name: Fix SSL trust store
-        run: |
-          JAVA_SEC=$JAVA_HOME/conf/security/java.security
-          sudo sed -i 's/^securerandom.source=.*/securerandom.source=file:\/dev\/urandom/' $JAVA_SEC || true
-          sudo update-ca-certificates --fresh || true
 
       - name: Make mvnw executable
         run: chmod +x mvnw
@@ -61,7 +55,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'microsoft'
+          distribution: 'temurin'   # CHANGED from 'microsoft' to 'temurin'
           cache: maven
 
       - name: Make mvnw executable
