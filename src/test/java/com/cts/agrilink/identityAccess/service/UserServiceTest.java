@@ -1,7 +1,7 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.exception.ForbiddenException;
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ForbiddenException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;

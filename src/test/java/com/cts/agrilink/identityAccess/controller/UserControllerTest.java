@@ -1,8 +1,8 @@
 package com.cts.agrilink.identityAccess.controller;
 
-import com.cts.agrilink.exception.ForbiddenException;
-import com.cts.agrilink.exception.GlobalExceptionHandler;
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ForbiddenException;
+import com.cts.agrilink.identityAccess.exception.GlobalExceptionHandler;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.UserResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.model.UserRole;

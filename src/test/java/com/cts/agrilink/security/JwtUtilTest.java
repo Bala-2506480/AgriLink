@@ -43,9 +43,9 @@ class JwtUtilTest {
     }
 
     @Test
-    void extractRoleId() {
+    void extractRoleName() {
         String token = jwtUtil.generateAccessToken(user());
-        assertEquals(3, jwtUtil.extractRoleId(token));
+        assertEquals("Farmer", jwtUtil.extractRoleName(token));
     }
 
     @Test

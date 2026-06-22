@@ -1,4 +1,4 @@
-package com.cts.agrilink.exception;
+package com.cts.agrilink.identityAccess.exception;
 
 /**
  * Thrown when an authenticated caller is not allowed to perform an action

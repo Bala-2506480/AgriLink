@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.CreateRoleRequestDto;
 import com.cts.agrilink.identityAccess.dto.RoleResponseDto;
 import com.cts.agrilink.identityAccess.dto.UpdateRoleRequestDto;

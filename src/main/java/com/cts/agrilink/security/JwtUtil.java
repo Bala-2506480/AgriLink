@@ -27,7 +27,7 @@ public class JwtUtil {
     public String generateAccessToken(UserDetails user) {
         return Jwts.builder()
                 .subject(String.valueOf(user.getUserId()))          // sub = userId
-                .claim("roleId",   user.getRole().getRoleId())      // for RBAC checks
+                .claim("roleName", user.getRole().getRoleName())    // for RBAC checks
                 .claim("regionId", user.getRegionId())              // for data scoping
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpiryMs))
@@ -48,8 +48,8 @@ public class JwtUtil {
         return Integer.parseInt(extractAllClaims(token).getSubject());
     }
 
-    public Integer extractRoleId(String token) {
-        return extractAllClaims(token).get("roleId", Integer.class);
+    public String extractRoleName(String token) {
+        return extractAllClaims(token).get("roleName", String.class);
     }
 
     public Integer extractRegionId(String token) {
