@@ -1,23 +1,13 @@
 package com.cts.agrilink.farmerLandRegistration.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "farmer_profile",
-        indexes = {
-                @Index(name = "idxFpUserId", columnList = "userId"),
-                @Index(name = "idxFpStatus", columnList = "status")
-        })
-@Getter
-@Setter
+@Table(name = "farmer_profile")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,58 +15,62 @@ public class FarmerProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "farmerId")
     private Long farmerId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false,
-            foreignKey = @ForeignKey(name = "fkFpUser"))
-    private User user;
+    @Column(name = "userId", nullable = false)
+    private Integer userId;
 
-    @Column(nullable = false, length = 150)
+    @Column(name = "name", nullable = false, length = 150)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "dateOfBirth", nullable = false)
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "gender", nullable = false)
     private Gender gender;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "nationalIdNumber", nullable = false, unique = true, length = 50)
     private String nationalIdNumber;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "village", nullable = false, length = 100)
     private String village;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "district", nullable = false, length = 100)
     private String district;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "state", nullable = false, length = 100)
     private String state;
 
-    @Column(nullable = false, length = 15)
+    @Column(name = "phone", nullable = false, length = 15)
     private String phone;
 
-    @Column(length = 30)
+    @Column(name = "bankAccountNumber", length = 30)
     private String bankAccountNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FarmerStatus status = FarmerStatus.Active;
+    @Column(name = "status", nullable = false)
+    @Builder.Default
+    private Status status = Status.Active;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(nullable = false)
+    @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
-    public enum Gender {
-        Male, Female, Other
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public enum FarmerStatus {
-        Active, Inactive, Verified
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
+
+    public enum Gender { Male, Female, Other }
+    public enum Status { Active, Inactive, Verified }
 }
