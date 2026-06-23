@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.CreateRoleRequestDto;
 import com.cts.agrilink.identityAccess.dto.RoleResponseDto;
 import com.cts.agrilink.identityAccess.dto.UpdateRoleRequestDto;
@@ -49,7 +49,7 @@ class RoleServiceTest {
         RoleResponseDto res = roleService.createRole(createDto("Auditor"));
 
         assertEquals("Auditor", res.getRoleName());
-        assertEquals("ACTIVE", res.getStatus());
+        assertEquals("A", res.getStatus());
         verify(userRoleRepository).save(any(UserRole.class));
     }
 
@@ -57,7 +57,7 @@ class RoleServiceTest {
     @DisplayName("createRole: duplicate role name -> IllegalStateException")
     void createRole_duplicate() {
         when(userRoleRepository.findByRoleName("Farmer"))
-                .thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.ACTIVE)));
+                .thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.A)));
 
         assertThrows(IllegalStateException.class, () -> roleService.createRole(createDto("Farmer")));
         verify(userRoleRepository, never()).save(any());
@@ -70,20 +70,20 @@ class RoleServiceTest {
         ArgumentCaptor<UserRole> cap = ArgumentCaptor.forClass(UserRole.class);
         roleService.createRole(createDto("Auditor"));
         verify(userRoleRepository).save(cap.capture());
-        assertEquals(UserRole.Status.ACTIVE, cap.getValue().getStatus());
+        assertEquals(UserRole.Status.A, cap.getValue().getStatus());
     }
 
     // ════════════════════════════════ read ═══════════════════════════════════
     @Test
     void getAllRoles() {
         when(userRoleRepository.findAll()).thenReturn(List.of(
-                role(1, "AgriLinkAdmin", UserRole.Status.ACTIVE),
-                role(6, "Farmer", UserRole.Status.ACTIVE)));
+                role(1, "AgriLinkAdmin", UserRole.Status.A),
+                role(6, "Farmer", UserRole.Status.A)));
 
         List<RoleResponseDto> res = roleService.getAllRoles();
 
         assertEquals(2, res.size());
-        assertEquals("AgriLinkAdmin", res.getFirst().getRoleName());
+        assertEquals("AgriLinkAdmin", res.get(0).getRoleName());
     }
 
     @Test
@@ -94,7 +94,7 @@ class RoleServiceTest {
 
     @Test
     void getRole_success() {
-        when(userRoleRepository.findById(6)).thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.ACTIVE)));
+        when(userRoleRepository.findById(6)).thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.A)));
 
         RoleResponseDto res = roleService.getRole(6);
 
@@ -111,7 +111,7 @@ class RoleServiceTest {
     // ════════════════════════════════ updateRole ════════════════════════════
     @Test
     void updateRole_name_success() {
-        UserRole r = role(7, "Old", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Old", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
         when(userRoleRepository.findByRoleName("New")).thenReturn(Optional.empty());
         UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setRoleName("New");
@@ -125,10 +125,10 @@ class RoleServiceTest {
     @Test
     @DisplayName("updateRole: rename collision with another role -> IllegalStateException")
     void updateRole_duplicateName() {
-        UserRole r = role(7, "Old", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Old", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
         when(userRoleRepository.findByRoleName("Farmer"))
-                .thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.ACTIVE)));
+                .thenReturn(Optional.of(role(6, "Farmer", UserRole.Status.A)));
         UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setRoleName("Farmer");
 
         assertThrows(IllegalStateException.class, () -> roleService.updateRole(7, d));
@@ -137,7 +137,7 @@ class RoleServiceTest {
     @Test
     @DisplayName("updateRole: renaming to its own current name is allowed")
     void updateRole_sameNameNoConflict() {
-        UserRole r = role(7, "Coordinator", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Coordinator", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
         when(userRoleRepository.findByRoleName("Coordinator")).thenReturn(Optional.of(r));
         UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setRoleName("Coordinator");
@@ -148,7 +148,7 @@ class RoleServiceTest {
 
     @Test
     void updateRole_description() {
-        UserRole r = role(7, "Coordinator", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Coordinator", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
         UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setDescription("updated");
 
@@ -158,12 +158,12 @@ class RoleServiceTest {
 
     @Test
     void updateRole_statusToInactive() {
-        UserRole r = role(7, "Coordinator", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Coordinator", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
-        UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setStatus("INACTIVE");
+        UpdateRoleRequestDto d = new UpdateRoleRequestDto(); d.setStatus("I");
 
         roleService.updateRole(7, d);
-        assertEquals(UserRole.Status.INACTIVE, r.getStatus());
+        assertEquals(UserRole.Status.I, r.getStatus());
     }
 
     @Test
@@ -176,7 +176,7 @@ class RoleServiceTest {
     // ════════════════════════════════ deleteRole ════════════════════════════
     @Test
     void deleteRole_success_whenNoUsersAssigned() {
-        UserRole r = role(7, "Coordinator", UserRole.Status.ACTIVE);
+        UserRole r = role(7, "Coordinator", UserRole.Status.A);
         when(userRoleRepository.findById(7)).thenReturn(Optional.of(r));
         when(userDetailsRepository.existsByRole_RoleId(7)).thenReturn(false);
 
@@ -188,7 +188,7 @@ class RoleServiceTest {
     @Test
     @DisplayName("deleteRole: role with assigned users -> IllegalStateException, not deleted")
     void deleteRole_blockedWhenUsersAssigned() {
-        UserRole r = role(6, "Farmer", UserRole.Status.ACTIVE);
+        UserRole r = role(6, "Farmer", UserRole.Status.A);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(r));
         when(userDetailsRepository.existsByRole_RoleId(6)).thenReturn(true);
 

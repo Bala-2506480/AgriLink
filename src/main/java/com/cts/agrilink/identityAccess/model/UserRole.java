@@ -24,11 +24,8 @@ public class UserRole {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default
-    private Status status = Status.ACTIVE;
+    private Status status = Status.A;
 
-
-    public enum Status {
-        ACTIVE,
-        INACTIVE
-    }
+    // A = Active, I = Inactive
+    public enum Status { A, I }
 }

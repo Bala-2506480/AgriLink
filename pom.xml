@@ -47,13 +47,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+
+
+		<!-- spring-boot-devtools removed to avoid RestartClassLoader startup issues during manual java runs -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
@@ -103,6 +103,7 @@
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
+			
 	</dependencies>
 
 	<build>

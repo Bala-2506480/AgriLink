@@ -1,8 +1,8 @@
 package com.cts.agrilink.identityAccess.controller;
 
-import com.cts.agrilink.exception.ForbiddenException;
-import com.cts.agrilink.exception.GlobalExceptionHandler;
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ForbiddenException;
+import com.cts.agrilink.identityAccess.exception.GlobalExceptionHandler;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.UserResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.model.UserRole;
@@ -35,7 +35,7 @@ class UserControllerTest {
     private final UserDetails admin = UserDetails.builder()
             .userId(1).email("admin@a.com")
             .role(UserRole.builder().roleId(1).roleName("AgriLinkAdmin").build())
-            .status(UserDetails.Status.ACTIVE).build();
+            .status(UserDetails.Status.A).build();
 
     @BeforeEach
     void setUp() {

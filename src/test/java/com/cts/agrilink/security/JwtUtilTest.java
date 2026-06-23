@@ -22,10 +22,10 @@ class JwtUtilTest {
     }
 
     private UserDetails user() {
-        UserRole role = UserRole.builder().roleId(3).roleName("Farmer").status(UserRole.Status.ACTIVE).build();
+        UserRole role = UserRole.builder().roleId(3).roleName("Farmer").status(UserRole.Status.A).build();
         return UserDetails.builder()
                 .userId(7).email("u@a.com").regionId(9).role(role)
-                .status(UserDetails.Status.ACTIVE).build();
+                .status(UserDetails.Status.A).build();
     }
 
     @Test
@@ -43,9 +43,9 @@ class JwtUtilTest {
     }
 
     @Test
-    void extractRoleId() {
+    void extractRoleName() {
         String token = jwtUtil.generateAccessToken(user());
-        assertEquals(3, jwtUtil.extractRoleId(token));
+        assertEquals("Farmer", jwtUtil.extractRoleName(token));
     }
 
     @Test

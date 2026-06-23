@@ -36,8 +36,7 @@ public class UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
-    private Status status = Status.ACTIVE;
+    private Status status = Status.A;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -47,9 +46,6 @@ public class UserDetails {
         this.createdAt = LocalDateTime.now();
     }
 
-    public enum Status {
-        ACTIVE,
-        INACTIVE,
-        SUSPENDED
-    }
+    // A = Active, I = Inactive, S = Suspended
+    public enum Status { A, I, S }
 }

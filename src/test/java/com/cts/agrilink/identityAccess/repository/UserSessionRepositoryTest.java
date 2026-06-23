@@ -23,11 +23,11 @@ class UserSessionRepositoryTest {
     @PersistenceContext private EntityManager em;
 
     private UserDetails persistUser(String email) {
-        UserRole role = UserRole.builder().roleName("ZZTEST_Role-" + email).status(UserRole.Status.ACTIVE).build();
+        UserRole role = UserRole.builder().roleName("ZZTEST_Role-" + email).status(UserRole.Status.A).build();
         em.persist(role);
         UserDetails u = UserDetails.builder()
                 .role(role).name("User").email(email).phone("9876543210")
-                .passwordHash("hash").regionId(1).status(UserDetails.Status.ACTIVE).build();
+                .passwordHash("hash").regionId(1).status(UserDetails.Status.A).build();
         em.persist(u);
         return u;
     }

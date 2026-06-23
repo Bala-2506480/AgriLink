@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.controller;
 
-import com.cts.agrilink.exception.GlobalExceptionHandler;
+import com.cts.agrilink.identityAccess.exception.GlobalExceptionHandler;
 import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.model.UserRole;
@@ -32,7 +32,7 @@ class SessionControllerTest {
     private final UserDetails user = UserDetails.builder()
             .userId(1).email("admin@a.com")
             .role(UserRole.builder().roleId(1).roleName("AgriLinkAdmin").build())
-            .status(UserDetails.Status.ACTIVE).build();
+            .status(UserDetails.Status.A).build();
 
     @BeforeEach
     void setUp() {

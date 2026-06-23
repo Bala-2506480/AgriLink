@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.CreateRoleRequestDto;
 import com.cts.agrilink.identityAccess.dto.RoleResponseDto;
 import com.cts.agrilink.identityAccess.dto.UpdateRoleRequestDto;
@@ -31,7 +31,7 @@ public class RoleService {
         UserRole role = UserRole.builder()
                 .roleName(dto.getRoleName())
                 .description(dto.getDescription())
-                .status(UserRole.Status.ACTIVE)
+                .status(UserRole.Status.A)
                 .build();
 
         userRoleRepository.save(role);

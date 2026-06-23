@@ -1,6 +1,5 @@
 package com.cts.agrilink.security;
 
-import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.repository.UserDetailsRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -50,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // Only set auth if not already authenticated
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var userOpt = userDetailsRepository.findById(userId);
-            if (userOpt.isPresent() && userOpt.get().getStatus() == UserDetails.Status.ACTIVE) {
+            if (userOpt.isPresent() && userOpt.get().getStatus() == com.cts.agrilink.identityAccess.model.UserDetails.Status.A) {
                 var auth = new UsernamePasswordAuthenticationToken(
                         userOpt.get(),
                         null,

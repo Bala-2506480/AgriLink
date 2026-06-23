@@ -1,29 +1,6 @@
 package com.cts.agrilink.identityAccess.service;
 
 
-import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
-import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
-import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
-import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
-import com.cts.agrilink.identityAccess.dto.ResetPasswordRequestDto;
-import com.cts.agrilink.identityAccess.dto.UpdateUserRequestDto;
-import com.cts.agrilink.identityAccess.dto.UserResponseDto;
-import com.cts.agrilink.identityAccess.model.UserDetails;
-import com.cts.agrilink.identityAccess.model.UserRole;
-import com.cts.agrilink.identityAccess.model.UserSession;
-import com.cts.agrilink.exception.ForbiddenException;
-import com.cts.agrilink.exception.ResourceNotFoundException;
-import com.cts.agrilink.identityAccess.repository.UserDetailsRepository;
-import com.cts.agrilink.identityAccess.repository.UserRoleRepository;
-import com.cts.agrilink.identityAccess.repository.UserSessionRepository;
-import com.cts.agrilink.security.JwtUtil;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -31,6 +8,31 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
+import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
+import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
+import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
+import com.cts.agrilink.identityAccess.dto.ResetPasswordRequestDto;
+import com.cts.agrilink.identityAccess.dto.UpdateUserRequestDto;
+import com.cts.agrilink.identityAccess.dto.UserResponseDto;
+import com.cts.agrilink.identityAccess.exception.ForbiddenException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.model.UserDetails;
+import com.cts.agrilink.identityAccess.model.UserRole;
+import com.cts.agrilink.identityAccess.model.UserSession;
+import com.cts.agrilink.identityAccess.repository.UserDetailsRepository;
+import com.cts.agrilink.identityAccess.repository.UserRoleRepository;
+import com.cts.agrilink.identityAccess.repository.UserSessionRepository;
+import com.cts.agrilink.security.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +53,7 @@ public class UserService {
     private static final String ROLE_EXTENSION_OFFICER = "ExtensionOfficer";
     private static final String ROLE_FARMER            = "Farmer";
 
-    // ── 1. Create User ─────────────────────────────────────────────────────────
+    // Create User
     // AgriLinkAdmin may create any user; ExtensionOfficer may create Farmers only.
     @Transactional
     public UserResponseDto createUser(CreateUserRequestDto dto, UserDetails currentUser) {
@@ -65,7 +67,7 @@ public class UserService {
         UserRole role = userRoleRepository.findById(dto.getRoleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + dto.getRoleId()));
 
-        if (role.getStatus() == UserRole.Status.INACTIVE) {
+        if (role.getStatus() == UserRole.Status.I) {
             throw new IllegalStateException("Cannot assign an inactive role");
         }
 
@@ -83,8 +85,7 @@ public class UserService {
                 .phone(dto.getPhone())
                 .passwordHash(passwordEncoder.encode(dto.getPassword()))
                 .regionId(dto.getRegionId())
-                .status(UserDetails.Status.ACTIVE
-                )
+                .status(UserDetails.Status.A)
                 .build();
 
         userDetailsRepository.save(user);
@@ -92,19 +93,19 @@ public class UserService {
         return toResponseDto(user);
     }
 
-    // ── 1a. List all users (Admin only) ────────────────────────────────────────
+    //List all users (Admin only)
     public List<UserResponseDto> getAllUsers() {
         return userDetailsRepository.findAll().stream()
                 .map(this::toResponseDto)
                 .toList();
     }
 
-    // ── 1b. Get user by id (Admin only) ─────────────────────────────────────────
+    // Get user by id (Admin only)
     public UserResponseDto getUser(Integer id) {
         return toResponseDto(findOrThrow(id));
     }
 
-    // ── 1c. Update user (Admin only) ────────────────────────────────────────────
+    // Update user (Admin only)
     @Transactional
     public UserResponseDto updateUser(Integer id, UpdateUserRequestDto dto) {
 
@@ -122,7 +123,7 @@ public class UserService {
         if (dto.getRoleId() != null) {
             UserRole role = userRoleRepository.findById(dto.getRoleId())
                     .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + dto.getRoleId()));
-            if (role.getStatus() == UserRole.Status.INACTIVE) {
+            if (role.getStatus() == UserRole.Status.I) {
                 throw new IllegalStateException("Cannot assign an inactive role");
             }
             user.setRole(role);
@@ -136,11 +137,11 @@ public class UserService {
         return toResponseDto(user);
     }
 
-    // ── 1d. Soft-delete (deactivate) a user (Admin only) ────────────────────────
+    // Soft-delete (deactivate) a user (Admin only)
     @Transactional
     public void deleteUser(Integer id) {
         UserDetails user = findOrThrow(id);
-        user.setStatus(UserDetails.Status.INACTIVE);
+        user.setStatus(UserDetails.Status.I);
         userDetailsRepository.save(user);
         // Revoke active sessions so the deactivated user can't keep using existing tokens
         userSessionRepository.revokeAllActiveSessionsByUserId(id);
@@ -151,7 +152,7 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
-    // ── 2. Login ──────────────────────────────────────────────────────────────
+    //Login
     @Transactional
     public LoginResponseDto login(LoginRequestDto dto, HttpServletRequest request) {
 
@@ -165,10 +166,10 @@ public class UserService {
         }
 
         // Check account status
-        if (user.getStatus() == UserDetails.Status.SUSPENDED) {
+        if (user.getStatus() == UserDetails.Status.S) {
             throw new IllegalArgumentException("Account is suspended. Contact your administrator.");
         }
-        if (user.getStatus() == UserDetails.Status.INACTIVE) {
+        if (user.getStatus() == UserDetails.Status.I) {
             throw new IllegalArgumentException("Account is inactive. Contact your administrator.");
         }
 
@@ -201,7 +202,7 @@ public class UserService {
                 .build();
     }
 
-    // ── 3. Refresh access token (with rotation) ───────────────────────────────
+    // Refresh access token (with rotation)
     @Transactional
     public LoginResponseDto refreshToken(String rawRefreshToken) {
 
@@ -242,14 +243,14 @@ public class UserService {
                 .build();
     }
 
-    // ── 4. Logout ─────────────────────────────────────────────────────────────
+    // Logout
     @Transactional
     public void logout(Integer userId) {
         // Revoke all active sessions for this user
         userSessionRepository.revokeAllActiveSessionsByUserId(userId);
     }
 
-    // ── 5. Change own password (authenticated, self-service) ────────────────────
+    //  Change own password (authenticated, self-service) 
     @Transactional
     public void changePassword(Integer userId, ChangePasswordRequestDto dto) {
         UserDetails user = findOrThrow(userId);
@@ -268,7 +269,7 @@ public class UserService {
         userSessionRepository.revokeAllActiveSessionsByUserId(userId);
     }
 
-    // ── 6. Reset a user's password (Admin only) ─────────────────────────────────
+    // Reset a user's password (Admin only) 
     @Transactional
     public void resetPassword(Integer userId, ResetPasswordRequestDto dto) {
         UserDetails user = findOrThrow(userId);
@@ -279,7 +280,7 @@ public class UserService {
         userSessionRepository.revokeAllActiveSessionsByUserId(userId);
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    //Helpers 
     private UserResponseDto toResponseDto(UserDetails user) {
         return UserResponseDto.builder()
                 .userId(user.getUserId())

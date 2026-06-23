@@ -52,7 +52,7 @@ public class DataSeeder implements CommandLineRunner {
                     return userRoleRepository.save(UserRole.builder()
                             .roleName(name)
                             .description(description)
-                            .status(UserRole.Status.ACTIVE)
+                            .status(UserRole.Status.A)
                             .build());
                 }));
 
@@ -68,8 +68,7 @@ public class DataSeeder implements CommandLineRunner {
                     .phone("0000000000")
                     .passwordHash(passwordEncoder.encode(ADMIN_PASSWORD))
                     .regionId(1)
-                    .status(UserDetails.Status.ACTIVE
-                    )
+                    .status(UserDetails.Status.A)
                     .build();
             userDetailsRepository.save(admin);
             log.info("Seeded admin user '{}' (password '{}') — change it after first login.",

@@ -20,7 +20,7 @@ class UserDetailsRepositoryTest {
     @PersistenceContext private EntityManager em;
 
     private UserRole persistRole(String name) {
-        UserRole r = UserRole.builder().roleName(name).description("d").status(UserRole.Status.ACTIVE).build();
+        UserRole r = UserRole.builder().roleName(name).description("d").status(UserRole.Status.A).build();
         em.persist(r);
         return r;
     }
@@ -28,7 +28,7 @@ class UserDetailsRepositoryTest {
     private UserDetails persistUser(String email, UserRole role) {
         UserDetails u = UserDetails.builder()
                 .role(role).name("User").email(email).phone("9876543210")
-                .passwordHash("hash").regionId(1).status(UserDetails.Status.ACTIVE).build();
+                .passwordHash("hash").regionId(1).status(UserDetails.Status.A).build();
         em.persist(u);
         em.flush();
         return u;

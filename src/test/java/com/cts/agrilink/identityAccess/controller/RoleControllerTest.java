@@ -1,7 +1,7 @@
 package com.cts.agrilink.identityAccess.controller;
 
-import com.cts.agrilink.exception.GlobalExceptionHandler;
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.GlobalExceptionHandler;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.RoleResponseDto;
 import com.cts.agrilink.identityAccess.service.RoleService;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,7 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.exception.ForbiddenException;
-import com.cts.agrilink.exception.ResourceNotFoundException;
+import com.cts.agrilink.identityAccess.exception.ForbiddenException;
+import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
@@ -84,21 +84,21 @@ class UserServiceTest {
     private UserSession session(UserSession.Status status, LocalDateTime expiresAt) {
         return UserSession.builder()
                 .sessionId(10)
-                .user(user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE))
+                .user(user(1, "admin@a.com", adminRole, UserDetails.Status.A))
                 .refreshTokenHash("oldhash")
                 .refreshTokenExpiresAt(expiresAt)
                 .status(status)
                 .build();
     }
 
-    private final UserRole adminRole  = role(1, "AgriLinkAdmin", UserRole.Status.ACTIVE);
-    private final UserRole farmerRole = role(6, "Farmer", UserRole.Status.ACTIVE);
+    private final UserRole adminRole  = role(1, "AgriLinkAdmin", UserRole.Status.A);
+    private final UserRole farmerRole = role(6, "Farmer", UserRole.Status.A);
 
     // ════════════════════════════════ createUser ════════════════════════════
     @Test
     @DisplayName("createUser: admin creates user successfully")
     void createUser_success() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail("new@a.com")).thenReturn(false);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(farmerRole));
         when(passwordEncoder.encode("Secret@123")).thenReturn("encoded");
@@ -107,14 +107,14 @@ class UserServiceTest {
 
         assertEquals("new@a.com", res.getEmail());
         assertEquals("Farmer", res.getRoleName());
-        assertEquals("ACTIVE", res.getStatus());
+        assertEquals("A", res.getStatus());
         verify(userDetailsRepository).save(any(UserDetails.class));
     }
 
     @Test
     @DisplayName("createUser: duplicate email -> IllegalStateException")
     void createUser_duplicateEmail() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail("dup@a.com")).thenReturn(true);
 
         assertThrows(IllegalStateException.class,
@@ -125,7 +125,7 @@ class UserServiceTest {
     @Test
     @DisplayName("createUser: role not found -> ResourceNotFoundException")
     void createUser_roleNotFound() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(99)).thenReturn(Optional.empty());
 
@@ -136,8 +136,8 @@ class UserServiceTest {
     @Test
     @DisplayName("createUser: inactive role -> IllegalStateException")
     void createUser_inactiveRole() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
-        UserRole inactive = role(6, "Farmer", UserRole.Status.INACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
+        UserRole inactive = role(6, "Farmer", UserRole.Status.I);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(inactive));
 
@@ -149,7 +149,7 @@ class UserServiceTest {
     @DisplayName("createUser: ExtensionOfficer creates Farmer -> success")
     void createUser_officerCreatesFarmer() {
         UserDetails officer = user(2, "off@a.com",
-                role(2, "ExtensionOfficer", UserRole.Status.ACTIVE), UserDetails.Status.ACTIVE);
+                role(2, "ExtensionOfficer", UserRole.Status.A), UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(farmerRole));
         when(passwordEncoder.encode(anyString())).thenReturn("encoded");
@@ -164,10 +164,10 @@ class UserServiceTest {
     @DisplayName("createUser: ExtensionOfficer creates non-Farmer -> ForbiddenException")
     void createUser_officerCreatesNonFarmer() {
         UserDetails officer = user(2, "off@a.com",
-                role(2, "ExtensionOfficer", UserRole.Status.ACTIVE), UserDetails.Status.ACTIVE);
+                role(2, "ExtensionOfficer", UserRole.Status.A), UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(4)).thenReturn(
-                Optional.of(role(4, "SubsidyAdmin", UserRole.Status.ACTIVE)));
+                Optional.of(role(4, "SubsidyAdmin", UserRole.Status.A)));
 
         assertThrows(ForbiddenException.class,
                 () -> userService.createUser(createDto(4, "sa@a.com"), officer));
@@ -177,10 +177,10 @@ class UserServiceTest {
     @Test
     @DisplayName("createUser: admin can create a non-Farmer role")
     void createUser_adminCreatesOfficer() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(4)).thenReturn(
-                Optional.of(role(4, "SubsidyAdmin", UserRole.Status.ACTIVE)));
+                Optional.of(role(4, "SubsidyAdmin", UserRole.Status.A)));
         when(passwordEncoder.encode(anyString())).thenReturn("encoded");
 
         UserResponseDto res = userService.createUser(createDto(4, "sa@a.com"), admin);
@@ -191,7 +191,7 @@ class UserServiceTest {
     @Test
     @DisplayName("createUser: password is encoded, never stored raw")
     void createUser_encodesPassword() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(farmerRole));
         when(passwordEncoder.encode("Secret@123")).thenReturn("encoded-hash");
@@ -207,7 +207,7 @@ class UserServiceTest {
     @Test
     @DisplayName("createUser: new user is created Active")
     void createUser_newUserIsActive() {
-        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails admin = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRoleRepository.findById(6)).thenReturn(Optional.of(farmerRole));
         when(passwordEncoder.encode(anyString())).thenReturn("encoded");
@@ -215,13 +215,13 @@ class UserServiceTest {
         ArgumentCaptor<UserDetails> cap = ArgumentCaptor.forClass(UserDetails.class);
         userService.createUser(createDto(6, "a@a.com"), admin);
         verify(userDetailsRepository).save(cap.capture());
-        assertEquals(UserDetails.Status.ACTIVE, cap.getValue().getStatus());
+        assertEquals(UserDetails.Status.A, cap.getValue().getStatus());
     }
 
     // ════════════════════════════════ getUser / list ═════════════════════════
     @Test
     void getUser_success() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
 
         UserResponseDto res = userService.getUser(3);
@@ -239,13 +239,13 @@ class UserServiceTest {
     @Test
     void getAllUsers_returnsMappedList() {
         when(userDetailsRepository.findAll()).thenReturn(List.of(
-                user(1, "a@a.com", adminRole, UserDetails.Status.ACTIVE),
-                user(2, "b@a.com", farmerRole, UserDetails.Status.ACTIVE)));
+                user(1, "a@a.com", adminRole, UserDetails.Status.A),
+                user(2, "b@a.com", farmerRole, UserDetails.Status.A)));
 
         List<UserResponseDto> res = userService.getAllUsers();
 
         assertEquals(2, res.size());
-        assertEquals("a@a.com", res.getFirst().getEmail());
+        assertEquals("a@a.com", res.get(0).getEmail());
     }
 
     @Test
@@ -257,7 +257,7 @@ class UserServiceTest {
     // ════════════════════════════════ updateUser ═════════════════════════════
     @Test
     void updateUser_name() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setName("Renamed");
 
@@ -269,7 +269,7 @@ class UserServiceTest {
 
     @Test
     void updateUser_phone() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setPhone("1112223333");
 
@@ -279,7 +279,7 @@ class UserServiceTest {
 
     @Test
     void updateUser_regionId() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setRegionId(42);
 
@@ -289,17 +289,17 @@ class UserServiceTest {
 
     @Test
     void updateUser_statusToSuspended() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
-        UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setStatus("SUSPENDED");
+        UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setStatus("S");
 
         userService.updateUser(3, d);
-        assertEquals(UserDetails.Status.SUSPENDED, u.getStatus());
+        assertEquals(UserDetails.Status.S, u.getStatus());
     }
 
     @Test
     void updateUser_role_success() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(userRoleRepository.findById(1)).thenReturn(Optional.of(adminRole));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setRoleId(1);
@@ -310,7 +310,7 @@ class UserServiceTest {
 
     @Test
     void updateUser_role_notFound() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(userRoleRepository.findById(99)).thenReturn(Optional.empty());
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setRoleId(99);
@@ -320,10 +320,10 @@ class UserServiceTest {
 
     @Test
     void updateUser_role_inactive() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(userRoleRepository.findById(2)).thenReturn(
-                Optional.of(role(2, "ExtensionOfficer", UserRole.Status.INACTIVE)));
+                Optional.of(role(2, "ExtensionOfficer", UserRole.Status.I)));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setRoleId(2);
 
         assertThrows(IllegalStateException.class, () -> userService.updateUser(3, d));
@@ -338,7 +338,7 @@ class UserServiceTest {
 
     @Test
     void updateUser_blankNameIsIgnored() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         UpdateUserRequestDto d = new UpdateUserRequestDto(); d.setName("   ");
 
@@ -348,7 +348,7 @@ class UserServiceTest {
 
     @Test
     void updateUser_nullFieldsLeaveValuesUnchanged() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
 
         userService.updateUser(3, new UpdateUserRequestDto());  // all-null dto
@@ -356,18 +356,18 @@ class UserServiceTest {
         assertEquals("Test User", u.getName());
         assertEquals("9876543210", u.getPhone());
         assertEquals(5, u.getRegionId());
-        assertEquals(UserDetails.Status.ACTIVE, u.getStatus());
+        assertEquals(UserDetails.Status.A, u.getStatus());
     }
 
     // ════════════════════════════════ deleteUser ═════════════════════════════
     @Test
     void deleteUser_softDeletesAndRevokesSessions() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
 
         userService.deleteUser(3);
 
-        assertEquals(UserDetails.Status.INACTIVE, u.getStatus());
+        assertEquals(UserDetails.Status.I, u.getStatus());
         verify(userDetailsRepository).save(u);
         verify(userSessionRepository).revokeAllActiveSessionsByUserId(3);
     }
@@ -382,7 +382,7 @@ class UserServiceTest {
     // ════════════════════════════════ login ══════════════════════════════════
     @Test
     void login_success() {
-        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.findByEmail("admin@a.com")).thenReturn(Optional.of(u));
         when(passwordEncoder.matches("pw", "hash")).thenReturn(true);
         when(jwtUtil.generateAccessToken(u)).thenReturn("access-token");
@@ -406,7 +406,7 @@ class UserServiceTest {
 
     @Test
     void login_wrongPassword() {
-        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.findByEmail("admin@a.com")).thenReturn(Optional.of(u));
         when(passwordEncoder.matches("bad", "hash")).thenReturn(false);
 
@@ -417,7 +417,7 @@ class UserServiceTest {
 
     @Test
     void login_suspendedAccount() {
-        UserDetails u = user(1, "s@a.com", adminRole, UserDetails.Status.SUSPENDED);
+        UserDetails u = user(1, "s@a.com", adminRole, UserDetails.Status.S);
         when(userDetailsRepository.findByEmail("s@a.com")).thenReturn(Optional.of(u));
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
 
@@ -428,7 +428,7 @@ class UserServiceTest {
 
     @Test
     void login_inactiveAccount() {
-        UserDetails u = user(1, "i@a.com", adminRole, UserDetails.Status.INACTIVE);
+        UserDetails u = user(1, "i@a.com", adminRole, UserDetails.Status.I);
         when(userDetailsRepository.findByEmail("i@a.com")).thenReturn(Optional.of(u));
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
 
@@ -439,7 +439,7 @@ class UserServiceTest {
 
     @Test
     void login_persistsSessionWithHashedRefreshToken() {
-        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(1, "admin@a.com", adminRole, UserDetails.Status.A);
         when(userDetailsRepository.findByEmail("admin@a.com")).thenReturn(Optional.of(u));
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         when(jwtUtil.generateAccessToken(u)).thenReturn("access-token");
@@ -503,7 +503,7 @@ class UserServiceTest {
     // ════════════════════════════════ changePassword ═════════════════════════
     @Test
     void changePassword_success() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(passwordEncoder.matches("old", "hash")).thenReturn(true);   // current matches
         when(passwordEncoder.matches("NewPass@123", "hash")).thenReturn(false); // new differs
@@ -518,7 +518,7 @@ class UserServiceTest {
 
     @Test
     void changePassword_wrongCurrent_throws() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(passwordEncoder.matches("bad", "hash")).thenReturn(false);
 
@@ -530,7 +530,7 @@ class UserServiceTest {
 
     @Test
     void changePassword_sameAsOld_throws() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         // current matches AND new equals current (same value -> same stub)
         when(passwordEncoder.matches("old", "hash")).thenReturn(true);
@@ -550,7 +550,7 @@ class UserServiceTest {
     // ════════════════════════════════ resetPassword (admin) ══════════════════
     @Test
     void resetPassword_success() {
-        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.ACTIVE);
+        UserDetails u = user(3, "u@a.com", farmerRole, UserDetails.Status.A);
         when(userDetailsRepository.findById(3)).thenReturn(Optional.of(u));
         when(passwordEncoder.encode("Temp@1234")).thenReturn("reset-hash");
 

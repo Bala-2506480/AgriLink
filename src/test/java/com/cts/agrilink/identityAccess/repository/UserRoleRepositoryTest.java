@@ -22,7 +22,7 @@ class UserRoleRepositoryTest {
     @PersistenceContext private EntityManager em;
 
     private UserRole persistRole(String name) {
-        UserRole r = UserRole.builder().roleName(name).description("d").status(UserRole.Status.ACTIVE).build();
+        UserRole r = UserRole.builder().roleName(name).description("d").status(UserRole.Status.A).build();
         em.persist(r);
         em.flush();
         return r;
@@ -46,7 +46,7 @@ class UserRoleRepositoryTest {
     @Test
     void save_persistsWithGeneratedId() {
         UserRole saved = repository.save(UserRole.builder()
-                .roleName("ZZTEST_RoleSave").status(UserRole.Status.ACTIVE).build());
+                .roleName("ZZTEST_RoleSave").status(UserRole.Status.A).build());
         em.flush();
         assertNotNull(saved.getRoleId());
     }
