@@ -43,7 +43,7 @@ public class DataSeeder implements CommandLineRunner {
     private final PasswordEncoder       passwordEncoder;
 
     @Override
-    public void run(String... args) {
+    public void run(String... args)  {
 
         // 1. Ensure all six roles exist (idempotent)
         ROLES.forEach((name, description) ->

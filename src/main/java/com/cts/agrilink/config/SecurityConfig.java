@@ -30,14 +30,34 @@ public class SecurityConfig {
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
+
+                // ── IAM: Public endpoints ─────────────────────────────────
                 .requestMatchers("/agriLink/session/login", "/agriLink/session/refresh").permitAll()
-                // Create user: Admin (any role) or ExtensionOfficer (Farmers only — enforced in service)
+
+                // ── IAM: User & Role management (Admin only) ──────────────
                 .requestMatchers(HttpMethod.POST, "/agriLink/user/createUser")
                     .hasAnyRole("AgriLinkAdmin", "ExtensionOfficer")
-                // All other user management + role management is Admin only
-                .requestMatchers("/agriLink/user/**", "/agriLink/role/**").hasRole("AgriLinkAdmin")
-                // All other endpoints require authentication
+                .requestMatchers("/agriLink/user/**", "/agriLink/role/**")
+                    .hasRole("AgriLinkAdmin")
+
+                // ── Farmer & Land Registration: Admin-only write ops ───────
+                .requestMatchers(HttpMethod.POST,
+                    "/agriLink/farmerLandRegistration/farmer/createFarmer",
+                    "/agriLink/farmerLandRegistration/landHolding/createLandHolding")
+                    .hasRole("AgriLinkAdmin")
+
+                .requestMatchers(HttpMethod.DELETE,
+                    "/agriLink/farmerLandRegistration/farmer/deleteFarmer/**",
+                    "/agriLink/farmerLandRegistration/landHolding/deleteLandHolding/**")
+                    .hasRole("AgriLinkAdmin")
+
+                // ── Farmer & Land Registration: Admin + Farmer read/update ─
+                // Fine-grained ownership check is enforced in the service layer
+                .requestMatchers(
+                    "/agriLink/farmerLandRegistration/**")
+                    .hasAnyRole("AgriLinkAdmin", "Farmer")
+
+                // ── All other endpoints require authentication ─────────────
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -49,6 +69,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)

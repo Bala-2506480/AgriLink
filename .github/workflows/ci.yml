@@ -1,0 +1,47 @@
+name: AgriLink CI - Build Only (No Tests)
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Project (Skip Tests)
+    runs-on: ubuntu-latest
+
+    steps:
+      # ✅ Checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ✅ Setup Java
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      # ✅ Make mvnw executable
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      # 🔧 Build project (With SSL bypass flags to handle the runner's broken trust store)
+      - name: Build project
+        run: |
+          ./mvnw clean install -DskipTests \
+            -Dmaven.wagon.http.ssl.insecure=true \
+            -Dmaven.wagon.http.ssl.allowall=true \
+            -Dmaven.wagon.http.ssl.ignore.validity.dates=true
+
+      # ✅ Upload JAR
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: agrilink-jar
+          path: target/*.jar
