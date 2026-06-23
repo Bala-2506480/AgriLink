@@ -1,0 +1,874 @@
+2026-06-16T23:34:58.823+05:30  INFO 1824 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Starting AgrilinkApplication using Java 21.0.2 with PID 1824 (C:\Users\2506611\Desktop\AgriLink\target\classes started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:34:58.831+05:30 DEBUG 1824 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:34:58.832+05:30  INFO 1824 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T23:34:58.900+05:30  INFO 1824 --- [agrilink] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-16T23:34:58.905+05:30  INFO 1824 --- [agrilink] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-16T23:34:59.700+05:30  INFO 1824 --- [agrilink] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:34:59.823+05:30  INFO 1824 --- [agrilink] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:35:00.518+05:30  INFO 1824 --- [agrilink] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8088 (http)
+2026-06-16T23:35:00.549+05:30  INFO 1824 --- [agrilink] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-16T23:35:00.549+05:30  INFO 1824 --- [agrilink] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-16T23:35:00.638+05:30  INFO 1824 --- [agrilink] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1733 ms
+2026-06-16T23:35:00.800+05:30  INFO 1824 --- [agrilink] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T23:35:01.201+05:30  INFO 1824 --- [agrilink] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57ed1ad9
+2026-06-16T23:35:01.201+05:30  INFO 1824 --- [agrilink] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T23:35:01.240+05:30  INFO 1824 --- [agrilink] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:35:01.316+05:30  INFO 1824 --- [agrilink] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-16T23:35:02.118+05:30  INFO 1824 --- [agrilink] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:35:02.234+05:30  WARN 1824 --- [agrilink] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:35:02.251+05:30  INFO 1824 --- [agrilink] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/agrilink]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.45
+	Default catalog/schema: agrilink/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:35:03.665+05:30  INFO 1824 --- [agrilink] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:35:03.797+05:30  INFO 1824 --- [agrilink] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:35:03.948+05:30  INFO 1824 --- [agrilink] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16T23:35:04.248+05:30  WARN 1824 --- [agrilink] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:35:04.849+05:30  INFO 1824 --- [agrilink] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8088 (http) with context path '/'
+2026-06-16T23:35:04.865+05:30  INFO 1824 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Started AgrilinkApplication in 6.665 seconds (process running for 7.509)
+2026-06-16T23:37:28.237+05:30  INFO 1824 --- [agrilink] [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-16T23:37:28.239+05:30  INFO 1824 --- [agrilink] [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-16T23:37:28.241+05:30  INFO 1824 --- [agrilink] [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-06-16T23:37:28.278+05:30 DEBUG 1824 --- [agrilink] [http-nio-8088-exec-1] c.c.a.i.service.AgriInputService         : Fetching all agri inputs
+2026-06-16T23:38:49.848+05:30  INFO 20212 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Starting AgrilinkApplication using Java 21.0.2 with PID 20212 (C:\Users\2506611\Desktop\AgriLink\target\classes started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:38:49.850+05:30 DEBUG 20212 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:38:49.851+05:30  INFO 20212 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T23:38:49.906+05:30  INFO 20212 --- [agrilink] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-16T23:38:49.907+05:30  INFO 20212 --- [agrilink] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-16T23:38:50.633+05:30  INFO 20212 --- [agrilink] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:38:50.710+05:30  INFO 20212 --- [agrilink] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:38:51.224+05:30  INFO 20212 --- [agrilink] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8088 (http)
+2026-06-16T23:38:51.238+05:30  INFO 20212 --- [agrilink] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-16T23:38:51.239+05:30  INFO 20212 --- [agrilink] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-16T23:38:51.299+05:30  INFO 20212 --- [agrilink] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1392 ms
+2026-06-16T23:38:51.440+05:30  INFO 20212 --- [agrilink] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T23:38:51.784+05:30  INFO 20212 --- [agrilink] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b6c71d7
+2026-06-16T23:38:51.787+05:30  INFO 20212 --- [agrilink] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T23:38:51.820+05:30  INFO 20212 --- [agrilink] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:38:51.875+05:30  INFO 20212 --- [agrilink] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-16T23:38:52.393+05:30  INFO 20212 --- [agrilink] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:38:52.486+05:30  WARN 20212 --- [agrilink] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:38:52.502+05:30  INFO 20212 --- [agrilink] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/agrilink]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.45
+	Default catalog/schema: agrilink/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:38:53.528+05:30  INFO 20212 --- [agrilink] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:38:53.599+05:30  INFO 20212 --- [agrilink] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:38:53.687+05:30  INFO 20212 --- [agrilink] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16T23:38:53.898+05:30  WARN 20212 --- [agrilink] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:38:54.352+05:30  INFO 20212 --- [agrilink] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8088 (http) with context path '/'
+2026-06-16T23:38:54.359+05:30  INFO 20212 --- [agrilink] [restartedMain] com.cts.agrilink.AgrilinkApplication     : Started AgrilinkApplication in 4.995 seconds (process running for 5.647)
+2026-06-16T23:40:13.250+05:30  INFO 20212 --- [agrilink] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-16T23:40:13.277+05:30  INFO 20212 --- [agrilink] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-16T23:40:13.286+05:30  INFO 20212 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:40:13.298+05:30  INFO 20212 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T23:40:13.323+05:30  INFO 20212 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T23:57:33.359+05:30  INFO 24912 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Starting InputProcurementIntegrationTest using Java 21.0.2 with PID 24912 (started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:57:33.359+05:30 DEBUG 24912 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:57:33.359+05:30  INFO 24912 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : The following 1 profile is active: "test"
+2026-06-16T23:57:34.877+05:30  INFO 24912 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:57:34.994+05:30  INFO 24912 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 92 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:57:35.726+05:30  INFO 24912 --- [agrilink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:57:35.958+05:30  INFO 24912 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-16T23:57:37.042+05:30  INFO 24912 --- [agrilink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:57:37.109+05:30  INFO 24912 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T23:57:37.343+05:30  INFO 24912 --- [agrilink] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-06-16T23:57:37.359+05:30  INFO 24912 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T23:57:37.376+05:30  WARN 24912 --- [agrilink] [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:57:37.415+05:30  INFO 24912 --- [agrilink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:57:38.757+05:30  INFO 24912 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:57:38.809+05:30  INFO 24912 --- [agrilink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:57:38.984+05:30  INFO 24912 --- [agrilink] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16T23:57:39.771+05:30  WARN 24912 --- [agrilink] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:57:41.133+05:30  INFO 24912 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Started InputProcurementIntegrationTest in 8.339 seconds (process running for 10.346)
+2026-06-16T23:57:41.190+05:30  WARN 24912 --- [agrilink] [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener] to prepare test instance [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest@13553828]
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest': Unsatisfied dependency expressed through field 'objectMapper': No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:748) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:402) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:157) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:242) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$1(ClassBasedTestDescriptor.java:423) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:428) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$0(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$0(ClassBasedTestDescriptor.java:334) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:333) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$1(ClassBasedTestDescriptor.java:322) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$0(ClassBasedTestDescriptor.java:321) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:27) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:127) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:126) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$0(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:110) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2297) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1725) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764) ~[spring-beans-7.0.7.jar:7.0.7]
+	... 88 common frames omitted
+
+2026-06-16T23:57:41.296+05:30  WARN 24912 --- [agrilink] [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener] to prepare test instance [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest@7b99e726]
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest': Unsatisfied dependency expressed through field 'objectMapper': No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:748) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:402) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:157) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:242) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$1(ClassBasedTestDescriptor.java:423) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:428) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$0(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$0(ClassBasedTestDescriptor.java:334) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:333) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$1(ClassBasedTestDescriptor.java:322) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$0(ClassBasedTestDescriptor.java:321) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:27) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:127) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:126) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$0(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:110) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2297) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1725) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764) ~[spring-beans-7.0.7.jar:7.0.7]
+	... 88 common frames omitted
+
+2026-06-16T23:57:41.328+05:30  WARN 24912 --- [agrilink] [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener] to prepare test instance [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest@4d79651d]
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest': Unsatisfied dependency expressed through field 'objectMapper': No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:748) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:402) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:157) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:242) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$1(ClassBasedTestDescriptor.java:423) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:428) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$0(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$0(ClassBasedTestDescriptor.java:334) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:333) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$1(ClassBasedTestDescriptor.java:322) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$0(ClassBasedTestDescriptor.java:321) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:27) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:127) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:126) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$0(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:110) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2297) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1725) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764) ~[spring-beans-7.0.7.jar:7.0.7]
+	... 88 common frames omitted
+
+2026-06-16T23:57:41.346+05:30  WARN 24912 --- [agrilink] [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener] to prepare test instance [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest@42cef0af]
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest': Unsatisfied dependency expressed through field 'objectMapper': No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:767) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:748) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:402) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:157) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:242) ~[spring-test-7.0.7.jar:7.0.7]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$1(ClassBasedTestDescriptor.java:423) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:428) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$0(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:422) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$0(ClassBasedTestDescriptor.java:334) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:333) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$1(ClassBasedTestDescriptor.java:322) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$0(ClassBasedTestDescriptor.java:321) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:27) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:127) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:126) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$0(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:144) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:110) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2297) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1725) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.7.jar:7.0.7]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:764) ~[spring-beans-7.0.7.jar:7.0.7]
+	... 88 common frames omitted
+
+2026-06-16T23:57:41.582+05:30  INFO 24912 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:57:41.601+05:30  INFO 24912 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T23:57:41.604+05:30  INFO 24912 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T23:58:26.422+05:30  INFO 12616 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Starting InputProcurementIntegrationTest using Java 21.0.2 with PID 12616 (started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:58:26.422+05:30 DEBUG 12616 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:58:26.422+05:30  INFO 12616 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : The following 1 profile is active: "test"
+2026-06-16T23:58:28.009+05:30  INFO 12616 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:58:28.156+05:30  INFO 12616 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 125 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:58:29.237+05:30  INFO 12616 --- [agrilink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:58:29.578+05:30  INFO 12616 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-16T23:58:30.756+05:30  INFO 12616 --- [agrilink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:58:30.822+05:30  INFO 12616 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T23:58:31.089+05:30  INFO 12616 --- [agrilink] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-06-16T23:58:31.089+05:30  INFO 12616 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T23:58:31.123+05:30  WARN 12616 --- [agrilink] [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:58:31.188+05:30  INFO 12616 --- [agrilink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:58:32.456+05:30  INFO 12616 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:58:32.522+05:30  INFO 12616 --- [agrilink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:58:32.706+05:30  INFO 12616 --- [agrilink] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16T23:58:33.424+05:30  WARN 12616 --- [agrilink] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:58:34.409+05:30  INFO 12616 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Started InputProcurementIntegrationTest in 8.486 seconds (process running for 10.603)
+2026-06-16T23:58:35.685+05:30  INFO 12616 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:58:35.685+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:58:35.685+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:58:36.493+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=100
+2026-06-16T23:58:36.552+05:30  WARN 12616 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input not found with ID: 999999
+2026-06-16T23:58:36.730+05:30  INFO 12616 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:58:36.730+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:58:36.741+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2026-06-16T23:58:36.793+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : POST /inputs - add input 'DAP'
+2026-06-16T23:58:36.798+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Added agri input to catalog: name='DAP', category='Fertiliser'
+2026-06-16T23:58:36.809+05:30 DEBUG 12616 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs in category: Fertiliser
+2026-06-16T23:58:37.275+05:30  INFO 12616 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:58:37.275+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:58:37.286+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 11 ms
+2026-06-16T23:58:37.291+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=101
+2026-06-16T23:58:37.291+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Submitted input request: farmerId=101, inputId=4, qty=20
+2026-06-16T23:58:37.308+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/dispatch
+2026-06-16T23:58:37.308+05:30  WARN 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatch rejected for request ID 1: current status is 'Requested'
+2026-06-16T23:58:37.308+05:30  WARN 12616 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Request cannot be dispatched. Current status: Requested
+2026-06-16T23:58:37.328+05:30  INFO 12616 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:58:37.328+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:58:37.328+05:30  INFO 12616 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:58:37.343+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=100
+2026-06-16T23:58:37.343+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Submitted input request: farmerId=100, inputId=5, qty=50
+2026-06-16T23:58:37.392+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/approve
+2026-06-16T23:58:37.407+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Approved input request ID: 2 by officer_id_45
+2026-06-16T23:58:37.423+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/dispatch
+2026-06-16T23:58:37.426+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatched input request ID: 2 by staff_id_9
+2026-06-16T23:58:37.439+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/deliver
+2026-06-16T23:58:37.442+05:30  INFO 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Delivered input request ID: 2 received by farmer_id_501
+2026-06-16T23:58:37.442+05:30 DEBUG 12616 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input request with ID: 2
+2026-06-16T23:58:37.525+05:30  INFO 12616 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:58:37.538+05:30  INFO 12616 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T23:58:37.542+05:30  INFO 12616 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T23:58:58.565+05:30  INFO 35984 --- [agrilink] [main] c.cts.agrilink.AgrilinkApplicationTests  : Starting AgrilinkApplicationTests using Java 21.0.2 with PID 35984 (started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:58:58.574+05:30 DEBUG 35984 --- [agrilink] [main] c.cts.agrilink.AgrilinkApplicationTests  : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:58:58.574+05:30  INFO 35984 --- [agrilink] [main] c.cts.agrilink.AgrilinkApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T23:59:00.171+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:59:00.305+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:59:00.971+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T23:59:01.571+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1182d1df
+2026-06-16T23:59:01.571+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T23:59:01.655+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:59:01.905+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-16T23:59:03.038+05:30  INFO 35984 --- [agrilink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:59:03.172+05:30  WARN 35984 --- [agrilink] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:59:03.204+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/agrilink]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.45
+	Default catalog/schema: agrilink/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:59:04.605+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:59:04.730+05:30  INFO 35984 --- [agrilink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:59:04.920+05:30  INFO 35984 --- [agrilink] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16T23:59:05.591+05:30  WARN 35984 --- [agrilink] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:59:06.538+05:30  INFO 35984 --- [agrilink] [main] c.cts.agrilink.AgrilinkApplicationTests  : Started AgrilinkApplicationTests in 8.648 seconds (process running for 11.195)
+2026-06-16T23:59:08.220+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:08.220+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:08.221+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-06-16T23:59:08.955+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:08.955+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:08.955+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.405+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Validation failed: name: Name is required
+2026-06-16T23:59:09.438+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.438+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.438+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.470+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : PUT /inputs/1/stock - update stock
+2026-06-16T23:59:09.488+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.488+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.488+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.505+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : DELETE /inputs/99
+2026-06-16T23:59:09.505+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input not found with ID: 99
+2026-06-16T23:59:09.521+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.521+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.521+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.555+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : PUT /inputs/1 - update input
+2026-06-16T23:59:09.586+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.586+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.587+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-06-16T23:59:09.588+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input not found with ID: 99
+2026-06-16T23:59:09.606+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.606+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.606+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.621+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : PUT /inputs/99 - update input
+2026-06-16T23:59:09.621+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input not found with ID: 99
+2026-06-16T23:59:09.655+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.655+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.655+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.655+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : POST /inputs - add input 'Urea'
+2026-06-16T23:59:09.688+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.688+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.688+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.721+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.721+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.721+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.721+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Bad request: Invalid category: Chemical
+2026-06-16T23:59:09.738+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.738+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.738+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.756+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Bad request: Invalid status: Expired
+2026-06-16T23:59:09.771+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.771+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.771+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.805+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.805+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.805+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:09.805+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : DELETE /inputs/1
+2026-06-16T23:59:09.833+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:09.833+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:09.833+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.012+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.012+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.012+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.021+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/dispatch
+2026-06-16T23:59:10.021+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Request cannot be dispatched. Current status: Requested
+2026-06-16T23:59:10.055+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.055+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.055+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.055+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input request not found with ID: 99
+2026-06-16T23:59:10.071+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.071+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.071+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.106+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.106+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.106+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.143+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.143+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.143+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.155+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/dispatch
+2026-06-16T23:59:10.183+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.183+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.183+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.188+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Validation failed: farmerId: Farmer ID is required
+2026-06-16T23:59:10.221+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.221+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.221+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.239+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/approve
+2026-06-16T23:59:10.262+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.262+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.262+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.272+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1 - update request
+2026-06-16T23:59:10.305+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.305+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.305+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.321+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/cancel
+2026-06-16T23:59:10.340+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.340+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.340+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.355+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/approve
+2026-06-16T23:59:10.355+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Request cannot be approved. Current status: Approved
+2026-06-16T23:59:10.378+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.378+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.378+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.388+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=100
+2026-06-16T23:59:10.405+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.405+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.405+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.437+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.438+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.439+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.439+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/deliver
+2026-06-16T23:59:10.439+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Request cannot be delivered. Current status: Requested
+2026-06-16T23:59:10.459+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.459+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.459+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.488+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.488+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.488+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.508+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.508+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.508+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.525+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/3/deliver
+2026-06-16T23:59:10.539+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.539+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.539+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.559+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/3/cancel
+2026-06-16T23:59:10.559+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Cannot cancel request after dispatch. Current status: Dispatched
+2026-06-16T23:59:10.588+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.588+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.588+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.588+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Bad request: Invalid status: Pending
+2026-06-16T23:59:10.605+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.605+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.605+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.605+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : DELETE /input-requests/99
+2026-06-16T23:59:10.618+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input request not found with ID: 99
+2026-06-16T23:59:10.639+05:30  INFO 35984 --- [agrilink] [main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:10.639+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:10.639+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:10.639+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : DELETE /input-requests/1
+2026-06-16T23:59:10.657+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest]: InputProcurementIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:10.715+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest
+2026-06-16T23:59:10.721+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest]: InputProcurementIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:10.721+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.integration.InputProcurementIntegrationTest
+2026-06-16T23:59:10.739+05:30  INFO 35984 --- [agrilink] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-06-16T23:59:10.855+05:30  INFO 35984 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Starting InputProcurementIntegrationTest using Java 21.0.2 with PID 35984 (started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:59:10.855+05:30 DEBUG 35984 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:59:10.855+05:30  INFO 35984 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : The following 1 profile is active: "test"
+2026-06-16T23:59:11.487+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:59:11.525+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:59:11.721+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:59:11.840+05:30  INFO 35984 --- [agrilink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:59:11.840+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-06-16T23:59:12.271+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-06-16T23:59:12.271+05:30  INFO 35984 --- [agrilink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-06-16T23:59:12.305+05:30  WARN 35984 --- [agrilink] [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:59:12.321+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:59:12.640+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:59:12.707+05:30  INFO 35984 --- [agrilink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:59:12.899+05:30  WARN 35984 --- [agrilink] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16T23:59:13.346+05:30  INFO 35984 --- [agrilink] [main] .c.a.i.i.InputProcurementIntegrationTest : Started InputProcurementIntegrationTest in 2.609 seconds (process running for 17.994)
+2026-06-16T23:59:13.358+05:30  INFO 35984 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:13.358+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:13.358+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:14.429+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=100
+2026-06-16T23:59:14.472+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : Resource not found: Input not found with ID: 999999
+2026-06-16T23:59:14.692+05:30  INFO 35984 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:14.692+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:14.692+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:14.755+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.controller.AgriInputController   : POST /inputs - add input 'DAP'
+2026-06-16T23:59:14.757+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Added agri input to catalog: name='DAP', category='Fertiliser'
+2026-06-16T23:59:14.778+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs in category: Fertiliser
+2026-06-16T23:59:15.893+05:30  INFO 35984 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:15.893+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:15.893+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-06-16T23:59:15.908+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=101
+2026-06-16T23:59:15.924+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Submitted input request: farmerId=101, inputId=4, qty=20
+2026-06-16T23:59:15.942+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/1/dispatch
+2026-06-16T23:59:15.942+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatch rejected for request ID 1: current status is 'Requested'
+2026-06-16T23:59:15.942+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.e.GlobalExceptionHandler         : State conflict: Request cannot be dispatched. Current status: Requested
+2026-06-16T23:59:15.960+05:30  INFO 35984 --- [agrilink] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-06-16T23:59:15.970+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-06-16T23:59:15.974+05:30  INFO 35984 --- [agrilink] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-06-16T23:59:16.007+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : POST /input-requests - submit request for farmerId=100
+2026-06-16T23:59:16.011+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Submitted input request: farmerId=100, inputId=5, qty=50
+2026-06-16T23:59:16.042+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/approve
+2026-06-16T23:59:16.083+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Approved input request ID: 2 by officer_id_45
+2026-06-16T23:59:16.096+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/dispatch
+2026-06-16T23:59:16.102+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatched input request ID: 2 by staff_id_9
+2026-06-16T23:59:16.188+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.c.InputRequestController         : PUT /input-requests/2/deliver
+2026-06-16T23:59:16.205+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Delivered input request ID: 2 received by farmer_id_501
+2026-06-16T23:59:16.216+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input request with ID: 2
+2026-06-16T23:59:16.262+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.repository.AgriInputRepositoryTest]: AgriInputRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:16.517+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.repository.AgriInputRepositoryTest
+2026-06-16T23:59:16.524+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.repository.AgriInputRepositoryTest]: AgriInputRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:16.661+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.repository.AgriInputRepositoryTest
+2026-06-16T23:59:16.680+05:30  INFO 35984 --- [agrilink] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-06-16T23:59:16.813+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.r.AgriInputRepositoryTest        : Starting AgriInputRepositoryTest using Java 21.0.2 with PID 35984 (started by 2506611 in C:\Users\2506611\Desktop\AgriLink)
+2026-06-16T23:59:16.813+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.r.AgriInputRepositoryTest        : Running with Spring Boot v4.0.6, Spring v7.0.7
+2026-06-16T23:59:16.813+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.r.AgriInputRepositoryTest        : The following 1 profile is active: "test"
+2026-06-16T23:59:17.192+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16T23:59:17.279+05:30  INFO 35984 --- [agrilink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 2 JPA repository interfaces.
+2026-06-16T23:59:17.323+05:30  INFO 35984 --- [agrilink] [main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-06-16T23:59:17.394+05:30  INFO 35984 --- [agrilink] [main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:4a47151c-035d-47de-86d1-b4d48ae5ea5a;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-06-16T23:59:17.491+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16T23:59:17.577+05:30  INFO 35984 --- [agrilink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16T23:59:17.582+05:30  WARN 35984 --- [agrilink] [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-16T23:59:17.582+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:4a47151c-035d-47de-86d1-b4d48ae5ea5a]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 4A47151C-035D-47DE-86D1-B4D48AE5EA5A/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-16T23:59:17.783+05:30  INFO 35984 --- [agrilink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16T23:59:17.799+05:30  INFO 35984 --- [agrilink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:59:17.975+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.r.AgriInputRepositoryTest        : Started AgriInputRepositoryTest in 1.296 seconds (process running for 22.621)
+2026-06-16T23:59:18.695+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.repository.InputRequestRepositoryTest]: InputRequestRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:18.745+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.repository.InputRequestRepositoryTest
+2026-06-16T23:59:18.745+05:30  INFO 35984 --- [agrilink] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.cts.agrilink.inputAndProcurementMangement.repository.InputRequestRepositoryTest]: InputRequestRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-16T23:59:18.770+05:30  INFO 35984 --- [agrilink] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.cts.agrilink.AgrilinkApplication for test class com.cts.agrilink.inputAndProcurementMangement.repository.InputRequestRepositoryTest
+2026-06-16T23:59:19.777+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs in category: Seed
+2026-06-16T23:59:19.792+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Updated stock for agri input ID: 1 to 200
+2026-06-16T23:59:19.809+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs in category: Chemical
+2026-06-16T23:59:19.809+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Rejected request: invalid category 'Chemical'
+2026-06-16T23:59:19.824+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs with status: Expired
+2026-06-16T23:59:19.824+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Rejected request: invalid status 'Expired'
+2026-06-16T23:59:19.830+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Deleted agri input ID: 1
+2026-06-16T23:59:19.855+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri input with ID: 1
+2026-06-16T23:59:19.863+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching all agri inputs
+2026-06-16T23:59:19.872+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs with status: Available
+2026-06-16T23:59:19.879+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri input with ID: 99
+2026-06-16T23:59:19.883+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Added agri input to catalog: name='Urea', category='Fertiliser'
+2026-06-16T23:59:19.893+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Updated agri input ID: 1
+2026-06-16T23:59:19.899+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.AgriInputService         : Fetching agri inputs in category: fertiliser
+2026-06-16T23:59:20.075+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Delivered input request ID: 3 received by farmer_id_501
+2026-06-16T23:59:20.084+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Updated input request ID: 1
+2026-06-16T23:59:20.091+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input requests with status: Requested
+2026-06-16T23:59:20.138+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Approve rejected for request ID 2: current status is 'Approved'
+2026-06-16T23:59:20.162+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Deleted input request ID: 1
+2026-06-16T23:59:20.179+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Submitted input request: farmerId=100, inputId=10, qty=50
+2026-06-16T23:59:20.183+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Cancel rejected for request ID 3: current status is 'Dispatched'
+2026-06-16T23:59:20.183+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input requests for centre ID: 5
+2026-06-16T23:59:20.193+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatched input request ID: 2 by staff_id_9
+2026-06-16T23:59:20.201+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input requests with status: Pending
+2026-06-16T23:59:20.201+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Rejected request: invalid status 'Pending'
+2026-06-16T23:59:20.210+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Deliver rejected for request ID 2: current status is 'Approved'
+2026-06-16T23:59:20.216+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Cancel rejected for request ID 4: current status is 'Delivered'
+2026-06-16T23:59:20.225+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Approved input request ID: 1 by officer_id_45
+2026-06-16T23:59:20.230+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching all input requests
+2026-06-16T23:59:20.232+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Cancelled input request ID: 1 (reason: Farmer withdrew due to crop change)
+2026-06-16T23:59:20.237+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input request with ID: 99
+2026-06-16T23:59:20.245+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input requests for farmer ID: 100
+2026-06-16T23:59:20.254+05:30  INFO 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Updated input request ID: 1
+2026-06-16T23:59:20.262+05:30  WARN 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Dispatch rejected for request ID 1: current status is 'Requested'
+2026-06-16T23:59:20.267+05:30 DEBUG 35984 --- [agrilink] [main] c.c.a.i.service.InputRequestService      : Fetching input request with ID: 1
+2026-06-16T23:59:20.357+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:59:20.370+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T23:59:20.390+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T23:59:20.390+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16T23:59:20.412+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-06-16T23:59:20.435+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-06-16T23:59:20.438+05:30  INFO 35984 --- [agrilink] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'

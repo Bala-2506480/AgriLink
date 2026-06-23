@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface InputRequestRepository extends JpaRepository<InputRequest, Long> {
     List<InputRequest> findByFarmerId(Long farmerId);
-    List<InputRequest> findByStatus(String status);
+    List<InputRequest> findByStatusIgnoreCase(String status);
     List<InputRequest> findByAssignedCentreId(Long centreId);
 }

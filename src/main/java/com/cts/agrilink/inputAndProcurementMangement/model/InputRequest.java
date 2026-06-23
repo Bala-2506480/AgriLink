@@ -14,28 +14,28 @@ public class InputRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "requestId" )
+    @Column(name = "requestId")
     private Long requestId;
 
-    @Column(name = "farmerId" )
+    @Column(name = "farmerId")
     private Long farmerId;
 
-    @Column(name = "inputId" )
+    @Column(name = "inputId")
     private Long inputId;
 
-    @Column(name = "quantityRequested" )
+    @Column(name = "quantityRequested")
     private Integer quantityRequested;
 
-    @Column(name = "requestDate" )
+    @Column(name = "requestDate")
     private LocalDate requestDate;
 
-    @Column(name = "assignedCentreId" )
+    @Column(name = "assignedCentreId")
     private Long assignedCentreId;
 
-    @Column(name = "actualPrice" )
+    @Column(name = "actualPrice")
     private Double actualPrice;
 
-    @Column(name = "status" )
+    @Column(name = "status")
     private String status;   // Requested / Approved / Dispatched / Delivered / Cancelled
 
     @Column(name = "approvedBy")
@@ -53,6 +53,6 @@ public class InputRequest {
     @Column(name = "receivedBy")
     private String receivedBy;
 
-    @Column(name = "reason")
-    private String reason;
+    @Column(name = "cancellationReason")
+    private String cancellationReason;
 }
