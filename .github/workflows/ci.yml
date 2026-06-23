@@ -27,6 +27,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # 🔧 Fix Java SSL Truststore (Added to resolve the NoSuchAlgorithmException)
+      - name: Fix Java CA Certificates
+        run: |
+          sudo apt-get update
+          sudo apt-get install --reinstall ca-certificates-java
+
       # ✅ Make mvnw executable
       - name: Make mvnw executable
         run: chmod +x mvnw
