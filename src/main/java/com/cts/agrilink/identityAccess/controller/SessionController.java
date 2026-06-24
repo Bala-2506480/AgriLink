@@ -1,6 +1,5 @@
 package com.cts.agrilink.identityAccess.controller;
 
-
 import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
@@ -11,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,20 +23,20 @@ public class SessionController {
 
     private final UserService userService;
 
-    // POST /agriLink/session/login  — public
+    // Public — permitted in SecurityConfig
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto,
                                                    HttpServletRequest request) {
         return ResponseEntity.ok(userService.login(dto, request));
     }
 
-    // POST /agriLink/session/refresh  — public (access token may be expired)
+    // Public — permitted in SecurityConfig
     @PostMapping("/refresh")
     public ResponseEntity<LoginResponseDto> refresh(@Valid @RequestBody RefreshTokenRequestDto dto) {
         return ResponseEntity.ok(userService.refreshToken(dto.getRefreshToken()));
     }
 
-    // POST /agriLink/session/logout  — requires valid JWT
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/logout")
     public ResponseEntity<Map<String, String>> logout(
             @AuthenticationPrincipal UserDetails currentUser) {
@@ -44,7 +44,7 @@ public class SessionController {
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
 
-    // POST /agriLink/session/change-password  — authenticated user changes own password
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/change-password")
     public ResponseEntity<Map<String, String>> changePassword(
             @Valid @RequestBody ChangePasswordRequestDto dto,
