@@ -1,48 +1,41 @@
 package com.cts.agrilink.farmerLandRegistration.dto;
 
-import com.cts.agrilink.farmerLandRegistration.model.FarmerProfile;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 import java.time.LocalDate;
-
-// ── Create ────────────────────────────────────────────────────────────────────
+import com.cts.agrilink.farmerLandRegistration.model.FarmerProfile;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateFarmerRequestDto {
 
-    @NotNull(message = "userId is required")
-    private Integer userId;
-
     @NotBlank(message = "name is required")
-    @Size(max = 150)
     private String name;
-
-    @NotNull(message = "dateOfBirth is required")
-    private LocalDate dateOfBirth;
 
     @NotNull(message = "gender is required")
     private FarmerProfile.Gender gender;
 
-    @NotBlank(message = "nationalIdNumber is required")
-    @Size(max = 50)
-    private String nationalIdNumber;
-
-    @NotBlank(message = "village is required")
-    @Size(max = 100)
-    private String village;
-
-    @NotBlank(message = "district is required")
-    @Size(max = 100)
-    private String district;
-
-    @NotBlank(message = "state is required")
-    @Size(max = 100)
-    private String state;
+    @NotNull(message = "dateOfBirth is required")
+    private LocalDate dateOfBirth;
 
     @NotBlank(message = "phone is required")
-    @Size(max = 15)
     private String phone;
 
-    @Size(max = 30)
+    @NotBlank(message = "email is required")
+    private String email;
+
+    @NotBlank(message = "nationalIdNumber is required")
+    private String nationalIdNumber;
+
+    @NotBlank(message = "state is required")
+    private String state;
+
+    @NotBlank(message = "district is required")
+    private String district;
+
+    @NotBlank(message = "village is required")
+    private String village;
+
     private String bankAccountNumber;
 }

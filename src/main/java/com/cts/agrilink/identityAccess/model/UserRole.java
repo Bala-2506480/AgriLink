@@ -13,9 +13,10 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "roleId")
     private Integer roleId;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(name = "roleName",nullable = false, unique = true, length = 100)
     private String roleName;
 
     @Column(length = 255)

@@ -44,7 +44,7 @@ class UserSessionRepositoryTest {
     @Test
     void findByRefreshTokenHash_found() {
         UserDetails u = persistUser("zztest_sess1@a.com");
-        persistSession(u, "zztest-hash-abc", UserSession.Status.Active);
+        persistSession(u, "zztest-hash-abc", UserSession.Status.A);
         em.flush();
 
         var result = repository.findByRefreshTokenHash("zztest-hash-abc");
@@ -63,20 +63,20 @@ class UserSessionRepositoryTest {
         UserDetails u1 = persistUser("zztest_u1@a.com");
         UserDetails u2 = persistUser("zztest_u2@a.com");
 
-        UserSession a1 = persistSession(u1, "zz-u1-active-1", UserSession.Status.Active);
-        UserSession a2 = persistSession(u1, "zz-u1-active-2", UserSession.Status.Active);
-        UserSession expired = persistSession(u1, "zz-u1-expired", UserSession.Status.Expired);
-        UserSession other = persistSession(u2, "zz-u2-active", UserSession.Status.Active);
+        UserSession a1 = persistSession(u1, "zz-u1-active-1", UserSession.Status.A);
+        UserSession a2 = persistSession(u1, "zz-u1-active-2", UserSession.Status.A);
+        UserSession expired = persistSession(u1, "zz-u1-expired", UserSession.Status.E);
+        UserSession other = persistSession(u2, "zz-u2-active", UserSession.Status.A);
         em.flush();
 
         repository.revokeAllActiveSessionsByUserId(u1.getUserId());
         em.clear();   // drop the 1st-level cache so we read the rows the bulk update changed
 
-        assertEquals(UserSession.Status.Revoked, repository.findById(a1.getSessionId()).orElseThrow().getStatus());
-        assertEquals(UserSession.Status.Revoked, repository.findById(a2.getSessionId()).orElseThrow().getStatus());
+        assertEquals(UserSession.Status.R, repository.findById(a1.getSessionId()).orElseThrow().getStatus());
+        assertEquals(UserSession.Status.R, repository.findById(a2.getSessionId()).orElseThrow().getStatus());
         // an already-expired session is untouched (query only targets Active)
-        assertEquals(UserSession.Status.Expired, repository.findById(expired.getSessionId()).orElseThrow().getStatus());
+        assertEquals(UserSession.Status.E, repository.findById(expired.getSessionId()).orElseThrow().getStatus());
         // another user's active session is untouched
-        assertEquals(UserSession.Status.Active, repository.findById(other.getSessionId()).orElseThrow().getStatus());
+        assertEquals(UserSession.Status.A, repository.findById(other.getSessionId()).orElseThrow().getStatus());
     }
 }

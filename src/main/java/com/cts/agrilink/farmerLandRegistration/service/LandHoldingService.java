@@ -39,7 +39,7 @@ public class LandHoldingService {
                 .soilType(dto.getSoilType())
                 .irrigationSource(dto.getIrrigationSource())
                 .ownershipType(dto.getOwnershipType())
-                .status(LandHolding.Status.Active)
+                .status(LandHolding.Status.A)
                 .build();
 
         return LandHoldingResponseDto.from(landHoldingRepository.save(holding));
@@ -108,7 +108,7 @@ public class LandHoldingService {
     @Transactional
     public void deleteLandHolding(Long holdingId) {
         LandHolding holding = findHoldingOrThrow(holdingId);
-        if (holding.getStatus() == LandHolding.Status.Disputed) {
+        if (holding.getStatus() == LandHolding.Status.D) {
             throw new IllegalStateException("Land holding cannot be deleted");
         }
         landHoldingRepository.delete(holding);

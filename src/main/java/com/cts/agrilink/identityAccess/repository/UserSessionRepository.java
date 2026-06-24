@@ -14,6 +14,6 @@ public interface UserSessionRepository extends JpaRepository<UserSession, Intege
     Optional<UserSession> findByRefreshTokenHash(String refreshTokenHash);
 
     @Modifying
-    @Query("UPDATE UserSession s SET s.status = 'Revoked' WHERE s.user.userId = :userId AND s.status = 'Active'")
+    @Query("UPDATE UserSession s SET s.status = 'R' WHERE s.user.userId = :userId AND s.status = 'A'")
     void revokeAllActiveSessionsByUserId(@Param("userId") Integer userId);
 }

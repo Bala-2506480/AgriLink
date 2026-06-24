@@ -32,10 +32,11 @@ public class DataSeeder implements CommandLineRunner {
     private static final Map<String, String> ROLES = new LinkedHashMap<>() {{
         put("AgriLinkAdmin",      "Full administrative access");
         put("ExtensionOfficer",   "Field officer — registers and verifies farmers");
+        put("Farmer",             "Manages own crop plans and subsidy requests");
         put("ProcurementOfficer", "Manages crop procurement");
         put("SubsidyAdmin",       "Reviews and approves subsidy applications");
         put("ComplianceAnalyst",  "Audits actions and ensures compliance");
-        put("Farmer",             "Manages own crop plans and subsidy requests");
+
     }};
 
     private final UserRoleRepository    userRoleRepository;

@@ -20,59 +20,66 @@ public class FarmerController {
 
     private final FarmerService farmerService;
 
-    // POST /agriLink/farmerLandRegistration/farmer/createFarmer
+    // ✅ CREATE FARMER (UPDATED - SECURE)
     @PostMapping("/createFarmer")
     public ResponseEntity<Map<String, String>> createFarmer(
-            @Valid @RequestBody CreateFarmerRequestDto dto) {
-        farmerService.createFarmer(dto);
+            @Valid @RequestBody CreateFarmerRequestDto dto,
+            @AuthenticationPrincipal UserDetails currentUser) {
+
+        farmerService.createFarmer(dto, currentUser); // ✅ PASS logged-in user
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Map.of("message", "Farmer profile created successfully"));
     }
 
-    // GET /agriLink/farmerLandRegistration/farmer/fetchFarmers
+    // ✅ FETCH ALL FARMERS
     @GetMapping("/fetchFarmers")
     public ResponseEntity<List<FarmerResponseDto>> fetchFarmers() {
         return ResponseEntity.ok(farmerService.fetchAllFarmers());
     }
 
-    // GET /agriLink/farmerLandRegistration/farmer/fetchFarmerById/{farmerId}
+    // ✅ FETCH FARMER BY ID
     @GetMapping("/fetchFarmerById/{farmerId}")
     public ResponseEntity<FarmerResponseDto> fetchFarmerById(@PathVariable Long farmerId) {
         return ResponseEntity.ok(farmerService.fetchFarmerById(farmerId));
     }
 
-    // GET /agriLink/farmerLandRegistration/farmer/fetchFarmersByUser/{userId}
+    // ✅ FETCH FARMERS BY USER
     @GetMapping("/fetchFarmersByUser/{userId}")
     public ResponseEntity<List<FarmerResponseDto>> fetchFarmersByUser(@PathVariable Integer userId) {
         return ResponseEntity.ok(farmerService.fetchFarmersByUser(userId));
     }
 
-    // GET /agriLink/farmerLandRegistration/farmer/fetchFarmersByDistrict/{district}
+    // ✅ FETCH FARMERS BY DISTRICT
     @GetMapping("/fetchFarmersByDistrict/{district}")
     public ResponseEntity<List<FarmerResponseDto>> fetchFarmersByDistrict(@PathVariable String district) {
         return ResponseEntity.ok(farmerService.fetchFarmersByDistrict(district));
     }
 
-    // GET /agriLink/farmerLandRegistration/farmer/fetchFarmersByStatus/{status}
+    // ✅ FETCH FARMERS BY STATUS
     @GetMapping("/fetchFarmersByStatus/{status}")
     public ResponseEntity<List<FarmerResponseDto>> fetchFarmersByStatus(@PathVariable String status) {
         return ResponseEntity.ok(farmerService.fetchFarmersByStatus(status));
     }
 
-    // PUT /agriLink/farmerLandRegistration/farmer/updateFarmer/{farmerId}
+    // ✅ UPDATE FARMER (SECURE CHECK INSIDE SERVICE)
     @PutMapping("/updateFarmer/{farmerId}")
     public ResponseEntity<Map<String, String>> updateFarmer(
             @PathVariable Long farmerId,
             @Valid @RequestBody UpdateFarmerRequestDto dto,
             @AuthenticationPrincipal UserDetails currentUser) {
+
         farmerService.updateFarmer(farmerId, dto, currentUser);
+
         return ResponseEntity.ok(Map.of("message", "Farmer updated successfully"));
     }
 
-    // DELETE /agriLink/farmerLandRegistration/farmer/deleteFarmer/{farmerId}
+    // ✅ DELETE FARMER (ADMIN ONLY via SecurityConfig)
     @DeleteMapping("/deleteFarmer/{farmerId}")
     public ResponseEntity<Map<String, String>> deleteFarmer(@PathVariable Long farmerId) {
+
         farmerService.deleteFarmer(farmerId);
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .body(Map.of("message", "Farmer deleted successfully"));
     }

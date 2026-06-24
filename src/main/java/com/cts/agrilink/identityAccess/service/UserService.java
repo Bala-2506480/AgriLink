@@ -20,8 +20,8 @@ import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
 import com.cts.agrilink.identityAccess.dto.ResetPasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.UpdateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.UserResponseDto;
-import com.cts.agrilink.identityAccess.exception.ForbiddenException;
-import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
+import com.cts.agrilink.exception.ForbiddenException;
+import com.cts.agrilink.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.model.UserRole;
 import com.cts.agrilink.identityAccess.model.UserSession;
@@ -187,7 +187,7 @@ public class UserService {
                 .refreshTokenExpiresAt(LocalDateTime.now().plusSeconds(refreshTokenExpiryMs / 1000))
                 .ipAddress(request.getRemoteAddr())
                 .deviceInfo(request.getHeader("User-Agent"))
-                .status(UserSession.Status.Active)
+                .status(UserSession.Status.A)
                 .build();
 
         userSessionRepository.save(session);
@@ -211,13 +211,13 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
 
         // Must still be active
-        if (session.getStatus() != UserSession.Status.Active) {
+        if (session.getStatus() != UserSession.Status.A) {
             throw new IllegalArgumentException("Session is no longer active. Please log in again.");
         }
 
         // Must not be expired
         if (session.getRefreshTokenExpiresAt().isBefore(LocalDateTime.now())) {
-            session.setStatus(UserSession.Status.Expired);
+            session.setStatus(UserSession.Status.E);
             userSessionRepository.save(session);
             throw new IllegalArgumentException("Refresh token expired. Please log in again.");
         }

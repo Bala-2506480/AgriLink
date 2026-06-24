@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
+import com.cts.agrilink.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.CreateRoleRequestDto;
 import com.cts.agrilink.identityAccess.dto.RoleResponseDto;
 import com.cts.agrilink.identityAccess.dto.UpdateRoleRequestDto;
@@ -83,7 +83,7 @@ class RoleServiceTest {
         List<RoleResponseDto> res = roleService.getAllRoles();
 
         assertEquals(2, res.size());
-        assertEquals("AgriLinkAdmin", res.get(0).getRoleName());
+        assertEquals("AgriLinkAdmin", res.getFirst().getRoleName());
     }
 
     @Test

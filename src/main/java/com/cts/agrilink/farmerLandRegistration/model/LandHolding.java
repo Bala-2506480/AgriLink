@@ -43,7 +43,7 @@ public class LandHolding {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Builder.Default
-    private Status status = Status.Active;
+    private Status status = Status.A;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -65,5 +65,5 @@ public class LandHolding {
     public enum SoilType       { Clay, Sandy, Loam, Black }
     public enum IrrigationSource { Rain, Canal, Borewell, None }
     public enum OwnershipType  { Owned, Leased, SharedCropping }
-    public enum Status         { Active, Disputed }
+    public enum Status         { A, D }
 }

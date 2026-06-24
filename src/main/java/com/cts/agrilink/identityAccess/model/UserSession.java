@@ -40,12 +40,12 @@ public class UserSession {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status = Status.Active;
+    private Status status = Status.A;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public enum Status { Active, Expired, Revoked }
+    public enum Status { A, E, R }
 }

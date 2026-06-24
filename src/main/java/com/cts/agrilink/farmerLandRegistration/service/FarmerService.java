@@ -18,18 +18,26 @@ import java.util.List;
 public class FarmerService {
 
     private final FarmerProfileRepository farmerProfileRepository;
-    private final LandHoldingRepository   landHoldingRepository;
+    private final LandHoldingRepository landHoldingRepository;
 
-    // ── Create ────────────────────────────────────────────────────────────────
+    // ── CREATE (UPDATED ✅) ────────────────────────────────────────────────
 
     @Transactional
-    public FarmerResponseDto createFarmer(CreateFarmerRequestDto dto) {
+    public FarmerResponseDto createFarmer(CreateFarmerRequestDto dto,
+                                          UserDetails currentUser) {
+
+        // ✅ Prevent duplicate National ID
         if (farmerProfileRepository.existsByNationalIdNumber(dto.getNationalIdNumber())) {
             throw new IllegalStateException("National ID already registered");
         }
 
+        // ✅ Prevent same user creating multiple farmer profiles
+        if (!farmerProfileRepository.findByUserId(currentUser.getUserId()).isEmpty()) {
+            throw new IllegalStateException("Farmer profile already exists for this user");
+        }
+
         FarmerProfile profile = FarmerProfile.builder()
-                .userId(dto.getUserId())
+                .userId(currentUser.getUserId()) // ✅ AUTO LINK USER
                 .name(dto.getName())
                 .dateOfBirth(dto.getDateOfBirth())
                 .gender(dto.getGender())
@@ -39,18 +47,19 @@ public class FarmerService {
                 .state(dto.getState())
                 .phone(dto.getPhone())
                 .bankAccountNumber(dto.getBankAccountNumber())
-                .status(FarmerProfile.Status.Active)
+                .status(FarmerProfile.Status.A)
                 .build();
 
         return FarmerResponseDto.from(farmerProfileRepository.save(profile));
     }
 
-    // ── Read ──────────────────────────────────────────────────────────────────
+    // ── READ ────────────────────────────────────────────────────────────────
 
     @Transactional(readOnly = true)
     public List<FarmerResponseDto> fetchAllFarmers() {
         List<FarmerProfile> list = farmerProfileRepository.findAll();
         if (list.isEmpty()) throw new ResourceNotFoundException("No farmers found");
+
         return list.stream().map(FarmerResponseDto::from).toList();
     }
 
@@ -62,14 +71,18 @@ public class FarmerService {
     @Transactional(readOnly = true)
     public List<FarmerResponseDto> fetchFarmersByUser(Integer userId) {
         List<FarmerProfile> list = farmerProfileRepository.findByUserId(userId);
-        if (list.isEmpty()) throw new ResourceNotFoundException("No farmers found for this user");
+        if (list.isEmpty())
+            throw new ResourceNotFoundException("No farmers found for this user");
+
         return list.stream().map(FarmerResponseDto::from).toList();
     }
 
     @Transactional(readOnly = true)
     public List<FarmerResponseDto> fetchFarmersByDistrict(String district) {
         List<FarmerProfile> list = farmerProfileRepository.findByDistrict(district);
-        if (list.isEmpty()) throw new ResourceNotFoundException("No farmers found in this district");
+        if (list.isEmpty())
+            throw new ResourceNotFoundException("No farmers found in this district");
+
         return list.stream().map(FarmerResponseDto::from).toList();
     }
 
@@ -81,29 +94,37 @@ public class FarmerService {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid status value: " + status);
         }
+
         List<FarmerProfile> list = farmerProfileRepository.findByStatus(parsedStatus);
-        if (list.isEmpty()) throw new ResourceNotFoundException("No farmers found with this status");
+        if (list.isEmpty())
+            throw new ResourceNotFoundException("No farmers found with this status");
+
         return list.stream().map(FarmerResponseDto::from).toList();
     }
 
-    // ── Update ────────────────────────────────────────────────────────────────
+    // ── UPDATE ───────────────────────────────────────────────────────────────
 
     @Transactional
-    public FarmerResponseDto updateFarmer(Long farmerId, UpdateFarmerRequestDto dto,
+    public FarmerResponseDto updateFarmer(Long farmerId,
+                                          UpdateFarmerRequestDto dto,
                                           UserDetails currentUser) {
+
         FarmerProfile profile = findFarmerOrThrow(farmerId);
 
-        // Farmer role can only update their own profile
-        if (isFarmerRole(currentUser) && !profile.getUserId().equals(currentUser.getUserId())) {
+        // ✅ Farmer can update only own profile
+        if (isFarmerRole(currentUser)
+                && !profile.getUserId().equals(currentUser.getUserId())) {
             throw new ForbiddenException("Access denied");
         }
 
-        if (dto.getVillage() != null)           profile.setVillage(dto.getVillage());
-        if (dto.getDistrict() != null)          profile.setDistrict(dto.getDistrict());
-        if (dto.getPhone() != null)             profile.setPhone(dto.getPhone());
-        if (dto.getBankAccountNumber() != null) profile.setBankAccountNumber(dto.getBankAccountNumber());
+        if (dto.getVillage() != null) profile.setVillage(dto.getVillage());
+        if (dto.getDistrict() != null) profile.setDistrict(dto.getDistrict());
+        if (dto.getPhone() != null) profile.setPhone(dto.getPhone());
+        if (dto.getBankAccountNumber() != null)
+            profile.setBankAccountNumber(dto.getBankAccountNumber());
+
         if (dto.getStatus() != null) {
-            if (dto.getStatus() == FarmerProfile.Status.Verified && isFarmerRole(currentUser)) {
+            if (dto.getStatus() == FarmerProfile.Status.V && isFarmerRole(currentUser)) {
                 throw new ForbiddenException("Access denied");
             }
             profile.setStatus(dto.getStatus());
@@ -112,18 +133,22 @@ public class FarmerService {
         return FarmerResponseDto.from(farmerProfileRepository.save(profile));
     }
 
-    // ── Delete ────────────────────────────────────────────────────────────────
+    // ── DELETE ───────────────────────────────────────────────────────────────
 
     @Transactional
     public void deleteFarmer(Long farmerId) {
+
         FarmerProfile profile = findFarmerOrThrow(farmerId);
+
+        // ✅ Prevent delete if land exists
         if (landHoldingRepository.existsByFarmer_FarmerId(farmerId)) {
             throw new IllegalStateException("Farmer cannot be deleted, land holdings exist");
         }
+
         farmerProfileRepository.delete(profile);
     }
 
-    // ── Helper ────────────────────────────────────────────────────────────────
+    // ── HELPER ───────────────────────────────────────────────────────────────
 
     private FarmerProfile findFarmerOrThrow(Long farmerId) {
         return farmerProfileRepository.findById(farmerId)

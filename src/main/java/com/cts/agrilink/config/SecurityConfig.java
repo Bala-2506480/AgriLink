@@ -26,41 +26,44 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
 
-                // ── IAM: Public endpoints ─────────────────────────────────
-                .requestMatchers("/agriLink/session/login", "/agriLink/session/refresh").permitAll()
+                        // Public
+                        .requestMatchers("/agriLink/session/login", "/agriLink/session/refresh")
+                        .permitAll()
 
-                // ── IAM: User & Role management (Admin only) ──────────────
-                .requestMatchers(HttpMethod.POST, "/agriLink/user/createUser")
-                    .hasAnyRole("AgriLinkAdmin", "ExtensionOfficer")
-                .requestMatchers("/agriLink/user/**", "/agriLink/role/**")
-                    .hasRole("AgriLinkAdmin")
+                        // User & Role
+                        .requestMatchers(HttpMethod.POST, "/agriLink/user/createUser")
+                        .hasAnyRole("AgriLinkAdmin", "ExtensionOfficer")
 
-                // ── Farmer & Land Registration: Admin-only write ops ───────
-                .requestMatchers(HttpMethod.POST,
-                    "/agriLink/farmerLandRegistration/farmer/createFarmer",
-                    "/agriLink/farmerLandRegistration/landHolding/createLandHolding")
-                    .hasRole("AgriLinkAdmin")
+                        .requestMatchers("/agriLink/user/**", "/agriLink/role/**")
+                        .hasRole("AgriLinkAdmin")
 
-                .requestMatchers(HttpMethod.DELETE,
-                    "/agriLink/farmerLandRegistration/farmer/deleteFarmer/**",
-                    "/agriLink/farmerLandRegistration/landHolding/deleteLandHolding/**")
-                    .hasRole("AgriLinkAdmin")
+                        // ✅ Farmer creates own profile
+                        .requestMatchers(HttpMethod.POST,
+                                "/agriLink/farmerLandRegistration/farmer/createFarmer")
+                        .hasRole("Farmer")
 
-                // ── Farmer & Land Registration: Admin + Farmer read/update ─
-                // Fine-grained ownership check is enforced in the service layer
-                .requestMatchers(
-                    "/agriLink/farmerLandRegistration/**")
-                    .hasAnyRole("AgriLinkAdmin", "Farmer")
+                        // ✅ Land create allowed for Admin + Farmer
+                        .requestMatchers(HttpMethod.POST,
+                                "/agriLink/farmerLandRegistration/landHolding/createLandHolding")
+                        .hasAnyRole("AgriLinkAdmin", "Farmer")
 
-                // ── All other endpoints require authentication ─────────────
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        // Delete only Admin
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/agriLink/farmerLandRegistration/**")
+                        .hasRole("AgriLinkAdmin")
+
+                        // Read + update
+                        .requestMatchers("/agriLink/farmerLandRegistration/**")
+                        .hasAnyRole("AgriLinkAdmin", "Farmer")
+
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -69,7 +72,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)

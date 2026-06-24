@@ -52,7 +52,7 @@ public class FarmerProfile {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Builder.Default
-    private Status status = Status.Active;
+    private Status status = Status.A;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -72,5 +72,5 @@ public class FarmerProfile {
     }
 
     public enum Gender { Male, Female, Other }
-    public enum Status { Active, Inactive, Verified }
+    public enum Status { A, I, V }
 }

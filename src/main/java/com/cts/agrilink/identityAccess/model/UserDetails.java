@@ -14,6 +14,7 @@ public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId")
     private Integer userId;
 
     @ManyToOne(fetch = FetchType.EAGER)

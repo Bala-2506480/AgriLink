@@ -1,7 +1,7 @@
 package com.cts.agrilink.identityAccess.service;
 
-import com.cts.agrilink.identityAccess.exception.ForbiddenException;
-import com.cts.agrilink.identityAccess.exception.ResourceNotFoundException;
+import com.cts.agrilink.exception.ForbiddenException;
+import com.cts.agrilink.exception.ResourceNotFoundException;
 import com.cts.agrilink.identityAccess.dto.ChangePasswordRequestDto;
 import com.cts.agrilink.identityAccess.dto.CreateUserRequestDto;
 import com.cts.agrilink.identityAccess.dto.LoginRequestDto;
@@ -451,13 +451,13 @@ class UserServiceTest {
         UserSession saved = cap.getValue();
         // stored hash must differ from the raw token returned to the client
         assertNotEquals(res.getRefreshToken(), saved.getRefreshTokenHash());
-        assertEquals(UserSession.Status.Active, saved.getStatus());
+        assertEquals(UserSession.Status.A, saved.getStatus());
     }
 
     // ════════════════════════════════ refreshToken ═══════════════════════════
     @Test
     void refresh_success_rotatesToken() {
-        UserSession s = session(UserSession.Status.Active, LocalDateTime.now().plusDays(1));
+        UserSession s = session(UserSession.Status.A, LocalDateTime.now().plusDays(1));
         when(userSessionRepository.findByRefreshTokenHash(anyString())).thenReturn(Optional.of(s));
         when(jwtUtil.generateAccessToken(any())).thenReturn("new-access");
 
@@ -478,18 +478,18 @@ class UserServiceTest {
 
     @Test
     void refresh_revokedSession() {
-        UserSession s = session(UserSession.Status.Revoked, LocalDateTime.now().plusDays(1));
+        UserSession s = session(UserSession.Status.R, LocalDateTime.now().plusDays(1));
         when(userSessionRepository.findByRefreshTokenHash(anyString())).thenReturn(Optional.of(s));
         assertThrows(IllegalArgumentException.class, () -> userService.refreshToken("raw"));
     }
 
     @Test
     void refresh_expiredToken_marksExpired() {
-        UserSession s = session(UserSession.Status.Active, LocalDateTime.now().minusDays(1));
+        UserSession s = session(UserSession.Status.A, LocalDateTime.now().minusDays(1));
         when(userSessionRepository.findByRefreshTokenHash(anyString())).thenReturn(Optional.of(s));
 
         assertThrows(IllegalArgumentException.class, () -> userService.refreshToken("raw"));
-        assertEquals(UserSession.Status.Expired, s.getStatus());
+        assertEquals(UserSession.Status.E, s.getStatus());
         verify(userSessionRepository).save(s);
     }
 

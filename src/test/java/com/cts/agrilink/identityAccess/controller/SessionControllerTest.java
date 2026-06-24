@@ -1,6 +1,6 @@
 package com.cts.agrilink.identityAccess.controller;
 
-import com.cts.agrilink.identityAccess.exception.GlobalExceptionHandler;
+import com.cts.agrilink.exception.GlobalExceptionHandler;
 import com.cts.agrilink.identityAccess.dto.LoginResponseDto;
 import com.cts.agrilink.identityAccess.model.UserDetails;
 import com.cts.agrilink.identityAccess.model.UserRole;
