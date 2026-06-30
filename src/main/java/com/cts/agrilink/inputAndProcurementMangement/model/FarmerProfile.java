@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "farmerProfile")
+@Table(name = "farmer_profile")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -3,9 +3,10 @@ package com.cts.agrilink.inputAndProcurementMangement.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "request")
+@Table(name = "input_request")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +21,11 @@ public class InputRequest {
     @Column(name = "farmerId")
     private Long farmerId;
 
-    @Column(name = "inputId")
-    private Long inputId;
+    // Many-to-One Relationship mapping back to AgriInput
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inputId", nullable = false)
+    @JsonBackReference // Prevents infinite recursion during JSON serialization
+    private AgriInput agriInput;
 
     @Column(name = "quantityRequested")
     private Integer quantityRequested;

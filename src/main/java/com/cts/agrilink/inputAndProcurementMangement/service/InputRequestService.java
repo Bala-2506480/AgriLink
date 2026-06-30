@@ -10,33 +10,39 @@ import com.cts.agrilink.inputAndProcurementMangement.repository.InputRequestRepo
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional // Ensures clean transaction boundaries across operations
 public class InputRequestService {
 
     private final InputRequestRepository inputRequestRepository;
     private final AgriInputRepository agriInputRepository;
 
+    @Transactional(readOnly = true)
     public List<InputRequest> getAllRequests() {
         log.debug("Fetching all input requests");
         return inputRequestRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public InputRequest getRequestById(Long requestId) {
         log.debug("Fetching input request with ID: {}", requestId);
         return inputRequestRepository.findById(requestId)
                 .orElseThrow(() -> new ResourceNotFoundException("Input request not found with ID: " + requestId));
     }
 
+    @Transactional(readOnly = true)
     public List<InputRequest> getRequestsByFarmer(Long farmerId) {
         log.debug("Fetching input requests for farmer ID: {}", farmerId);
         return inputRequestRepository.findByFarmerId(farmerId);
     }
 
+    @Transactional(readOnly = true)
     public List<InputRequest> getRequestsByStatus(String status) {
         log.debug("Fetching input requests with status: {}", status);
         List<String> validStatuses = List.of("Requested", "Approved", "Dispatched", "Delivered", "Cancelled");
@@ -47,18 +53,21 @@ public class InputRequestService {
         return inputRequestRepository.findByStatusIgnoreCase(status);
     }
 
+    @Transactional(readOnly = true)
     public List<InputRequest> getRequestsByCentre(Long centreId) {
         log.debug("Fetching input requests for centre ID: {}", centreId);
         return inputRequestRepository.findByAssignedCentreId(centreId);
     }
 
     public MessageResponseDTO submitRequest(InputProcurementRequestDTO dto) {
+        // Fetch the entity from catalog first
         AgriInput input = agriInputRepository.findById(dto.getInputId())
                 .orElseThrow(() -> new ResourceNotFoundException("Input not found with ID: " + dto.getInputId()));
 
+        // Assign the entire AgriInput object instead of just the inputId
         InputRequest request = InputRequest.builder()
                 .farmerId(dto.getFarmerId())
-                .inputId(dto.getInputId())
+                .agriInput(input)
                 .quantityRequested(dto.getQuantityRequested())
                 .requestDate(dto.getRequestDate())
                 .assignedCentreId(dto.getAssignedCentreId())

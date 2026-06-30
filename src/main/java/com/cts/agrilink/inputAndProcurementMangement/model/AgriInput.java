@@ -2,9 +2,11 @@ package com.cts.agrilink.inputAndProcurementMangement.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "catalog")
+@Table(name = "input_catalog")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class AgriInput {
     @Column(name = "category" )
     private String category;
 
-    @Column(name = "unit" )// Fertiliser / Seed / Pesticide / Equipment
+    @Column(name = "unit" ) // Fertiliser / Seed / Pesticide / Equipment
     private String unit;
 
     @Column(name = "pricePerUnit" )
@@ -36,4 +38,11 @@ public class AgriInput {
 
     @Column(name = "status" )
     private String status;     // Available / OutOfStock
+
+    // One-to-Many Relationship to InputRequest
+    @OneToMany(mappedBy = "agriInput", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Prevents infinite recursion during JSON serialization
+    @ToString.Exclude     // Prevents infinite loop in Lombok's toString()
+    @EqualsAndHashCode.Exclude
+    private List<InputRequest> inputRequests;
 }
